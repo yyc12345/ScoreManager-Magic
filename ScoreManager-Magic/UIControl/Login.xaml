@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="ScoreManager_Magic.UIControl.Login"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ScoreManager_Magic.UIControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="300">
+
+    <UniformGrid Margin="20" Columns="1" Rows="4">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Viewbox Width="24" Height="24">
+                <Canvas Width="24" Height="24">
+                    <Path Data="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" Fill="White" />
+                </Canvas>
+            </Viewbox>
+
+            <TextBox x:Name="uiUserName" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Input your user name"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Viewbox Width="24" Height="24">
+                <Canvas Width="24" Height="24">
+                    <Path Data="M7,14A2,2 0 0,1 5,12A2,2 0 0,1 7,10A2,2 0 0,1 9,12A2,2 0 0,1 7,14M12.65,10C11.83,7.67 9.61,6 7,6A6,6 0 0,0 1,12A6,6 0 0,0 7,18C9.61,18 11.83,16.33 12.65,14H17V18H21V14H23V10H12.65Z" Fill="White" />
+                </Canvas>
+            </Viewbox>
+
+            <PasswordBox x:Name="uiPassword" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Input your password"/>
+            
+        </Grid>
+
+        <UniformGrid Rows="1" Columns="2">
+            <CheckBox IsChecked="False" Content="Remember user name" VerticalAlignment="Center"/>
+            <CheckBox IsChecked="False" Content="Remember password" VerticalAlignment="Center"/>
+        </UniformGrid>
+
+        <Button Content="Login"/>
+
+    </UniformGrid>
+</UserControl>
