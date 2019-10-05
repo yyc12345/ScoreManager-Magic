@@ -6,13 +6,30 @@ This backend uses PHP. You should configure correct PHP environment and set up N
 
 This backend needs HTTPS protocol to ensure each data is safe.
 
+## Needed PHP plugins
+
+* PDO
+* PDO_Mysql
+
+## Nginx config
+
+`config.php` and `utilities.php` shouldn't be visited outside from the server, use following Nginx config to ban related connections.
+
+```
+location ~* ^/(config|utilities).php {
+	return 404;
+}
+```
+
+## Modules list
+
 <!-- normal user-->
 
-## salt.php
+### salt.php
 
 Pre-step for login.
 
-### Request
+#### Request
 
 Request type: POST
 
@@ -20,17 +37,17 @@ Request type: POST
 |:---|:---|
 |name|User name|
 
-### Response
+#### Response
 
 |Field|Description|
 |:---|:---|
 |rnd|A string. For following steps|
 
-## login.php
+### login.php
 
 Login your account.
 
-### Request
+#### Request
 
 Request type: POST
 
@@ -39,17 +56,17 @@ Request type: POST
 |name|User name|
 |hash|A computed string|
 
-### Response
+#### Response
 
 |Field|Description|
 |:---|:---|
 |token|A string for following access|
 
-## logout.php
+### logout.php
 
 Logout your account.
 
-### Request
+#### Request
 
 Request type: POST
 
@@ -57,34 +74,47 @@ Request type: POST
 |:---|:---|
 |token|The token provided in login process|
 
-### Response
+#### Response
 
 HTTP 200 for normal logout.
 
-## submit.php
+### submit.php
 
-## getTournament.php
+### getTournament.php
 
-## getCompetition.php
+### getCompetition.php
 
-## getMapHash.php
+### getMapHash.php
 
 <!-- tournament operation-->
 
-## getUserScore.php
+### getUserScore.php
 
 <!-- admin operation-->
 
-## user.php
+### user.php
 
-## tournament.php
+### tournament.php
 
-## competition.php
+### competition.php
 
-## mapHash.php
+### mapHash.php
 
 <!-- server only-->
 
-## init.php
+### init.php
 
-## config.php
+### config.php
+
+## Database structure
+
+### user Table
+
+### record Table
+
+### map Table
+
+### tournament Table
+
+### competition Table
+
