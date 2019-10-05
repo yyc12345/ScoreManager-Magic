@@ -21,100 +21,14 @@ location ~* ^/(config|utilities).php {
 }
 ```
 
-## Modules list
+TIP: If you have invoked init.php, you also can add init.php into banned urls for preventing protential attack.
 
-<!-- normal user-->
+## API list
 
-### salt.php
-
-Pre-step for login.
-
-#### Request
-
-Request type: POST
-
-|Field|Description|
-|:---|:---|
-|name|User name|
-
-#### Response
-
-|Field|Description|
-|:---|:---|
-|rnd|A string. For following steps|
-
-### login.php
-
-Login your account.
-
-#### Request
-
-Request type: POST
-
-|Field|Description|
-|:---|:---|
-|name|User name|
-|hash|A computed string|
-
-#### Response
-
-|Field|Description|
-|:---|:---|
-|token|A string for following access|
-
-### logout.php
-
-Logout your account.
-
-#### Request
-
-Request type: POST
-
-|Field|Description|
-|:---|:---|
-|token|The token provided in login process|
-
-#### Response
-
-HTTP 200 for normal logout.
-
-### submit.php
-
-### getTournament.php
-
-### getCompetition.php
-
-### getMapHash.php
-
-<!-- tournament operation-->
-
-### getUserScore.php
-
-<!-- admin operation-->
-
-### user.php
-
-### tournament.php
-
-### competition.php
-
-### mapHash.php
-
-<!-- server only-->
-
-### init.php
-
-### config.php
+Go to [API document](./API.md).
 
 ## Database structure
 
-### user Table
+Go to [Database document](./DATABASE.md).
 
-### record Table
-
-### map Table
-
-### tournament Table
-
-### competition Table
 
