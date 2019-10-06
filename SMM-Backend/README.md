@@ -11,15 +11,21 @@ This backend needs HTTPS protocol to ensure each data is safe.
 * PDO
 * PDO_Mysql
 
+## Needed software
+
+* MySql
+
 ## Nginx config
 
 `config.php` and `utilities.php` shouldn't be visited outside from the server, use following Nginx config to ban related connections.
 
 ```
-location ~* ^/(config|utilities).php {
+location ~* ^/(adminacc|config|utilities).php {
 	return 404;
 }
 ```
+
+After invoking `init.php`, you also can add `init` into above code to avoid more attack.
 
 TIP: If you have invoked init.php, you also can add init.php into banned urls for preventing protential attack.
 
@@ -30,5 +36,3 @@ Go to [API document](./API.md).
 ## Database structure
 
 Go to [Database document](./DATABASE.md).
-
-

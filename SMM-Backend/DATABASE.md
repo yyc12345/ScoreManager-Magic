@@ -7,11 +7,11 @@
 ```sql
 CREATE TABLE user (
 sm_name TEXT,
-sm_password CHAR(64),
+sm_password VARCHAR(64),
 sm_registration BIGINT,
 sm_priority TINYINT,
 sm_salt INT,
-sm_token CHAR(32),
+sm_token VARCHAR(32),
 sm_expireOn BIGINT
 );
 ```
@@ -30,10 +30,9 @@ The power of this user. Following chart will describe each priority and upper ri
 |:---|:---|
 |0|Banned user|
 |1|Normal user|
-|2|Tournament live watcher|
-|3|Tournament live admin|
-|4|Record authenticator|
-|5|System admin|
+|2|Tournament live admin|
+|3|Record authenticator|
+|4|System admin|
 
 ## record Table
 
@@ -44,7 +43,7 @@ CREATE TABLE record (
 sm_name TEXT,
 
 sm_installedOn TINYINT,
-sm_hash CHAR(64),
+sm_hash VARCHAR(64),
 
 sm_score INT,
 sm_srTime INT,
@@ -57,6 +56,7 @@ sm_subExtraPoint INT,
 sm_trafo INT,
 sm_checkpoint INT,
 sm_verify TINYINT,
+sm_token TEXT,
 
 sm_localTime BIGINT,
 sm_localUTC BIGINT,
@@ -71,10 +71,10 @@ sm_serverUTC BIGINT
 ### SQL code
 
 ```sql
-CREATE TABLE map (
+map (
 sm_name TEXT,
 sm_author TEXT,
-sm_hash CHAR(64)
+sm_hash VARCHAR(64)
 );
 ```
 
@@ -98,11 +98,7 @@ The hash for this map file. Use SHA256. Convert to HEX string with low case.
 
 ```sql
 CREATE TABLE tournament (
-sm_tournament TEXT,
-sm_mapPool TEXT,
-sm_regStartDate BIGINT,
-sm_regEndDate BIGINT,
-sm_rootCompetition CHAR(32)
+sm_tournament TEXT
 );
 ```
 
@@ -112,33 +108,16 @@ sm_rootCompetition CHAR(32)
 
 The name of this tournament. Should be unique.
 
-#### sm_mapPool
-
-The map pool for this tournament. A list. Item is the hash of each map and seperator is `,`.
-
-#### sm_regStartDate
-
-The start date of registration.
-
-#### sm_regEndDate
-
-The end date of registration.
-
-#### sm_rootCompetition
-
-A "competition quote". This is the final competition in this tournament. Following dependency tree, a full competition tree of thie tournament will be build. This value is served for map construction.
-
-## competition Table
+## participant Table
 
 ### SQL code
 
 ```sql
-CREATE TABLE competition (
-sm_id CHAR(32),
+CREATE TABLE participant (
+sm_id TEXT,
 sm_type TINYINT,
-sm_parents TEXT,
-sm_arrange TEXT,
-sm_winner TEXT
+sm_registration BIGINT,
+sm_tournament TEXT
 );
 ```
 
@@ -146,46 +125,39 @@ sm_winner TEXT
 
 #### sm_id
 
-A unique string. Generated from GUID.
+If this item is user, it is user name. Otherwise it is map hash.
 
 #### sm_type
 
-The type of this competition. Following chart provide detailed message.
+The type of this participant. Following chart provides detailed message.
 
 |Value|Meaning|
 |:---|:---|
-|0|Single cycle competition|
-|1|Knockout competition|
+|0|The user which take part in this tournament|
+|1|The map which will be used in this tournament|
 
-#### sm_parents
+#### sm_registration
 
-A "competition quote" list. Indicate this competition's participant. Spectator is `,`.
+The date when this item is added into this tournament.
 
-#### sm_arrange
+#### sm_tournament
 
-A hash list. Each item is sm_id in arrangement table. Spectator is `,`.
+Which tournament this item want to take part in.
 
-#### sm_winner
-
-The winner name of this competition.
-
-
-## arrangement Table
+## competition Table
 
 ### SQL code
 
 ```sql
-CREATE TABLE arrangement (
-sm_id CHAR(32),
+CREATE TABLE competition (
+sm_id VARCHAR(32),
 sm_red TEXT,
-sm_redRes TEXT,
+sm_redRes INT,
 sm_blue TEXT,
-sm_blueRes TEXT,
+sm_blueRes INT,
 sm_startDate BIGINT,
 sm_endDae BIGINT,
-sm_evalStartDate BIGINT,
-sm_evalEndDate BIGINT,
-sm_map CHAR(64),
+sm_map VARCHAR(64),
 sm_tournament TEXT,
 sm_winner TEXT
 );
@@ -200,15 +172,3 @@ A unique string. Generated from GUID.
 #### sm_red / sm_blue
 
 The participant for this tournament.
-
-## Attached message
-
-What is "competition quote"?
-
-A "competition quote" following this syntax:
-
-`(u|s|k)#id`
-
-`u` mean user, `s` mean single cycle competition and `k` mean knockout competition.
-
-If you use `u`, the id is user name. If you use `s` or `k`, the id is competition id.
