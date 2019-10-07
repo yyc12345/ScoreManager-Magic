@@ -8,11 +8,11 @@
 CREATE TABLE user (
 sm_name TEXT,
 sm_password VARCHAR(64),
-sm_registration BIGINT,
-sm_priority TINYINT,
+sm_registration BIGINT UNSIGNED,
+sm_priority TINYINT UNSIGNED,
 sm_salt INT,
 sm_token VARCHAR(32),
-sm_expireOn BIGINT
+sm_expireOn BIGINT UNSIGNED
 );
 ```
 
@@ -55,12 +55,11 @@ sm_extraPoint INT,
 sm_subExtraPoint INT,
 sm_trafo INT,
 sm_checkpoint INT,
-sm_verify TINYINT,
+sm_verify TINYINT UNSIGNED,
 sm_token TEXT,
 
-sm_localTime BIGINT,
-sm_localUTC BIGINT,
-sm_serverUTC BIGINT
+sm_localUTC BIGINT UNSIGNED,
+sm_serverUTC BIGINT UNSIGNED
 );
 ```
 
@@ -71,7 +70,7 @@ sm_serverUTC BIGINT
 ### SQL code
 
 ```sql
-map (
+CREATE TABLE map (
 sm_name TEXT,
 sm_author TEXT,
 sm_hash VARCHAR(64)
@@ -115,8 +114,8 @@ The name of this tournament. Should be unique.
 ```sql
 CREATE TABLE participant (
 sm_id TEXT,
-sm_type TINYINT,
-sm_registration BIGINT,
+sm_type TINYINT UNSIGNED,
+sm_registration BIGINT UNSIGNED,
 sm_tournament TEXT
 );
 ```
@@ -150,13 +149,13 @@ Which tournament this item want to take part in.
 
 ```sql
 CREATE TABLE competition (
-sm_id VARCHAR(32),
+sm_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 sm_red TEXT,
-sm_redRes INT,
+sm_redRes BIGINT,
 sm_blue TEXT,
-sm_blueRes INT,
+sm_blueRes BIGINT,
 sm_startDate BIGINT,
-sm_endDae BIGINT,
+sm_endDate BIGINT,
 sm_map VARCHAR(64),
 sm_tournament TEXT,
 sm_winner TEXT

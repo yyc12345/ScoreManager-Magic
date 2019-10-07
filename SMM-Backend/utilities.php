@@ -50,4 +50,21 @@ function SetJsonHeader() {
     header("Content-type:application/json");
 }
 
+function GetUniversalReturn($code = 200, $err = "OK") {
+    $res = array(
+        "code" => $code,
+        "err" => $err
+    );
+    return $res;
+}
+
+function CheckParameter($ori, $sample) {
+    foreach($sample as $x) {
+        if (!array_key_exists($x, $ori)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 ?>
