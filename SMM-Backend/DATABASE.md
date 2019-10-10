@@ -43,11 +43,10 @@ CREATE TABLE record (
 sm_name TEXT,
 
 sm_installedOn TINYINT,
-sm_hash VARCHAR(64),
+sm_map VARCHAR(64),
 
 sm_score INT,
 sm_srTime INT,
-sm_counter TINYTEXT,
 
 sm_lifeUp INT,
 sm_lifeLost INT,
@@ -60,7 +59,7 @@ sm_token TEXT,
 
 sm_localUTC BIGINT UNSIGNED,
 sm_serverUTC BIGINT UNSIGNED
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
 ### Fields description

@@ -34,11 +34,10 @@ class database {
             sm_name TEXT,
             
             sm_installedOn TINYINT,
-            sm_hash VARCHAR(64),
+            sm_map VARCHAR(64),
             
             sm_score INT,
             sm_srTime INT,
-            sm_counter TINYTEXT,
             
             sm_lifeUp INT,
             sm_lifeLost INT,
@@ -170,8 +169,41 @@ VALUES (?, ?, ?, ?, 0, '', 0)");
     }
 
     public function resetToken($token) {
-        $stmt = $this->$conn->prepare("UPDATE user SET sm_token = '' WHERE sm_token = ?");
-        $stmt->bindParam(1, $token, PDO::PARAM_STR);
+        $rnd = mt_rand(0,6172748);
+        $stmt = $this->$conn->prepare("UPDATE user SET sm_token = '', sm_expireOn = 0, sm_salt = ? WHERE sm_token = ?");
+        $stmt->bindParam(1, $rnd, PDO::PARAM_INT);
+        $stmt->bindParam(2, $token, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    public function addSubmit($token, $installOn, $map, $score, $srTime, $lifeUp, $lifeLost, $extraPoint, $subExtraPoint, $trafo, $checkpoint, $verify ,$bsmToken, $localTime) {
+        $serverTime = time();
+
+        //query name
+        $preStmt = $this->$conn->prepare("SELECT * FROM user WHERE sm_token = ?");
+        $preStmt->bindParam(1, $token, PDO::PARAM_STR);
+        $preStmt->execute();
+        $data=$preStmt->fetch(PDO::FETCH_ASSOC);
+        $user=$data["sm_name"];
+
+        //submit
+        $stmt = $this->$conn->prepare("INSERT INTO record (sm_name, sm_installOn, sm_map, sm_score, sm_srTime, sm_lifeUp, sm_lifeLost, sm_extraPoint, sm_subExtraPoint, sm_trafo, sm_checkpoint, sm_verify, sm_token, sm_localUTC, sm_serverUTC)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bindParam(1 ,$user , PDO::PARAM_STR);
+        $stmt->bindParam(2 ,$installOn , PDO::PARAM_INT);
+        $stmt->bindParam(3 ,$map , PDO::PARAM_STR);
+        $stmt->bindParam(4 ,$score , PDO::PARAM_INT);
+        $stmt->bindParam(5 ,$srTime , PDO::PARAM_INT);
+        $stmt->bindParam(6 ,$lifeUp , PDO::PARAM_INT);
+        $stmt->bindParam(7 ,$lifeLost , PDO::PARAM_INT);
+        $stmt->bindParam(8 ,$extraPoint , PDO::PARAM_INT);
+        $stmt->bindParam(9 ,$subExtraPoint , PDO::PARAM_INT);
+        $stmt->bindParam(10 ,$trafo , PDO::PARAM_INT);
+        $stmt->bindParam(11 ,$checkpoint , PDO::PARAM_INT);
+        $stmt->bindParam(12 ,$verify , PDO::PARAM_INT);
+        $stmt->bindParam(13 ,$bsmToken , PDO::PARAM_STR);
+        $stmt->bindParam(14 ,$localTime , PDO::PARAM_INT);
+        $stmt->bindParam(15 ,$serverTime , PDO::PARAM_INT);
         $stmt->execute();
     }
 

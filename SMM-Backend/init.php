@@ -2,7 +2,7 @@
 
 require_once "database.php";
 require_once "utilities.php";
-require_once "adminacc.php";
+require_once "preconfig.php";
 
 //check parameter
 if (!CheckParameter($_POST, array("su"))) {

@@ -17,10 +17,10 @@ This backend needs HTTPS protocol to ensure each data is safe.
 
 ## Nginx config
 
-`config.php` and `utilities.php` shouldn't be visited outside from the server, use following Nginx config to ban related connections.
+`config.php`, `utilities.php`, `preconfig.php` and `database.php` shouldn't be visited outside from the server, use following Nginx config to ban related connections.
 
 ```
-location ~* ^/(adminacc|config|utilities).php {
+location ~* ^/(preconfig|config|utilities|database).php {
 	return 404;
 }
 ```
