@@ -14,5 +14,7 @@ namespace SMM_Frontend {
 
         internal static string Logout => CoreURL + "logout.php";
 
+        internal static string Submit => CoreURL + "submit.php";
+
     }
 }

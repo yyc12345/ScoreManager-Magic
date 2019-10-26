@@ -20,9 +20,7 @@ try {
     $db->unlockdb();
     $db = NULL;
 
-    $retData = GetUniversalReturn();
-    $retData["data"] = array("salt" => $salt);
-    echo json_encode($retData);
+    echo json_encode(GetUniversalReturn(true, "OK", array("salt" => $salt)));
 
 } catch (Exception $e) {
     echo json_encode(GetUniversalReturn(false, $e->getMessage()));

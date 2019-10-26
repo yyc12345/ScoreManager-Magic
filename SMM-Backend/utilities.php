@@ -1,9 +1,10 @@
 <?php
 
-function GetUniversalReturn($successful = true, $err = "OK") {
+function GetUniversalReturn($successful = true, $err = "OK", $data = "") {
     $res = array(
-        "code" => $successful ? "200" : "400",
-        "err" => $err
+        "code" => $successful ? 200 : 400,
+        "err" => $err,
+        "data" => $data
     );
     return $res;
 }

@@ -25,10 +25,8 @@ try {
         //get priority again
         $priority = $db->getPriority($token);
 
-        $retData = GetUniversalReturn();
-        $retData["data"] = array("token" => $token,
-                                "priority" => $priority);
-        echo json_encode($retData);
+        echo json_encode(GetUniversalReturn(true, "OK", array("token" => $token,
+                                                            "priority" => $priority)));
     }
     
 } catch (Exception $e) {

@@ -6,8 +6,8 @@
 |Field|Description|
 |:---|:---|
 |code|A response code, indicate this operation's result|
-|error|Error discription|
-|data|Returned data. Can be NULL|
+|err|Error discription|
+|data|Returned data. If response don't have any return value, this property keep blank string|
 
 All of following php interfaces' response data is `data`'s data structure.
 
