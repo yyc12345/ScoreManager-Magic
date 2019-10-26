@@ -15,6 +15,10 @@ All of following php interfaces' response data is `data`'s data structure.
 
 Pre-step for login.
 
+### Priority requirement
+
+None
+
 ### Request
 
 Request type: POST
@@ -33,6 +37,10 @@ Request type: POST
 
 Login your account.
 
+### Priority requirement
+
+None
+
 ### Request
 
 Request type: POST
@@ -47,10 +55,15 @@ Request type: POST
 |Field|Description|
 |:---|:---|
 |token|A string for following access|
+|priority|A int indicating current user's permission|
 
 ## logout.php
 
 Logout your account.
+
+### Priority requirement
+
+None
 
 ### Request
 
@@ -67,6 +80,10 @@ No data.
 ## submit.php
 
 Submit player score.
+
+### Priority requirement
+
+`user`
 
 ### Request
 
@@ -93,31 +110,16 @@ Request type: POST
 
 No data.
 
-## getTournament.php
-
-## getCompetition.php
-
-## getMapHash.php
-
-<!-- tournament operation-->
-
-## getUserScore.php
-
-<!-- admin operation-->
-
-## user.php
-
-## tournament.php
-
-## competition.php
-
-## mapHash.php
 
 <!-- server only-->
 
 ## init.php
 
 Init SMM server.
+
+### Priority requirement
+
+Priority is not suit for this request.
 
 ### Request
 
@@ -130,19 +132,3 @@ Request type: POST
 ### Response
 
 No data.
-
-## config.php
-
-Should not be visited via normal request.
-
-## utilities.php
-
-Should not be visited via normal request.
-
-## preconfig.php
-
-Should not be visited via normal request.
-
-## database.php
-
-Should not be visited via normal request.

@@ -90,24 +90,29 @@ class database {
     }
 
     //universal
-    public function checkPermission($token, $expectPermission) {
+    public function getPriority($token) {
         $stmt = $this->$conn->prepare("SELECT * FROM user WHERE sm_token = ?");
         $stmt->bindParam(1, $token, PDO::PARAM_STR);
         $stmt->execute();
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($expectPermission <= $data["sm_priority"]) {
-            return true;
-        } else {
-            return false;
-        }
+        return $data["sm_priority"];
     }
 
-    public function checkLogin($token) {
+    public function checkToken($token) {
         $stmt = $this->$conn->prepare("SELECT * FROM user WHERE sm_token = ?");
         $stmt->bindParam(1, $token, PDO::PARAM_STR);
         $stmt->execute();
 
         return !(count($stmt->fetchAll()) == 0);
+    }
+
+    public function getUserFromToken($token) {
+        $stmt = $this->$conn->prepare("SELECT * FROM user WHERE sm_token = ?");
+        $stmt->bindParam(1, $token, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $data["sm_name"];
     }
 
     //user
@@ -176,6 +181,7 @@ VALUES (?, ?, ?, ?, 0, '', 0)");
         $stmt->execute();
     }
 
+    //submit
     public function addSubmit($token, $installOn, $map, $score, $srTime, $lifeUp, $lifeLost, $extraPoint, $subExtraPoint, $trafo, $checkpoint, $verify ,$bsmToken, $localTime) {
         $serverTime = time();
 

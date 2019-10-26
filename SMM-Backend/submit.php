@@ -4,15 +4,20 @@ require_once "database.php";
 require_once "utilities.php";
 
 if (!CheckParameter($_POST, array("token", "installOn", "map", "score", "srTime", "lifeUp", "lifeLost", "extraPoint", "subExtraPoint", "trafo", "checkpoint", "verify", "bsmToken", "localTime"))){
-    echo json_encode(GetUniversalReturn(400, "Invalid parameter"));
+    echo json_encode(GetUniversalReturn(false, "Invalid parameter"));
     die(); 
 }
 
 try {
     $db = new database();
     $db->lockdb();
-    if(!$db->checkLogin($_POST["token"])) {
-        echo json_encode(GetUniversalReturn(400, "Invalid token"));
+    if(!$db->checkToken($_POST["token"])) {
+        echo json_encode(GetUniversalReturn(false, "Invalid token"));
+        die(); 
+    }
+    //check permission
+    if(!(CheckPriority($db->getPriority($token), "user"))) {
+        echo json_encode(GetUniversalReturn(false, "No permission"));
         die(); 
     }
 
@@ -23,7 +28,7 @@ try {
     echo json_encode(GetUniversalReturn());
     
 } catch (Exception $e) {
-    echo json_encode(GetUniversalReturn(500, $e->getMessage()));
+    echo json_encode(GetUniversalReturn(false, $e->getMessage()));
     die();
 }
 

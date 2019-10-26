@@ -24,15 +24,15 @@ The name of this user. Should not contain `,` or `#`.
 
 #### sm_priority
 
-The power of this user. Following chart will describe each priority and upper right inherit lower right.
+The power of this user. Use `|` operator to construct permission.
 
-|Priority value|Priority name|
-|:---|:---|
-|0|Banned user|
-|1|Normal user|
-|2|Tournament live admin|
-|3|Record authenticator|
-|4|System admin|
+|Priority value (BIN)|Priority name|Priority code (written in code)|
+|:---|:---|:---|
+|0000 (No permission)|Banned user|none|
+|0001|Normal user|user|
+|0010|Tournament live admin|live|
+|0100|Record authenticator|speedrun|
+|1000|System admin|admin|
 
 ## record Table
 
@@ -89,84 +89,3 @@ The author for this map. Use original name.
 #### sm_hash
 
 The hash for this map file. Use SHA256. Convert to HEX string with low case.
-
-## tournament Table
-
-### SQL code
-
-```sql
-CREATE TABLE tournament (
-sm_tournament TEXT
-);
-```
-
-### Fields description
-
-#### sm_tournament
-
-The name of this tournament. Should be unique.
-
-## participant Table
-
-### SQL code
-
-```sql
-CREATE TABLE participant (
-sm_id TEXT,
-sm_type TINYINT UNSIGNED,
-sm_registration BIGINT UNSIGNED,
-sm_tournament TEXT
-);
-```
-
-### Fields description
-
-#### sm_id
-
-If this item is user, it is user name. Otherwise it is map hash.
-
-#### sm_type
-
-The type of this participant. Following chart provides detailed message.
-
-|Value|Meaning|
-|:---|:---|
-|0|The user which take part in this tournament|
-|1|The map which will be used in this tournament|
-
-#### sm_registration
-
-The date when this item is added into this tournament.
-
-#### sm_tournament
-
-Which tournament this item want to take part in.
-
-## competition Table
-
-### SQL code
-
-```sql
-CREATE TABLE competition (
-sm_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-sm_red TEXT,
-sm_redRes BIGINT,
-sm_blue TEXT,
-sm_blueRes BIGINT,
-sm_startDate BIGINT,
-sm_endDate BIGINT,
-sm_map VARCHAR(64),
-sm_tournament TEXT,
-sm_winner TEXT
-);
-```
-
-### Fields description
-
-#### sm_id
-
-A unique string. Generated from GUID.
-
-#### sm_red / sm_blue
-
-The participant for this tournament.

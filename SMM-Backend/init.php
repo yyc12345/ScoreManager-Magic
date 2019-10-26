@@ -6,11 +6,11 @@ require_once "preconfig.php";
 
 //check parameter
 if (!CheckParameter($_POST, array("su"))) {
-    echo json_encode(GetUniversalReturn(400, "Invalid parameter"));
+    echo json_encode(GetUniversalReturn(false, "Invalid parameter"));
     die(); 
 }
 if ($_POST["su"] != $INIT_ROOT_ACCOUNT["su"]) {
-    echo json_encode(GetUniversalReturn(401, "Fail to auth parameter"));
+    echo json_encode(GetUniversalReturn(false , "Fail to auth parameter"));
     die();
 }
 
@@ -29,7 +29,7 @@ try {
     echo json_encode(GetUniversalReturn());
     
 } catch (Exception $e) {
-    echo json_encode(GetUniversalReturn(500, $e->getMessage()));
+    echo json_encode(GetUniversalReturn(false, $e->getMessage()));
     die();
 }
 
