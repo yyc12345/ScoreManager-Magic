@@ -14,13 +14,17 @@ namespace SMM_Frontend.Structure {
         Admin = 0b1000
     }
 
-    public class Protocol_Salt {
+    public class Structure_Salt {
         public int rnd { get; set; }
     }
 
-    public class Protocol_Login {
+    public class Structure_Login {
         public string token { get; set; }
         public int priority { get; set; }
+    }
+
+    public class Structure_Version {
+        public string ver { get; set; }
     }
 
 }

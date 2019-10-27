@@ -31,36 +31,54 @@
 
         <!-- status and map dispay-->
         <TextBlock Text="-" Grid.Row="1" HorizontalAlignment="Center" Margin="0,2,0,2" ToolTip="{DynamicResource ui_MainWindow_CurrentMap}"/>
-        <TextBlock Text="Idle" Foreground="LightGreen" Grid.Row="2" HorizontalAlignment="Center" Margin="0,2,0,2" ToolTip="{DynamicResource ui_MainWindow_CurrentStatus}"/>
+        <TextBlock Text="-" Foreground="LightGreen" Grid.Row="2" HorizontalAlignment="Center" Margin="0,2,0,2" ToolTip="{DynamicResource ui_MainWindow_CurrentStatus}"/>
 
         <ScrollViewer Grid.Row="3">
 
             <StackPanel Orientation="Vertical">
-                <Expander Header="Game helper" Foreground="White">
+                <Expander Header="{DynamicResource ui_MainWindow_Game_Title}" Foreground="White">
                     <StackPanel Orientation="Vertical">
-                        <Button Content="Start game" Margin="5" Height="25"/>
-                        <Button Content="Install map on..." Margin="5" Height="25"/>
-                        <Button Content="Reset database.tdb to 0 score" Margin="5" Height="25"/>
+                        <Button Content="{DynamicResource ui_MainWindow_Game_StartGame}" Margin="5" Height="25"/>
+                        <Button Content="{DynamicResource ui_MainWindow_Game_InstallMap}" Margin="5" Height="25"/>
+                        <Button Content="{DynamicResource ui_MainWindow_Game_ResetDatabase}" Margin="5" Height="25"/>
                     </StackPanel>
                 </Expander>
-                <Expander Header="Competition status" Foreground="White">
+                <Expander Header="{DynamicResource ui_MainWindow_Competition_Title}" Foreground="White">
                     <StackPanel Orientation="Vertical">
-
+                        <TextBlock Text="{DynamicResource ui_MainWindow_Competition_SeletionDescription}" Margin="5"/>
+                        <ComboBox Margin="5"/>
+                        <Button Content="{DynamicResource ui_MainWindow_Competition_Refresh}" Margin="5" Height="25"/>
+                        <Button Content="{DynamicResource ui_MainWindow_Competition_Manage}" Margin="5" Height="25"/>
+                        <Button Content="{DynamicResource ui_MainWindow_Competition_Register}" Margin="5" IsEnabled="False" Height="25"/>
                     </StackPanel>
                 </Expander>
-                <Expander Header="The last submit statics" Foreground="White">
+                <Expander Header="{DynamicResource ui_MainWindow_Submit_Title}" Foreground="White">
                     <StackPanel Orientation="Vertical">
-
+                        <DataGrid CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Height="250" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_InstallOn}" Binding="{Binding installOn}"/>
+                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_Map}" Binding="{Binding map}"/>
+                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_Score}" Binding="{Binding score}"/>
+                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_SRTime}" Binding="{Binding srTime}"/>
+                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_LifeUp}" Binding="{Binding lifeUp}"/>
+                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_LifeLost}" Binding="{Binding lifeLost}"/>
+                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_ExtraPoint}" Binding="{Binding extraPoint}"/>
+                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_SubExtraPoint}" Binding="{Binding subExtraPoint}"/>
+                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_Trafo}" Binding="{Binding trafo}"/>
+                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_Checkpoint}" Binding="{Binding checkpoint}"/>
+                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_Date}" Binding="{Binding date}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </StackPanel>
                 </Expander>
-                <Expander Header="Log" Foreground="White">
+                <Expander Header="{DynamicResource ui_MainWindow_Log_Title}" Foreground="White">
                     <StackPanel Orientation="Vertical">
-
+                        <ListBox Height="250" Background="#00000000" BorderThickness="1" Margin="5"/>
                     </StackPanel>
                 </Expander>
             </StackPanel>
         </ScrollViewer>
 
-        <control:StatusBar Margin="10" Grid.Row="4"/>
+        <!--<control:StatusBar Margin="10" Grid.Row="4"/>-->
     </Grid>
 </Window>

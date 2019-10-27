@@ -7,7 +7,8 @@ $GLOBAL_CONFIG = array(
         "db" => "scoremanager",
         "url" => "localhost",
         "port" => "3306"
-    )
+    ),
+    "version" => "v0.5"
 );
 
 ?>

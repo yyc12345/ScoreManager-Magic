@@ -10,7 +10,7 @@ using SMM_Frontend.Utilities;
 namespace SMM_Frontend {
     public static class CoreMethod {
 
-        public static void ChangeDomain(string str) => CoreUrl.CoreURL = str;
+        public static void ChangeDomain(string str) => CoreUrl.RequestBaseUrl = str;
 
         private static string JsonDecoder(string str) {
             JObject decodeData = (JObject)JsonConvert.DeserializeObject(str);
@@ -18,6 +18,18 @@ namespace SMM_Frontend {
             return decodeData["data"].ToString();
         }
 
+        public static (StandardResponse status, string version) Version() {
+            try {
+                var data = InternetMethod.Post(CoreUrl.Version, new Dictionary<string, string>());
+                var realData = JsonDecoder(data);
+                var decodeData = JsonConvert.DeserializeObject<Structure_Version>(realData);
+
+                return (new StandardResponse(true, ""), decodeData.ver);
+            } catch (Exception e) {
+                return (new StandardResponse(false, e.Message), "");
+            }
+        }
+             
         public static (StandardResponse status, string token, int priority) Login(string user, string password) {
             try {
                 //get salt
@@ -25,7 +37,7 @@ namespace SMM_Frontend {
                     {"name", user}
                 });
                 var realData = JsonDecoder(data);
-                var decodeData = JsonConvert.DeserializeObject<Protocol_Salt>(realData);
+                var decodeData = JsonConvert.DeserializeObject<Structure_Salt>(realData);
                 var rnd = decodeData.rnd;
 
                 //calc number
@@ -37,7 +49,7 @@ namespace SMM_Frontend {
                     {"hash", authStr }
                 });
                 realData = JsonDecoder(data);
-                var decodeData2 = JsonConvert.DeserializeObject<Protocol_Login>(realData);
+                var decodeData2 = JsonConvert.DeserializeObject<Structure_Login>(realData);
                 return (new StandardResponse(true, ""), decodeData2.token, decodeData2.priority);
             } catch (Exception e) {
                 return (new StandardResponse(false, e.Message), "", 0);

@@ -11,6 +11,24 @@
 
 All of following php interfaces' response data is `data`'s data structure.
 
+## version.php
+
+Get services' version
+
+### Priority requirement
+
+None
+
+### Request
+
+None
+
+### Response
+
+|Field|Description|
+|:---|:---|
+|ver|A string indicating current server version.|
+
 ## salt.php
 
 Pre-step for login.

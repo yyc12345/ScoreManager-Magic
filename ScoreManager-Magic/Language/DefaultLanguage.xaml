@@ -1,17 +1,47 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:ScoreManager_Magic.Language"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <!-- ui data-->
 
     <sys:String x:Key="ui_LoginWindow_Title">Login for ScoreManager-Magic</sys:String>
 
+    
+    
     <sys:String x:Key="ui_MainWindow_Title">ScoreManager-Magic</sys:String>
+    
     <sys:String x:Key="ui_MainWindow_Speedrun">Speedrun time</sys:String>
     <sys:String x:Key="ui_MainWindow_Score">Score</sys:String>
     <sys:String x:Key="ui_MainWindow_CurrentMap">Current map</sys:String>
     <sys:String x:Key="ui_MainWindow_CurrentStatus">Current status</sys:String>
+    
+    <sys:String x:Key="ui_MainWindow_Game_Title">Game helper</sys:String>
+    <sys:String x:Key="ui_MainWindow_Game_StartGame">Start game</sys:String>
+    <sys:String x:Key="ui_MainWindow_Game_InstallMap">Install map on...</sys:String>
+    <sys:String x:Key="ui_MainWindow_Game_ResetDatabase">Reset database.tdb to 0 score</sys:String>
+
+    <sys:String x:Key="ui_MainWindow_Competition_Title">Competition</sys:String>
+    <sys:String x:Key="ui_MainWindow_Competition_SeletionDescription">Select a competition to play for it:</sys:String>
+    <sys:String x:Key="ui_MainWindow_Competition_Refresh">Refresh competition status</sys:String>
+    <sys:String x:Key="ui_MainWindow_Competition_Manage">Manage my competition</sys:String>
+    <sys:String x:Key="ui_MainWindow_Competition_Register">Register tournament</sys:String>
+
+    <sys:String x:Key="ui_MainWindow_Submit_Title">Submit records</sys:String>
+    <sys:String x:Key="ui_MainWindow_Submit_InstallOn">Level installed map</sys:String>
+    <sys:String x:Key="ui_MainWindow_Submit_Map">Map</sys:String>
+    <sys:String x:Key="ui_MainWindow_Submit_Score">Score (Counter value)</sys:String>
+    <sys:String x:Key="ui_MainWindow_Submit_SRTime">SR Time (ms)</sys:String>
+    <sys:String x:Key="ui_MainWindow_Submit_LifeUp">Life up</sys:String>
+    <sys:String x:Key="ui_MainWindow_Submit_LifeLost">Life lost</sys:String>
+    <sys:String x:Key="ui_MainWindow_Submit_ExtraPoint">Extra point collected</sys:String>
+    <sys:String x:Key="ui_MainWindow_Submit_SubExtraPoint">Sub extra points collected</sys:String>
+    <sys:String x:Key="ui_MainWindow_Submit_Trafo">Trafo passed</sys:String>
+    <sys:String x:Key="ui_MainWindow_Submit_Checkpoint">Checkpoint passed</sys:String>
+    <sys:String x:Key="ui_MainWindow_Submit_Date">Submit timestamp</sys:String>
+
+    <sys:String x:Key="ui_MainWindow_Log_Title">Log</sys:String>
+    
+    
 
     <sys:String x:Key="ui_LoginUIControl_Username">User name:</sys:String>
     <sys:String x:Key="ui_LoginUIControl_Password">Password:</sys:String>
@@ -19,10 +49,12 @@
     <sys:String x:Key="ui_LoginUIControl_RememberPassword">Remember password</sys:String>
     <sys:String x:Key="ui_LoginUIControl_Login">Login</sys:String>
 
+    
+    
     <sys:String x:Key="ui_StatusBarUIControl_Network">Check ScoreManager-Magic services</sys:String>
     <sys:String x:Key="ui_StatusBarUIControl_Language">Check ScoreManager-Magic user interface language</sys:String>
     <sys:String x:Key="ui_StatusBarUIControl_Settings">Configure ScoreManager-Magic settings</sys:String>
-
+    <sys:String x:Key="ui_StatusBarUIControl_Version">SMM version: v0.5</sys:String>
 
     <!-- code data-->
     
