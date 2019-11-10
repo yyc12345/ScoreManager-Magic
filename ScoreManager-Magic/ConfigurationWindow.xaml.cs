@@ -13,12 +13,11 @@ using System.Windows.Shapes;
 
 namespace ScoreManager_Magic {
     /// <summary>
-    /// LoginWindow.xaml 的交互逻辑
+    /// ConfigurationWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class LoginWindow : Window {
-        public LoginWindow() {
+    public partial class ConfigurationWindow : Window {
+        public ConfigurationWindow() {
             InitializeComponent();
         }
-
     }
 }

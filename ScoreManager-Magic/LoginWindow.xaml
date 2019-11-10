@@ -8,13 +8,37 @@
         mc:Ignorable="d"
         Title="{DynamicResource ui_LoginWindow_Title}" Height="250" Width="400">
     <Grid Background="#7f7f7f">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
+        <Grid Margin="10">
 
-        <control:Login Margin="10"/>
-        <control:StatusBar Margin="10" Grid.Row="1"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Margin="0,5,0,5" Grid.Column="0" Grid.Row="0" Text="{DynamicResource ui_LoginUIControl_Username}" VerticalAlignment="Center"/>
+            <TextBox x:Name="uiUserName" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Input your user name"/>
+
+            <TextBlock Grid.Column="0" Margin="0,5,0,5" Grid.Row="1" Text="{DynamicResource ui_LoginUIControl_Password}" VerticalAlignment="Center"/>
+            <PasswordBox x:Name="uiPassword" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Input your password"/>
+
+            <TextBlock Margin="0,5,0,5" Grid.Column="0" Grid.Row="2" Text="Server domain:" VerticalAlignment="Center"/>
+            <TextBox x:Name="uiDomain" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Change server location"/>
+
+            <CheckBox Margin="0,5,0,5" Grid.ColumnSpan="2" Grid.Row="4" IsChecked="False" Content="{DynamicResource ui_LoginUIControl_RememberName}" VerticalAlignment="Center"/>
+            <CheckBox Margin="0,5,0,5" Grid.ColumnSpan="2" Grid.Row="5" IsChecked="False" Content="{DynamicResource ui_LoginUIControl_RememberPassword}" VerticalAlignment="Center"/>
+
+            <Button Margin="0,10,0,0" Grid.ColumnSpan="2" Grid.Row="6" Height="25" Content="{DynamicResource ui_LoginUIControl_Login}"/>
+
+        </Grid>
     </Grid>
 </Window>

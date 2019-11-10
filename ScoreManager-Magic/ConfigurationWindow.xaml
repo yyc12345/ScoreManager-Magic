@@ -1,0 +1,112 @@
+﻿<Window x:Class="ScoreManager_Magic.ConfigurationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ScoreManager_Magic"
+        mc:Ignorable="d" Foreground="White"
+        Title="ScoreManager-Magic configuration" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="{DynamicResource ui_ConfigurationWindow_ScoreManager_Title}">
+                <Grid Background="#FFE5E5E5">
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Viewbox Width="48" Height="48">
+                                    <Canvas Width="24" Height="24">
+                                        <Path Data="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" Fill="Gray" />
+                                    </Canvas>
+                                </Viewbox>
+
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="yyc12345" FontSize="18"/>
+                            </Grid>
+
+                            <TextBlock Text="My current permission:"/>
+                            <TextBlock Text="user"/>
+                            
+                            <GroupBox Header="Password change">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="You can change password for your account for more secure access." TextWrapping="WrapWithOverflow"/>
+                                    <Button Content="Change password"/>
+                                </StackPanel>
+                            </GroupBox>
+                            
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{DynamicResource ui_ConfigurationWindow_Game_Title}">
+                <Grid Background="#FFE5E5E5">
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            
+                            <GroupBox Header="Start game">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="You should use this button to start game rather than directly start game. This button will deploy some files and start detect engine." TextWrapping="WrapWithOverflow"/>
+                                    <Button Content="Start game"/>
+                                </StackPanel>
+                            </GroupBox>
+
+                            <GroupBox Header="Install map">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="This function can help you to install competition map. You need select a map and select level, then, this app will install the map." TextWrapping="WrapWithOverflow"/>
+                                    <Button Content="Install map"/>
+                                </StackPanel>
+                            </GroupBox>
+
+                            <GroupBox Header="Clean highscore">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Generally, your in-game highscore list contain your highscore record. But in some case, the competition order that you should type a specific code when you finish the level. If your score is lower than highscore list's record, you couldn't type anything. So this function can clean your highscore list and reset specific level's highscore into -1. So, whatever score you got previously, you can input the code now." TextWrapping="WrapWithOverflow"/>
+                                    <Button Content="Start game"/>
+                                </StackPanel>
+                            </GroupBox>
+
+                            <GroupBox Header="Fix language setting">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="If your Ballance registry item were lost, your game will display with Germany in default. This settings will fix lost registry item and change display language" TextWrapping="WrapWithOverflow"/>
+                                    <Button Content="Start game"/>
+                                </StackPanel>
+                            </GroupBox>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{DynamicResource ui_ConfigurationWindow_Competition_Title}">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="{DynamicResource ui_ConfigurationWindow_Submit_Title}">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_InstallOn}" Binding="{Binding installOn}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_Map}" Binding="{Binding map}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_Score}" Binding="{Binding score}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_SRTime}" Binding="{Binding srTime}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_LifeUp}" Binding="{Binding lifeUp}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_LifeLost}" Binding="{Binding lifeLost}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_ExtraPoint}" Binding="{Binding extraPoint}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_SubExtraPoint}" Binding="{Binding subExtraPoint}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_Trafo}" Binding="{Binding trafo}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_Checkpoint}" Binding="{Binding checkpoint}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_Date}" Binding="{Binding date}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{DynamicResource ui_ConfigurationWindow_Log_Title}">
+                <Grid Background="#FFE5E5E5">
+                    <ListBox Background="#00000000" BorderThickness="1" Margin="5"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
