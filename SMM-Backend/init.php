@@ -1,18 +1,11 @@
 <?php
 
 require_once "database.php";
-require_once "utilities.php";
-require_once "preconfig.php";
 
-//check parameter
-if (!CheckParameter($_POST, array("su"))) {
-    echo json_encode(GetUniversalReturn(false, "Invalid parameter"));
-    die(); 
-}
-if ($_POST["su"] != $INIT_ROOT_ACCOUNT["su"]) {
-    echo json_encode(GetUniversalReturn(false , "Fail to auth parameter"));
-    die();
-}
+$INIT_ROOT_ACCOUNT = array(
+    "user" => "root",
+    "password" => "password"
+);
 
 //establish database
 try {
@@ -26,10 +19,10 @@ try {
     $db->unlockdb();
 
     $db = NULL;
-    echo json_encode(GetUniversalReturn());
+    echo "Done";
     
 } catch (Exception $e) {
-    echo json_encode(GetUniversalReturn(false, $e->getMessage()));
+    echo "$e->getMessage()";
     die();
 }
 
