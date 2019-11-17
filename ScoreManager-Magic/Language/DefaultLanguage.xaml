@@ -13,13 +13,47 @@
     <sys:String x:Key="ui_MainWindow_Speedrun">Speedrun time</sys:String>
     <sys:String x:Key="ui_MainWindow_Score">Score</sys:String>
     <sys:String x:Key="ui_MainWindow_CurrentMap">Current map</sys:String>
+    <sys:String x:Key="ui_MainWindow_CurrentCDK">Current CDK</sys:String>
     <sys:String x:Key="ui_MainWindow_CurrentStatus">Current status</sys:String>
 
     <sys:String x:Key="ui_ConfigurationWindow_ScoreManager_Title">SMM settings</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_ScoreManager_Permission">My current permission:</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_ScoreManager_Password_Title">Password change</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_ScoreManager_Password_Desc">You can change password for your account for more secure access.</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_ScoreManager_Password_Btn">Change password</sys:String>
     
     <sys:String x:Key="ui_ConfigurationWindow_Game_Title">Game helper</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Start_Title">Start game</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Start_Desc">You should use this button to start game rather than directly start game. This button will deploy some files and start detect engine.</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Start_BtnStart">Start game</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Start_BtnRestore">Restore game files</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Install_Title">Install map</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Install_Desc">This function can help you to install competition map. You need select a map and select level, then, this app will install the map.</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Install_Btn">Install map</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Highscore_Title">Clean highscore</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Highscore_Desc">Generally, your in-game highscore list contain your highscore record. But in some case, the competition order that you should type a specific code when you finish the level. If your score is lower than highscore list's record, you couldn't type anything. So this function can clean your highscore list and reset specific level's highscore into -1. So, whatever score you got previously, you can input the code now.</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Highscore_Btn">Clean highscore</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Registry_Title">Fix language setting</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Registry_Desc">If your Ballance registry item were lost, your game will display with Germany in default. This settings will fix lost registry item and change display language。</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Registry_BtnFix">Fix registry</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Registry_BtnLanguage">Change language</sys:String>
 
     <sys:String x:Key="ui_ConfigurationWindow_Competition_Title">Competition</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Competition_ID">Competition ID</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Competition_StartDate">Competition open on</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Competition_EndDate">Competition deadline</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Competition_Map">Competition map</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Competition_CDK">CDK</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Competition_Menu_Refresh">Refresh competition list</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Competition_Menu_Battle">Battle in selected competition</sys:String>
+
+    <sys:String x:Key="ui_ConfigurationWindow_Tournament_Title">Tournament</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Tournament_TournamentName">Tournament name</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Tournament_RegistryStartDate">Registry open on</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Tournament_RegistryEndDate">Registry deadline</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Tournament_WhetherRegistry">Registered?</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Tournament_Menu_Refresh">Refresh tournament list</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Tournament_Menu_Register">Register/Cancel selected tournament</sys:String>
 
     <sys:String x:Key="ui_ConfigurationWindow_Submit_Title">Submit records</sys:String>
     <sys:String x:Key="ui_ConfigurationWindow_Submit_InstallOn">Level installed map</sys:String>

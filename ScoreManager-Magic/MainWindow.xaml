@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:ScoreManager_Magic"
         mc:Ignorable="d" Topmost="True" AllowsTransparency="True" WindowStyle="None" BorderThickness="3"
         Foreground="White"
-        Title="{DynamicResource ui_MainWindow_Title}" Height="100" Width="400" SourceInitialized="Window_SourceInitialized">
+        Title="{DynamicResource ui_MainWindow_Title}" Height="100" Width="320" SourceInitialized="Window_SourceInitialized">
 
     <Window.Effect>
         <DropShadowEffect x:Name="uiMainWindowShadow" Color="#FF858484" Direction="270" ShadowDepth="1" BlurRadius="5"/>
@@ -31,68 +31,20 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
         <!-- value diaplayer-->
-        <Grid Margin="0,10,0,10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Text="--:--:--.---" HorizontalAlignment="Center" FontSize="20" ToolTip="{DynamicResource ui_MainWindow_Speedrun}"/>
-            <TextBlock Text="----" Grid.Column="1" HorizontalAlignment="Center" FontSize="20" ToolTip="{DynamicResource ui_MainWindow_Score}"/>
-        </Grid>
+        <TextBlock VerticalAlignment="Center" Text="--:--:--.---" HorizontalAlignment="Center" FontSize="20" ToolTip="{DynamicResource ui_MainWindow_Speedrun}"/>
+        <TextBlock VerticalAlignment="Center" Text="----" Grid.Column="1" HorizontalAlignment="Center" FontSize="20" ToolTip="{DynamicResource ui_MainWindow_Score}"/>
 
         <!-- status and map dispay-->
-        <TextBlock Text="-" Grid.Row="1" HorizontalAlignment="Center" Margin="0,2,0,2" ToolTip="{DynamicResource ui_MainWindow_CurrentMap}"/>
-        <TextBlock Text="-" Foreground="LightGreen" Grid.Row="2" HorizontalAlignment="Center" Margin="0,2,0,2" ToolTip="{DynamicResource ui_MainWindow_CurrentStatus}"/>
+        <TextBlock Text="-" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{DynamicResource ui_MainWindow_CurrentMap}"/>
+        <TextBlock Text="-" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{DynamicResource ui_MainWindow_CurrentCDK}"/>
+        <TextBlock Text="-" Grid.ColumnSpan="2" Foreground="LightGreen" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{DynamicResource ui_MainWindow_CurrentStatus}"/>
 
-        <!--<ScrollViewer Grid.Row="3">
 
-            <StackPanel Orientation="Vertical">
-                <Expander Header="{DynamicResource ui_MainWindow_Game_Title}" Foreground="White">
-                    <StackPanel Orientation="Vertical">
-                        <Button Content="{DynamicResource ui_MainWindow_Game_StartGame}" Margin="5" Height="25"/>
-                        <Button Content="{DynamicResource ui_MainWindow_Game_InstallMap}" Margin="5" Height="25"/>
-                        <Button Content="{DynamicResource ui_MainWindow_Game_ResetDatabase}" Margin="5" Height="25"/>
-                    </StackPanel>
-                </Expander>
-                <Expander Header="{DynamicResource ui_MainWindow_Competition_Title}" Foreground="White">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{DynamicResource ui_MainWindow_Competition_SeletionDescription}" Margin="5"/>
-                        <ComboBox Margin="5"/>
-                        <Button Content="{DynamicResource ui_MainWindow_Competition_Refresh}" Margin="5" Height="25"/>
-                        <Button Content="{DynamicResource ui_MainWindow_Competition_Manage}" Margin="5" Height="25"/>
-                        <Button Content="{DynamicResource ui_MainWindow_Competition_Register}" Margin="5" IsEnabled="False" Height="25"/>
-                    </StackPanel>
-                </Expander>
-                <Expander Header="{DynamicResource ui_MainWindow_Submit_Title}" Foreground="White">
-                    <StackPanel Orientation="Vertical">
-                        <DataGrid CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Height="250" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_InstallOn}" Binding="{Binding installOn}"/>
-                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_Map}" Binding="{Binding map}"/>
-                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_Score}" Binding="{Binding score}"/>
-                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_SRTime}" Binding="{Binding srTime}"/>
-                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_LifeUp}" Binding="{Binding lifeUp}"/>
-                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_LifeLost}" Binding="{Binding lifeLost}"/>
-                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_ExtraPoint}" Binding="{Binding extraPoint}"/>
-                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_SubExtraPoint}" Binding="{Binding subExtraPoint}"/>
-                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_Trafo}" Binding="{Binding trafo}"/>
-                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_Checkpoint}" Binding="{Binding checkpoint}"/>
-                                <DataGridTextColumn Header="{DynamicResource ui_MainWindow_Submit_Date}" Binding="{Binding date}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </StackPanel>
-                </Expander>
-                <Expander Header="{DynamicResource ui_MainWindow_Log_Title}" Foreground="White">
-                    <StackPanel Orientation="Vertical">
-                        <ListBox Height="250" Background="#00000000" BorderThickness="1" Margin="5"/>
-                    </StackPanel>
-                </Expander>
-            </StackPanel>
-        </ScrollViewer>-->
-
-        <!--<control:StatusBar Margin="10" Grid.Row="4"/>-->
     </Grid>
 </Window>

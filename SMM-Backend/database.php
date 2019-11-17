@@ -27,9 +27,9 @@ class database {
             sm_registration BIGINT UNSIGNED,
             sm_priority TINYINT UNSIGNED,
             sm_salt INT,
-            sm_token VARCHAR(64),
+            sm_token VARCHAR(32),
             sm_expireOn BIGINT UNSIGNED
-            )ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+            );");
         $this->$conn->exec("CREATE TABLE record (
             sm_name TEXT,
             
@@ -53,31 +53,36 @@ class database {
             )ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         $this->$conn->exec("CREATE TABLE map (
             sm_name TEXT,
-            sm_author TEXT,
-            sm_hash VARCHAR(64)
-            )ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-        $this->$conn->exec("CREATE TABLE tournament (
+            sm_i8n TEXT,
+            sm_hash VARCHAR(64),
             sm_tournament TEXT
             )ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        $this->$conn->exec("CREATE TABLE tournament (
+            sm_tournament TEXT,
+            sm_startDate BIGINT,
+            sm_endDate BIGINT,
+            sm_schedule LONGTEXT
+            )ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         $this->$conn->exec("CREATE TABLE participant (
-            sm_id TEXT,
-            sm_type TINYINT UNSIGNED,
-            sm_registration BIGINT UNSIGNED,
+            sm_user TEXT,
             sm_tournament TEXT
             )ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         $this->$conn->exec("CREATE TABLE competition (
             sm_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-            sm_red TEXT,
-            sm_redRes BIGINT,
-            sm_blue TEXT,
-            sm_blueRes BIGINT,
+            sm_result TEXT,
             sm_startDate BIGINT,
             sm_endDate BIGINT,
+            sm_judgeEndDate BIGINT,
             sm_map VARCHAR(64),
-            sm_tournament TEXT,
+            sm_banMap TEXT,
+            sm_cdk TEXT,
             sm_winner TEXT,
-
+            
             PRIMARY KEY ( sm_id )
+            )ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        $this->$conn->exec("CREATE TABLE competitionParticipant (
+            sm_id BIGINT UNSIGNED,
+            sm_participant TEXT
             )ENGINE=InnoDB DEFAULT CHARSET=utf8;");
     }
 

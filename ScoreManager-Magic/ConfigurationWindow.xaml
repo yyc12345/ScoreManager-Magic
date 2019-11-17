@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScoreManager_Magic"
         mc:Ignorable="d" Foreground="White"
-        Title="ScoreManager-Magic configuration" Height="450" Width="800">
+        Title="ScoreManager-Magic configuration" Height="450" Width="500">
     <Grid>
         <TabControl>
             <TabItem Header="{DynamicResource ui_ConfigurationWindow_ScoreManager_Title}">
@@ -28,13 +28,13 @@
                                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="yyc12345" FontSize="18"/>
                             </Grid>
 
-                            <TextBlock Text="My current permission:"/>
-                            <TextBlock Text="user"/>
+                            <TextBlock Margin="5,5,5,0" Text="{DynamicResource ui_ConfigurationWindow_ScoreManager_Permission}"/>
+                            <TextBlock Margin="5,0,5,5" Text="user"/>
                             
-                            <GroupBox Header="Password change">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="You can change password for your account for more secure access." TextWrapping="WrapWithOverflow"/>
-                                    <Button Content="Change password"/>
+                            <GroupBox Header="{DynamicResource ui_ConfigurationWindow_ScoreManager_Password_Title}">
+                                <StackPanel Orientation="Vertical" Margin="5">
+                                    <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_ScoreManager_Password_Desc}" TextWrapping="WrapWithOverflow"/>
+                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_ScoreManager_Password_Btn}"/>
                                 </StackPanel>
                             </GroupBox>
                             
@@ -47,31 +47,33 @@
                     <ScrollViewer>
                         <StackPanel Orientation="Vertical" Margin="10">
                             
-                            <GroupBox Header="Start game">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="You should use this button to start game rather than directly start game. This button will deploy some files and start detect engine." TextWrapping="WrapWithOverflow"/>
-                                    <Button Content="Start game"/>
+                            <GroupBox Header="{DynamicResource ui_ConfigurationWindow_Game_Start_Title}">
+                                <StackPanel Orientation="Vertical" Margin="5">
+                                    <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_Game_Start_Desc}" TextWrapping="WrapWithOverflow"/>
+                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Start_BtnStart}"/>
+                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Start_BtnRestore}"/>
                                 </StackPanel>
                             </GroupBox>
 
-                            <GroupBox Header="Install map">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="This function can help you to install competition map. You need select a map and select level, then, this app will install the map." TextWrapping="WrapWithOverflow"/>
-                                    <Button Content="Install map"/>
+                            <GroupBox Header="{DynamicResource ui_ConfigurationWindow_Game_Install_Title}">
+                                <StackPanel Orientation="Vertical" Margin="5">
+                                    <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_Game_Install_Desc}" TextWrapping="WrapWithOverflow"/>
+                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Install_Btn}"/>
                                 </StackPanel>
                             </GroupBox>
 
-                            <GroupBox Header="Clean highscore">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="Generally, your in-game highscore list contain your highscore record. But in some case, the competition order that you should type a specific code when you finish the level. If your score is lower than highscore list's record, you couldn't type anything. So this function can clean your highscore list and reset specific level's highscore into -1. So, whatever score you got previously, you can input the code now." TextWrapping="WrapWithOverflow"/>
-                                    <Button Content="Start game"/>
+                            <GroupBox Header="{DynamicResource ui_ConfigurationWindow_Game_Highscore_Title}">
+                                <StackPanel Orientation="Vertical" Margin="5">
+                                    <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_Game_Highscore_Desc}" TextWrapping="WrapWithOverflow"/>
+                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Highscore_Btn}"/>
                                 </StackPanel>
                             </GroupBox>
 
-                            <GroupBox Header="Fix language setting">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="If your Ballance registry item were lost, your game will display with Germany in default. This settings will fix lost registry item and change display language" TextWrapping="WrapWithOverflow"/>
-                                    <Button Content="Start game"/>
+                            <GroupBox Header="{DynamicResource ui_ConfigurationWindow_Game_Registry_Title}">
+                                <StackPanel Orientation="Vertical" Margin="5">
+                                    <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_Game_Registry_Desc}" TextWrapping="WrapWithOverflow"/>
+                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Registry_BtnFix}"/>
+                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Registry_BtnLanguage}"/>
                                 </StackPanel>
                             </GroupBox>
 
@@ -80,7 +82,41 @@
                 </Grid>
             </TabItem>
             <TabItem Header="{DynamicResource ui_ConfigurationWindow_Competition_Title}">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Competition_ID}" Binding="{Binding installOn}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Competition_StartDate}" Binding="{Binding map}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Competition_EndDate}" Binding="{Binding score}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Competition_Map}" Binding="{Binding srTime}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Competition_CDK}" Binding="{Binding srTime}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="{DynamicResource ui_ConfigurationWindow_Competition_Menu_Refresh}"/>
+                                <MenuItem Header="{DynamicResource ui_ConfigurationWindow_Competition_Menu_Battle}"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{DynamicResource ui_ConfigurationWindow_Tournament_Title}">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Tournament_TournamentName}" Binding="{Binding installOn}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Tournament_RegistryStartDate}" Binding="{Binding map}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Tournament_RegistryEndDate}" Binding="{Binding score}"/>
+                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Tournament_WhetherRegistry}" Binding="{Binding srTime}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="{DynamicResource ui_ConfigurationWindow_Tournament_Menu_Refresh}"/>
+                                <MenuItem Header="{DynamicResource ui_ConfigurationWindow_Tournament_Menu_Register}"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </Grid>
             </TabItem>
             <TabItem Header="{DynamicResource ui_ConfigurationWindow_Submit_Title}">
                 <Grid Background="#FFE5E5E5">
