@@ -55,6 +55,7 @@
     <Compile Include="ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Core\DatabasetdbChanger.cs" />
     <Compile Include="Core\I18NProcessor.cs" />
     <Compile Include="Core\Win32Window.cs" />
     <Compile Include="LoginWindow.xaml.cs">

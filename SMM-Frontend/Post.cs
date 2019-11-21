@@ -29,7 +29,7 @@ namespace SMM_Frontend {
             var data = Encoding.UTF8.GetBytes(real_param);
 
             request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentType = "application/x-www-form-urlencoded;charset=utf-8";
             request.ContentLength = data.Length;
 
             using (var stream = request.GetRequestStream()) {

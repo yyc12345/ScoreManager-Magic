@@ -32,7 +32,8 @@
     <sys:String x:Key="ui_ConfigurationWindow_Game_Install_Btn">Install map</sys:String>
     <sys:String x:Key="ui_ConfigurationWindow_Game_Highscore_Title">Clean highscore</sys:String>
     <sys:String x:Key="ui_ConfigurationWindow_Game_Highscore_Desc">Generally, your in-game highscore list contain your highscore record. But in some case, the competition order that you should type a specific code when you finish the level. If your score is lower than highscore list's record, you couldn't type anything. So this function can clean your highscore list and reset specific level's highscore into -1. So, whatever score you got previously, you can input the code now.</sys:String>
-    <sys:String x:Key="ui_ConfigurationWindow_Game_Highscore_Btn">Clean highscore</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Highscore_BtnClean">Clean highscore</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_Game_Highscore_BtnOpen">Enable all levels</sys:String>
     <sys:String x:Key="ui_ConfigurationWindow_Game_Registry_Title">Fix language setting</sys:String>
     <sys:String x:Key="ui_ConfigurationWindow_Game_Registry_Desc">If your Ballance registry item were lost, your game will display with Germany in default. This settings will fix lost registry item and change display language。</sys:String>
     <sys:String x:Key="ui_ConfigurationWindow_Game_Registry_BtnFix">Fix registry</sys:String>

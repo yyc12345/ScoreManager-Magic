@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScoreManager_Magic"
         mc:Ignorable="d"
-        Title="{DynamicResource ui_LoginWindow_Title}" Height="250" Width="400">
+        Title="{DynamicResource ui_LoginWindow_Title}" Height="250" Width="400" WindowStyle="ToolWindow">
     <Grid Background="#7f7f7f">
         <Grid Margin="10">
 

@@ -1,4 +1,4 @@
-# Database文档
+# Database 文档
 
 ## user表
 
@@ -29,11 +29,13 @@ sm_expireOn BIGINT UNSIGNED
 
 表明用户的权限. 使用 `|` 运算符来组合各权限。
 
-|Priority value (BIN)|Priority name|Priority code (written in code)|
+|权限数值（二进制）|权限名称|权限助记符|
 |:---|:---|:---|
-|0000 (No permission)|Banned user|none|
-|0001|Normal user|user|
-|0010|System admin|admin|
+|0000|被Ban的用户（无权限）|none|
+|0001|常规用户|user|
+|0010|联赛直播推流员|live|
+|0100|记录审核员|speedrun|
+|1000|总管理|admin|
 
 ## record表
 
@@ -126,16 +128,16 @@ PRIMARY KEY ( sm_id )
 
 #### sm_result
 
-比赛结果，JSON列表，其中每一项遵守下述格式：
+比赛结果，JSON字点，其中每个键值对遵守下述格式：
 
 |助记符|解释|
 |:---|:---|
-|name|用户名|
-|result|成绩，-1表示作弊，-2表示未参赛|
+|name（键）|用户名|
+|result（值）|成绩，-1表示作弊，-2表示未参赛|
 
 #### sm_banMap
 
-参与者的Ban图
+参与者的Ban图，JSON列表，每一项是地图的hash值
 
 #### sm_cdk
 

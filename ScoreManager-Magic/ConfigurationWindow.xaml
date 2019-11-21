@@ -65,7 +65,8 @@
                             <GroupBox Header="{DynamicResource ui_ConfigurationWindow_Game_Highscore_Title}">
                                 <StackPanel Orientation="Vertical" Margin="5">
                                     <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_Game_Highscore_Desc}" TextWrapping="WrapWithOverflow"/>
-                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Highscore_Btn}"/>
+                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Highscore_BtnClean}"/>
+                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Highscore_BtnOpen}"/>
                                 </StackPanel>
                             </GroupBox>
 

@@ -14,36 +14,6 @@ namespace SMMUtilities {
         return $res;
     }
 
-    function CheckParameter($target, $necessity, $optitional = Array(), $optitionalMininumLimit = 0, $hardcode = Array()) {
-        //check necessity
-        foreach ($necessity as $x) {
-            if (!array_key_exists($x, $target)) {
-                return false;
-            }
-        }
-        //check hardcode
-        foreach ($hardcode as $key => $value) {
-            if (!array_key_exists($key, $target)) {
-                return false;
-            }
-            if ($target[$key] != $value) {
-                return false;
-            }
-        }
-        //check optitional
-        $count = 0;
-        foreach ($optitional as $x) {
-            if (array_key_exists($x, $target)) {
-                $count+=1;
-            }
-        }
-        if ($count<$optitionalMininumLimit) {
-            return false;
-        }
-    
-        return true;
-    }
-
     function CheckPriority($priority, $wanted)
     {
         switch ($wanted) {
@@ -58,6 +28,45 @@ namespace SMMUtilities {
             default:
                 return false;
         }
+    }
+
+    //========================================================param checker
+    function CheckNecessityParam($target, $necessity) {
+        //check necessity
+        foreach ($necessity as $x) {
+            if (!array_key_exists($x, $target)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function CheckHardcodeParam($target, $hardcode) {
+        //check hardcode
+        foreach ($hardcode as $key => $value) {
+            if (!array_key_exists($key, $target)) {
+                return false;
+            }
+            if ($target[$key] != $value) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function CheckOptionalParam($target, $optitional, $optitionalMininumLimit) {
+        //check optitional
+        $count = 0;
+        foreach ($optitional as $x) {
+            if (array_key_exists($x, $target)) {
+                $count+=1;
+            }
+        }
+        if ($count<$optitionalMininumLimit) {
+            return false;
+        }
+    
+        return true;
     }
 }
 
