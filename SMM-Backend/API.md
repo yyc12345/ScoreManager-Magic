@@ -1,19 +1,18 @@
 # API 文档
-<!-- normal user-->
 
 ## 前言
 
 ### 通用返回
 
-|Field|Description|
-|:---|:---|
-|code|A response code, indicate this operation's result|
-|err|Error discription|
-|data|Returned data. If response don't have any return value, this property keep blank string|
+|字段名|数据类型|描述|
+|:---:|:---:|:---:|
+|code|int|响应码，指示操作是否成功|
+|err|string|错误信息，如果没有错误，则为空字符串|
+|data|-|返回的数据，如果没有返回的数据，则此值为空字符串|
 
-All of following php interfaces' response data is `data`'s data structure.
+后文所有返回部分写的数据为`data`部分的数据
 
-若后文返回写为无返回，则`data`区块为空字符串，且通常程序是要去判断`code`字段判断是否执行成功
+若后文返回写为无返回，则表明程序通常是要去读取`code`字段判断是否执行成功
 
 ### 数据传输格式
 
@@ -21,143 +20,94 @@ All of following php interfaces' response data is `data`'s data structure.
 
 ## version.php
 
-Get services' version
+获取服务器版本
 
-### Priority requirement
+### 请求
 
-None
+无请求主体
 
-### Request
+### 返回
 
-None
-
-### Response
-
-|Field|Description|
-|:---|:---|
-|ver|A string indicating current server version.|
+|字段名|数据类型|描述|
+|:---:|:---:|:---:|
+|ver|string|服务器当前版本字符串|
 
 ## salt.php
 
-Pre-step for login.
+获取登录所用盐
 
-### Priority requirement
+### 请求
 
-None
+|字段名|数据类型|数据条件|描述|
+|:---:|:---:|:---:|:---:|
+|name|string|必选参数|用户名|
 
-### Request
+### 返回
 
-Request type: POST
-
-|Field|Description|
-|:---|:---|
-|name|User name|
-
-### Response
-
-|Field|Description|
-|:---|:---|
-|rnd|A string. For following steps|
+|字段名|数据类型|描述|
+|:---:|:---:|:---:|
+|rnd|string|返回用于下一步登录的盐|
 
 ## login.php
 
-Login your account.
+登陆账号
 
-### Priority requirement
+### 请求
 
-None
+|字段名|数据类型|数据条件|描述|
+|:---:|:---:|:---:|:---:|
+|name|string|必选参数|用户名|
+|hash|string|必选参数|带盐经过计算的用于登录的字符串|
 
-### Request
+### 返回
 
-Request type: POST
-
-|Field|Description|
-|:---|:---|
-|name|User name|
-|hash|A computed string|
-
-### Response
-
-|Field|Description|
-|:---|:---|
-|token|A string for following access|
-|priority|A int indicating current user's permission|
+|字段名|数据类型|描述|
+|:---:|:---:|:---:|
+|token|string|用于后续所有操作的token|
+|priority|int|当前账户拥有的权限|
 
 ## logout.php
 
-Logout your account.
+账号下线
 
-### Priority requirement
+### 请求
 
-None
+|字段名|数据类型|数据条件|描述|
+|:---:|:---:|:---:|:---:|
+|token|string|必选参数|需要下线的token|
 
-### Request
+### 返回
 
-Request type: POST
-
-|Field|Description|
-|:---|:---|
-|token|The token provided in login process|
-
-### Response
-
-No data.
+无返回
 
 ## submit.php
 
-Submit player score.
+提交用户成绩记录
 
-### Priority requirement
+### 请求
 
-`user`
+|字段名|数据类型|数据条件|描述|
+|:---:|:---:|:---:|:---:|
+|token|string|必选参数|用户的token|
+|installOn|int|必选参数|关卡安装关|
+|map|string|必选参数|地图hash|
+|score|int|必选参数|分数|
+|srTime|int|必选参数|毫秒计时|
+|lifeUp|int|必选参数|获得生命|
+|lifeLost|int|必选参数|失去生命|
+|extraPoint|int|必选参数|分数球个数|
+|subExtraPoint|int|必选参数|分数球内小球个数|
+|trafo|int|必选参数|过变球器个数|
+|checkpoint|int|必选参数|过盘点个数|
+|verify|bool|必选参数|验证是否通过|
+|bsmToken|int|必选参数|本次bsm验证token|
+|localTime|int|必选参数|本地UTC时间|
 
-### Request
+### 返回
 
-Request type: POST
-
-|Field|Description|
-|:---|:---|
-|token|The token provided in login process|
-|installOn|Correspond with database field|
-|map|Correspond with database field|
-|score|Correspond with database field|
-|srTime|Correspond with database field|
-|lifeUp|Correspond with database field|
-|lifeLost|Correspond with database field|
-|extraPoint|Correspond with database field|
-|subExtraPoint|Correspond with database field|
-|trafo|Correspond with database field|
-|checkpoint|Correspond with database field|
-|verify|Correspond with database field|
-|bsmToken|Correspond with database field|
-|localTime|Correspond with database field|
-
-### Response
-
-No data.
-
+无返回
 
 <!-- server only-->
-
-## init.php
-
-Init SMM server.
-
-### Priority requirement
-
-Priority is not suit for this request.
-
-### Request
-
-Request type: POST
-
-|Field|Description|
-|:---|:---|
-|su|The string defined in adminacc.php|
-
-### Response
-
-No data.
 
 ## operationUser.php
 
