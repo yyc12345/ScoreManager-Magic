@@ -2,8 +2,6 @@
 
 namespace SMMUtilities {
 
-    require_once "datastructure.php";
-
     function GetUniversalReturn($successful = true, $err = "OK", $data = "")
     {
         $res = array(
@@ -14,20 +12,8 @@ namespace SMMUtilities {
         return $res;
     }
 
-    function CheckPriority($priority, $wanted)
-    {
-        switch ($wanted) {
-            case "user":
-                return (($priority & \SMMDataStructure\EnumUserPriority::user) == \SMMDataStructure\EnumUserPriority::user);
-            case "live":
-                return (($priority & \SMMDataStructure\EnumUserPriority::live) == \SMMDataStructure\EnumUserPriority::live);
-            case "speedrun":
-                return (($priority & \SMMDataStructure\EnumUserPriority::speedrun) == \SMMDataStructure\EnumUserPriority::speedrun);
-            case "admin":
-                return (($priority & \SMMDataStructure\EnumUserPriority::admin) == \SMMDataStructure\EnumUserPriority::admin);
-            default:
-                return false;
-        }
+    function CheckPriority($priority, $wanted) {
+        return (($priority & $wanted) == $wanted);
     }
 
     //========================================================param checker

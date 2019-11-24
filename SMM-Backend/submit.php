@@ -2,6 +2,7 @@
 
 require_once "database.php";
 require_once "utilities.php";
+require_once "datastructure.php";
 
 try {
     if (!\SMMUtilities\CheckNecessityParam($_POST, array("token", "installOn", "map", "score", "srTime", "lifeUp", "lifeLost", "extraPoint", "subExtraPoint", "trafo", "checkpoint", "verify", "bsmToken", "localTime")))
@@ -10,7 +11,7 @@ try {
     $db = new database();
     $db->lockdb();
     if(!$db->checkToken($_POST["token"])) throw new Exception("Invalid token");
-    if(!(CheckPriority($db->getPriority($_POST["token"]), "user"))) throw new Exception("No permission");
+    if(!(CheckPriority($db->getPriority($_POST["token"]), \SMMDataStructure\EnumUserPriority::user))) throw new Exception("No permission");
 
     //get server time
     $serverTime = time();
