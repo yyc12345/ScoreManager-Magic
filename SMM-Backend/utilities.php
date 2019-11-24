@@ -68,6 +68,11 @@ namespace SMMUtilities {
     
         return true;
     }
+
+    function GetRandomNumber() {
+        //need security random number generator
+        return mt_rand(0,6172748);
+    }
 }
 
 ?>

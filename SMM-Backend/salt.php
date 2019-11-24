@@ -3,28 +3,27 @@
 require_once "database.php";
 require_once "utilities.php";
 
-if (!CheckParameter($_POST, array("name"))){
-    echo json_encode(GetUniversalReturn(false, "Invalid parameter"));
-    die(); 
-}
-
 try {
+    if (!\SMMUtilities\CheckNecessityParam($_POST, array("name"))) throw new Exception("Invalid parameter");
+    
     $db = new database();
     $db->lockdb();
-    if(!$db->checkUser($_POST["name"])) {
-        echo json_encode(GetUniversalReturn(false, "Invalid user name"));
-        die(); 
-    }
+    if(!$db->checkUser($_POST["name"])) throw new Exception("Invalid user name");
+    
+    //start stmt to do job
+    $salt = \SMMUtilities\GetRandomNumber();
+    $stmt = $db->$conn->prepare("UPDATE user SET sm_salt = ? WHERE sm_name = ?");
+    $stmt->bindParam(1, $salt, PDO::PARAM_INT);
+    $stmt->bindParam(2, $user, PDO::PARAM_STR);
+    $stmt->execute();
 
-    $salt = $db->generateSalt($_POST["name"]);
     $db->unlockdb();
     $db = NULL;
 
-    echo json_encode(GetUniversalReturn(true, "OK", array("salt" => $salt)));
+    echo json_encode(GetUniversalReturn(true, "OK", array("rnd" => $salt)));
 
 } catch (Exception $e) {
     echo json_encode(GetUniversalReturn(false, $e->getMessage()));
-    die();
 }
 
 ?>
