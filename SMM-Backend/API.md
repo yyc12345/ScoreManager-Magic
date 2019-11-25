@@ -151,7 +151,8 @@
 
 |字段名|数据类型|描述|
 |:---:|:---:|:---:|
-|name|string|当前地图的图名|
+|name|string|当前地图的源语言名|
+|i8n|string|当前地图的英文名|
 
 如果不存在则从通用结果内获取失败
 
@@ -440,9 +441,9 @@
 无返回
 
 
-## operationMap.php
+## operationMapPool.php
 
-操纵地图相关数据，管理员接口
+操纵比赛图池相关数据，管理员接口
 
 ### 查询接口
 
@@ -452,7 +453,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
-|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`name`（string，原名称筛选），`i18n`（string，英文名称筛选），`hash`（string，hash筛选），`tournament`（string，联赛筛选）|
+|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`hash`（string，hash筛选），`tournament`（string，联赛筛选）|
 |neededReturn|string (JSON列表)|必选参数，列表不得为空|指定需要返回的字段，每一项为`string`且名称与数据库内匹配|
 
 #### 返回
@@ -467,7 +468,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`add`|
-|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`name`（string，原名称），`i18n`（string，英文名称），`hash`（string，hash），`tournament`（string，所属联赛）|
+|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`hash`（string，hash），`tournament`（string，所属联赛）|
 
 #### 返回
 
@@ -486,5 +487,53 @@
 #### 返回
 
 无返回
+
+## operationMap.php
+
+操纵地图相关数据，管理员接口
+
+### 查询接口
+
+#### 请求
+
+|字段名|数据类型|数据条件|描述|
+|:---:|:---:|:---:|:---:|
+|token|string|必选参数|管路员的token，用于确认权限|
+|method|string|必选参数|固定值，为`query`|
+|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`name`（string，原名称筛选），`i18n`（string，英文名称筛选），`hash`（string，hash筛选）|
+|neededReturn|string (JSON列表)|必选参数，列表不得为空|指定需要返回的字段，每一项为`string`且名称与数据库内匹配|
+
+#### 返回
+
+返回`neededReturn`指定的字段的列表
+
+### 添加接口
+
+#### 请求
+
+|字段名|数据类型|数据条件|描述|
+|:---:|:---:|:---:|:---:|
+|token|string|必选参数|管路员的token，用于确认权限|
+|method|string|必选参数|固定值，为`add`|
+|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`name`（string，原名称），`i18n`（string，英文名称），`hash`（string，hash）|
+
+#### 返回
+
+无返回
+
+### 删除接口
+
+#### 请求
+
+|字段名|数据类型|数据条件|描述|
+|:---:|:---:|:---:|:---:|
+|token|string|必选参数|管路员的token，用于确认权限|
+|method|string|必选参数|固定值，为`delete`|
+|target|string (JSON列表)|必选参数，列表不得为空|用于确认作用对象，列表每一项是作用对象的`sm_hash`字段值|
+
+#### 返回
+
+无返回
+
 
 

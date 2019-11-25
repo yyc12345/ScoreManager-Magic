@@ -44,6 +44,9 @@ try {
     $db->$conn->exec("CREATE TABLE map (
         sm_name TEXT,
         sm_i8n TEXT,
+        sm_hash VARCHAR(64)
+        )ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+    $db->$conn->exec("CREATE TABLE mapPool (
         sm_hash VARCHAR(64),
         sm_tournament TEXT
         )ENGINE=InnoDB DEFAULT CHARSET=utf8;");

@@ -77,8 +77,7 @@ sm_serverUTC BIGINT UNSIGNED
 CREATE TABLE map (
 sm_name TEXT,
 sm_i8n TEXT,
-sm_hash VARCHAR(64),
-sm_tournament TEXT
+sm_hash VARCHAR(64)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
@@ -91,6 +90,23 @@ sm_tournament TEXT
 #### sm_i18n
 
 地图的英文名称
+
+#### sm_hash
+
+此地图的hash值，使用SHA256算法，转换为小写的16进制字符串输出。
+
+## mapPool表
+
+### SQL代码
+
+```sql
+CREATE TABLE mapPool (
+sm_hash VARCHAR(64),
+sm_tournament TEXT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+### 字段解释
 
 #### sm_hash
 
