@@ -12,7 +12,7 @@ try {
     
     //start stmt to do job
     $salt = \SMMUtilities\GetRandomNumber();
-    $stmt = $db->$conn->prepare("UPDATE user SET sm_salt = ? WHERE sm_name = ?");
+    $stmt = $db->conn->prepare("UPDATE user SET sm_salt = ? WHERE sm_name = ?");
     $stmt->bindParam(1, $salt, PDO::PARAM_INT);
     $stmt->bindParam(2, $user, PDO::PARAM_STR);
     $stmt->execute();

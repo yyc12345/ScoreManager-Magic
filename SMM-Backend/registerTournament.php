@@ -13,7 +13,7 @@ try {
     if(!(CheckPriority($db->getPriority($_POST["token"]), \SMMDataStructure\EnumUserPriority::user))) throw new Exception("No permission");
 
     //check tournament
-    $stmt = $db->$conn->prepare("SELECT sm_tournament FROM tournament WHERE sm_tournament = ?");
+    $stmt = $db->conn->prepare("SELECT sm_tournament FROM tournament WHERE sm_tournament = ?");
     $stmt->bindParam(1 ,$_POST["tournament"] , PDO::PARAM_STR);
     $stmt->execute();
 
@@ -21,7 +21,7 @@ try {
 
     //check whether registered
     $user = $db->getUserFromToken($_POST["token"]);
-    $stmt2 = $db->$conn->prepare("SELECT * FROM participant WHERE sm_tournament = ? && sm_user = ?");
+    $stmt2 = $db->conn->prepare("SELECT * FROM participant WHERE sm_tournament = ? && sm_user = ?");
     $stmt2->bindParam(1 ,$_POST["tournament"] , PDO::PARAM_STR);
     $stmt2->bindParam(2 ,$user , PDO::PARAM_STR);
     $stmt2->execute();
@@ -29,7 +29,7 @@ try {
     if (count($stmt2->fetchAll(PDO::FETCH_ASSOC)) != 0) throw new Exception("You have registered previously");
 
     //register
-    $stmt3 = $db->$conn->prepare("INSERT INTO participant (sm_user, sm_tournament) VALUES (?, ?)");
+    $stmt3 = $db->conn->prepare("INSERT INTO participant (sm_user, sm_tournament) VALUES (?, ?)");
     $stmt3->bindParam(1, $_POST["tournament"], PDO::PARAM_STR);
     $stmt3->bindParam(2, $user, PDO::PARAM_STR);
     $stmt3->execute();

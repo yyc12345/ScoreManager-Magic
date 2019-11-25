@@ -11,7 +11,7 @@ try {
     if(!$db->checkUser($_POST["name"])) throw new Exception("Invalid user name");
 
     //compute correct hash
-    $stmt = $db->$conn->prepare("SELECT sm_password, sm_salt FROM user WHERE sm_name = ?");
+    $stmt = $db->conn->prepare("SELECT sm_password, sm_salt FROM user WHERE sm_name = ?");
     $stmt->bindParam(1, $_POST["name"], PDO::PARAM_STR);
     $stmt->execute();
     $data = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -28,7 +28,7 @@ try {
     $token = hash("sha256", $data["sm_name"] . $rnd);
     $expireOn = time() + 60 * 60 * 24;
     //upload token
-    $stmt2 = $db->$conn->prepare("UPDATE user SET sm_token = ?, sm_expireOn = ? WHERE sm_name = ?");
+    $stmt2 = $db->conn->prepare("UPDATE user SET sm_token = ?, sm_expireOn = ? WHERE sm_name = ?");
     $stmt2->bindParam(1, $token, PDO::PARAM_STR);
     $stmt2->bindParam(2, $expireOn, PDO::PARAM_INT);
     $stmt2->bindParam(3, $_POST["name"], PDO::PARAM_STR);

@@ -13,7 +13,7 @@ try {
     if(!(CheckPriority($db->getPriority($_POST["token"]), \SMMDataStructure\EnumUserPriority::user))) throw new Exception("No permission");
 
     //submit
-    $stmt = $db->$conn->prepare("UPDATE user SET sm_password = ? WHERE sm_token = ?");
+    $stmt = $db->conn->prepare("UPDATE user SET sm_password = ? WHERE sm_token = ?");
     $stmt->bindParam(1 ,$_POST["newPassword"] , PDO::PARAM_STR);
     $stmt->bindParam(2 ,$_POST["token"], PDO::PARAM_STR);
     $stmt->execute();

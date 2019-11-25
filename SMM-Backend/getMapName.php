@@ -13,7 +13,7 @@ try {
     if(!(CheckPriority($db->getPriority($_POST["token"]), \SMMDataStructure\EnumUserPriority::user))) throw new Exception("No permission");
 
     //get answer
-    $stmt = $db->$conn->prepare("SELECT sm_name, sm_i18n FROM map WHERE sm_hash = ?");
+    $stmt = $db->conn->prepare("SELECT sm_name, sm_i18n FROM map WHERE sm_hash = ?");
     $stmt->bindParam(1 ,$_POST["mapHash"] , PDO::PARAM_STR);
     $stmt->execute();
 

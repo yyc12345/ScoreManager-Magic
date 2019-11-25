@@ -19,7 +19,7 @@ try {
     $user=$db->getUserFromToken($_POST["token"]);
 
     //submit
-    $stmt = $db->$conn->prepare("INSERT INTO record (sm_name, sm_installOn, sm_map, sm_score, sm_srTime, sm_lifeUp, sm_lifeLost, sm_extraPoint, sm_subExtraPoint, sm_trafo, sm_checkpoint, sm_verify, sm_token, sm_localUTC, sm_serverUTC) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $db->conn->prepare("INSERT INTO record (sm_name, sm_installOn, sm_map, sm_score, sm_srTime, sm_lifeUp, sm_lifeLost, sm_extraPoint, sm_subExtraPoint, sm_trafo, sm_checkpoint, sm_verify, sm_token, sm_localUTC, sm_serverUTC) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bindParam(1 ,$user , PDO::PARAM_STR);
     $stmt->bindParam(2 ,$_POST["installOn"] , PDO::PARAM_INT);
     $stmt->bindParam(3 ,$_POST["map"] , PDO::PARAM_STR);

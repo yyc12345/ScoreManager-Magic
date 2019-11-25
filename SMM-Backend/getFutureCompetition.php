@@ -15,7 +15,7 @@ try {
     //get current time
     $srvTime = time();
     //query all matched competition (start date before competiton end 5 days or end date after competiton end 1 day)
-    $stmt = $db->$conn->prepare("SELECT sm_id, sm_startDate, sm_endDate, sm_map, sm_cdk WHERE (sm_startDate > ? && sm_startDate < ?) || (sm_endDate > ? && sm_endDate < ?)");
+    $stmt = $db->conn->prepare("SELECT sm_id, sm_startDate, sm_endDate, sm_map, sm_cdk WHERE (sm_startDate > ? && sm_startDate < ?) || (sm_endDate > ? && sm_endDate < ?)");
     $stmt->bindParam(1, $srvTime, PDO::PARAM_INT);
     $stmt->bindParam(2, $srvTime + 60 * 60 * 24 * 5, PDO::PARAM_INT);
     $stmt->bindParam(3, $srvTime - 60 * 60 * 24, PDO::PARAM_INT);
@@ -34,7 +34,7 @@ try {
     $user = $db->getUserFromToken($_POST["token"]);
 
     //=======================================================query competition participant
-    $stmt2 = $db->$conn->prepare("SELECT sm_id WHERE (" . $matchedCompetitionStatement . ") && sm_participant = ?");
+    $stmt2 = $db->conn->prepare("SELECT sm_id WHERE (" . $matchedCompetitionStatement . ") && sm_participant = ?");
     $stmt2->bindParam(1, $user, PDO::PARAM_STR);
     $stmt2->execute();
     //get the first column data
@@ -52,7 +52,7 @@ try {
     //construct query statement
     $matchedCompetitionStatement = join(" || ", $allId);
 
-    $stmt3 = $db->$conn->prepare("SELECT sm_id, sm_participant WHERE (" . $matchedCompetitionStatement . ")");
+    $stmt3 = $db->conn->prepare("SELECT sm_id, sm_participant WHERE (" . $matchedCompetitionStatement . ")");
     $stmt3->execute();
     //collect data
     $participant = array();
