@@ -34,6 +34,7 @@
                             <GroupBox Header="{DynamicResource ui_ConfigurationWindow_ScoreManager_Password_Title}">
                                 <StackPanel Orientation="Vertical" Margin="5">
                                     <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_ScoreManager_Password_Desc}" TextWrapping="WrapWithOverflow"/>
+                                    <PasswordBox Margin="5"/>
                                     <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_ScoreManager_Password_Btn}"/>
                                 </StackPanel>
                             </GroupBox>

@@ -19,7 +19,7 @@
     <sys:String x:Key="ui_ConfigurationWindow_ScoreManager_Title">SMM settings</sys:String>
     <sys:String x:Key="ui_ConfigurationWindow_ScoreManager_Permission">My current permission:</sys:String>
     <sys:String x:Key="ui_ConfigurationWindow_ScoreManager_Password_Title">Password change</sys:String>
-    <sys:String x:Key="ui_ConfigurationWindow_ScoreManager_Password_Desc">You can change password for your account for more secure access.</sys:String>
+    <sys:String x:Key="ui_ConfigurationWindow_ScoreManager_Password_Desc">You can change password for your account for more secure access. And if you want to change it, please type your new password at the following text box and press change password.</sys:String>
     <sys:String x:Key="ui_ConfigurationWindow_ScoreManager_Password_Btn">Change password</sys:String>
     
     <sys:String x:Key="ui_ConfigurationWindow_Game_Title">Game helper</sys:String>
