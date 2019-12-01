@@ -17,7 +17,7 @@ try {
         sm_registration BIGINT UNSIGNED,
         sm_priority TINYINT UNSIGNED,
         sm_salt INT,
-        sm_token VARCHAR(32),
+        sm_token VARCHAR(64),
         sm_expireOn BIGINT UNSIGNED
         );");
     $db->conn->exec("CREATE TABLE record (
@@ -43,7 +43,7 @@ try {
         )ENGINE=InnoDB DEFAULT CHARSET=utf8;");
     $db->conn->exec("CREATE TABLE map (
         sm_name TEXT,
-        sm_i8n TEXT,
+        sm_i18n TEXT,
         sm_hash VARCHAR(64)
         )ENGINE=InnoDB DEFAULT CHARSET=utf8;");
     $db->conn->exec("CREATE TABLE mapPool (

@@ -10,7 +10,7 @@ try {
     $db = new database();
     $db->lockdb();
     if(!$db->checkToken($_POST["token"])) throw new Exception("Invalid token");
-    if(!(CheckPriority($db->getPriority($_POST["token"]), \SMMDataStructure\EnumUserPriority::user))) throw new Exception("No permission");
+    if(!(\SMMUtilities\CheckPriority($db->getPriority($_POST["token"]), \SMMDataStructure\EnumUserPriority::user))) throw new Exception("No permission");
 
     //check tournament
     $stmt = $db->conn->prepare("SELECT sm_tournament FROM tournament WHERE sm_tournament = ?");
@@ -30,17 +30,17 @@ try {
 
     //register
     $stmt3 = $db->conn->prepare("INSERT INTO participant (sm_user, sm_tournament) VALUES (?, ?)");
-    $stmt3->bindParam(1, $_POST["tournament"], PDO::PARAM_STR);
-    $stmt3->bindParam(2, $user, PDO::PARAM_STR);
+    $stmt3->bindParam(1, $user, PDO::PARAM_STR);
+    $stmt3->bindParam(2, $_POST["tournament"], PDO::PARAM_STR);
     $stmt3->execute();
 
     $db->unlockdb();
     $db = NULL;
 
-    echo json_encode(GetUniversalReturn());
+    echo json_encode(\SMMUtilities\GetUniversalReturn());
     
 } catch (Exception $e) {
-    echo json_encode(GetUniversalReturn(false, $e->getMessage()));
+    echo json_encode(\SMMUtilities\GetUniversalReturn(false, $e->getMessage()));
 }
 
 ?>

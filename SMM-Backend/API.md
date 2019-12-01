@@ -89,7 +89,7 @@
 |字段名|数据类型|数据条件|描述|
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|用户的token|
-|installOn|int|必选参数|关卡安装关|
+|installedOn|int|必选参数|关卡安装关|
 |map|string|必选参数|地图hash|
 |score|int|必选参数|分数|
 |srTime|int|必选参数|毫秒计时|

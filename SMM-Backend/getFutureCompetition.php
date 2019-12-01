@@ -10,20 +10,26 @@ try {
     $db = new database();
     $db->lockdb();
     if(!$db->checkToken($_POST["token"])) throw new Exception("Invalid token");
-    if(!(CheckPriority($db->getPriority($_POST["token"]), \SMMDataStructure\EnumUserPriority::user))) throw new Exception("No permission");
+    if(!(\SMMUtilities\CheckPriority($db->getPriority($_POST["token"]), \SMMDataStructure\EnumUserPriority::user))) throw new Exception("No permission");
 
     //get current time
     $srvTime = time();
+    $srvStart = \SMMUtilities\DateAddDays($srvTime, 5);
+    $srvEnd = \SMMUtilities\DateAddDays($srvTime, -1);
     //query all matched competition (start date before competiton end 5 days or end date after competiton end 1 day)
-    $stmt = $db->conn->prepare("SELECT sm_id, sm_startDate, sm_endDate, sm_map, sm_cdk WHERE (sm_startDate > ? && sm_startDate < ?) || (sm_endDate > ? && sm_endDate < ?)");
+    $stmt = $db->conn->prepare("SELECT sm_id, sm_startDate, sm_endDate, sm_map, sm_cdk WHERE (sm_startDate > ? && sm_startDate < ?) || (sm_endDate > ? && sm_endDate < ?) || (sm_startDate < ? && sm_endDate > ?)");
     $stmt->bindParam(1, $srvTime, PDO::PARAM_INT);
-    $stmt->bindParam(2, $srvTime + 60 * 60 * 24 * 5, PDO::PARAM_INT);
-    $stmt->bindParam(3, $srvTime - 60 * 60 * 24, PDO::PARAM_INT);
+    $stmt->bindParam(2, $srvStart, PDO::PARAM_INT);
+    $stmt->bindParam(3, $srvEnd, PDO::PARAM_INT);
     $stmt->bindParam(4, $srvTime, PDO::PARAM_INT);
+    $stmt->bindParam(5, $srvTime, PDO::PARAM_INT);
+    $stmt->bindParam(6, $srvTime, PDO::PARAM_INT);
     $stmt->execute();
 
     //=======================================================get all competition
     $allCompetition = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if(count($allCompetition) == 0) goto end; //if competition is empty, goto end directly.
+
     //get all id and try query user competition
     $allId = array();
     foreach($allCompetition as $i) 
@@ -71,13 +77,14 @@ try {
             $i["cdk"] = "";
     }
 
+end:
     $db->unlockdb();
     $db = NULL;
     //use array_values to clean key and output list
-    echo json_encode(GetUniversalReturn(true, "OK", array_values($allCompetition)));
+    echo json_encode(\SMMUtilities\GetUniversalReturn(true, "OK", array_values($allCompetition)));
     
 } catch (Exception $e) {
-    echo json_encode(GetUniversalReturn(false, $e->getMessage()));
+    echo json_encode(\SMMUtilities\GetUniversalReturn(false, $e->getMessage()));
 }
 
 ?>

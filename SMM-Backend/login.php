@@ -26,7 +26,7 @@ try {
     $rnd = \SMMUtilities\GetRandomNumber();
     settype($rnd, "string");
     $token = hash("sha256", $data["sm_name"] . $rnd);
-    $expireOn = time() + 60 * 60 * 24;
+    $expireOn = \SMMUtilities\DateAddDays(time(), 1);
     //upload token
     $stmt2 = $db->conn->prepare("UPDATE user SET sm_token = ?, sm_expireOn = ? WHERE sm_name = ?");
     $stmt2->bindParam(1, $token, PDO::PARAM_STR);
@@ -40,10 +40,10 @@ try {
     $db->unlockdb();
     $db = NULL;
 
-    echo json_encode(GetUniversalReturn(true, "OK", array("token" => $token, "priority" => $priority)));
+    echo json_encode(\SMMUtilities\GetUniversalReturn(true, "OK", array("token" => $token, "priority" => $priority)));
     
 } catch (Exception $e) {
-    echo json_encode(GetUniversalReturn(false, $e->getMessage()));
+    echo json_encode(\SMMUtilities\GetUniversalReturn(false, $e->getMessage()));
 }
 
 

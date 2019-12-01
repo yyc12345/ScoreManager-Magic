@@ -10,7 +10,7 @@ try {
     $db = new database();
     $db->lockdb();
     if(!$db->checkToken($_POST["token"])) throw new Exception("Invalid token");
-    if(!(CheckPriority($db->getPriority($_POST["token"]), \SMMDataStructure\EnumUserPriority::user))) throw new Exception("No permission");
+    if(!(\SMMUtilities\CheckPriority($db->getPriority($_POST["token"]), \SMMDataStructure\EnumUserPriority::user))) throw new Exception("No permission");
 
     //submit
     $stmt = $db->conn->prepare("UPDATE user SET sm_password = ? WHERE sm_token = ?");
@@ -21,10 +21,10 @@ try {
     $db->unlockdb();
     $db = NULL;
 
-    echo json_encode(GetUniversalReturn());
+    echo json_encode(\SMMUtilities\GetUniversalReturn());
     
 } catch (Exception $e) {
-    echo json_encode(GetUniversalReturn(false, $e->getMessage()));
+    echo json_encode(\SMMUtilities\GetUniversalReturn(false, $e->getMessage()));
 }
 
 ?>

@@ -30,7 +30,7 @@ namespace SMMUtilities {
     function CheckHardcodeParam($target, $hardcode) {
         //check hardcode
         foreach ($hardcode as $key => $value) {
-            if (!array_key_exists($key, $target)) {
+            if (!array_key_exists($key, $target) && $target[$x] != "") {
                 return false;
             }
             if ($target[$key] != $value) {
@@ -44,7 +44,7 @@ namespace SMMUtilities {
         //check optitional
         $count = 0;
         foreach ($optitional as $x) {
-            if (array_key_exists($x, $target)) {
+            if (array_key_exists($x, $target) && $target[$x] != "") {
                 $count+=1;
             }
         }
@@ -58,6 +58,10 @@ namespace SMMUtilities {
     function GetRandomNumber() {
         //need security random number generator
         return mt_rand(0,6172748);
+    }
+
+    function DateAddDays($date, $days) {
+        return $date + $days * 60 * 60 * 24;
     }
 }
 

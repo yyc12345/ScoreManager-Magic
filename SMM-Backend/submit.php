@@ -5,13 +5,13 @@ require_once "utilities.php";
 require_once "datastructure.php";
 
 try {
-    if (!\SMMUtilities\CheckNecessityParam($_POST, array("token", "installOn", "map", "score", "srTime", "lifeUp", "lifeLost", "extraPoint", "subExtraPoint", "trafo", "checkpoint", "verify", "bsmToken", "localTime")))
+    if (!\SMMUtilities\CheckNecessityParam($_POST, array("token", "installedOn", "map", "score", "srTime", "lifeUp", "lifeLost", "extraPoint", "subExtraPoint", "trafo", "checkpoint", "verify", "bsmToken", "localTime")))
         throw new Exception("Invalid parameter");
 
     $db = new database();
     $db->lockdb();
     if(!$db->checkToken($_POST["token"])) throw new Exception("Invalid token");
-    if(!(CheckPriority($db->getPriority($_POST["token"]), \SMMDataStructure\EnumUserPriority::user))) throw new Exception("No permission");
+    if(!(\SMMUtilities\CheckPriority($db->getPriority($_POST["token"]), \SMMDataStructure\EnumUserPriority::user))) throw new Exception("No permission");
 
     //get server time
     $serverTime = time();
@@ -19,9 +19,9 @@ try {
     $user=$db->getUserFromToken($_POST["token"]);
 
     //submit
-    $stmt = $db->conn->prepare("INSERT INTO record (sm_name, sm_installOn, sm_map, sm_score, sm_srTime, sm_lifeUp, sm_lifeLost, sm_extraPoint, sm_subExtraPoint, sm_trafo, sm_checkpoint, sm_verify, sm_token, sm_localUTC, sm_serverUTC) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $db->conn->prepare("INSERT INTO record (sm_name, sm_installedOn, sm_map, sm_score, sm_srTime, sm_lifeUp, sm_lifeLost, sm_extraPoint, sm_subExtraPoint, sm_trafo, sm_checkpoint, sm_verify, sm_token, sm_localUTC, sm_serverUTC) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bindParam(1 ,$user , PDO::PARAM_STR);
-    $stmt->bindParam(2 ,$_POST["installOn"] , PDO::PARAM_INT);
+    $stmt->bindParam(2 ,$_POST["installedOn"] , PDO::PARAM_INT);
     $stmt->bindParam(3 ,$_POST["map"] , PDO::PARAM_STR);
     $stmt->bindParam(4 ,$_POST["score"] , PDO::PARAM_INT);
     $stmt->bindParam(5 ,$_POST["srTime"] , PDO::PARAM_INT);
@@ -40,10 +40,10 @@ try {
     $db->unlockdb();
     $db = NULL;
 
-    echo json_encode(GetUniversalReturn());
+    echo json_encode(\SMMUtilities\GetUniversalReturn());
     
 } catch (Exception $e) {
-    echo json_encode(GetUniversalReturn(false, $e->getMessage()));
+    echo json_encode(\SMMUtilities\GetUniversalReturn(false, $e->getMessage()));
 }
 
 ?>
