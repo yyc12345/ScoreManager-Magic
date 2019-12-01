@@ -14,6 +14,7 @@ try {
 
     //decode map hash param
     $mapList = json_decode($_POST["mapHash"], true);
+    if(!is_array($mapList)) throw new Exception("Fail to decode json");
     $length = count($mapList);
     $constrcutHelper = array();
     foreach ($mapList as $i) 
