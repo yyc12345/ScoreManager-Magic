@@ -5,9 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 
-namespace SMM_Frontend {
+namespace SMMLib.Net {
 
-    internal static class InternetMethod {
+    internal static class NetworkMethod {
 
         internal static string Post(string url, Dictionary<string, string> parameter) {
             var stream = LongPost(url, parameter);

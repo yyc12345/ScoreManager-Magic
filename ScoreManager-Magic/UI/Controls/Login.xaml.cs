@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ScoreManager_Magic.UIControl
+namespace ScoreManager_Magic.UI.Controls
 {
     /// <summary>
     /// Login.xaml 的交互逻辑

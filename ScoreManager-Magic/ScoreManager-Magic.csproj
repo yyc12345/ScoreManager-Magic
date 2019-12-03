@@ -52,22 +52,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ConfigurationWindow.xaml.cs">
+    <Compile Include="UI\Windows\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Core\DatabasetdbChanger.cs" />
     <Compile Include="Core\I18NProcessor.cs" />
     <Compile Include="Core\Win32Window.cs" />
-    <Compile Include="LoginWindow.xaml.cs">
+    <Compile Include="UI\Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UIControl\Login.xaml.cs">
+    <Compile Include="UI\Controls\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UIControl\StatusBar.xaml.cs">
+    <Compile Include="UI\Controls\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
-    <Page Include="ConfigurationWindow.xaml">
+    <Page Include="UI\Windows\ConfigurationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -75,11 +75,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LoginWindow.xaml">
+    <Page Include="UI\Windows\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="UI\Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -87,15 +87,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="UI\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UIControl\Login.xaml">
+    <Page Include="UI\Controls\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UIControl\StatusBar.xaml">
+    <Page Include="UI\Controls\StatusBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -124,8 +124,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Data\" />
     <Folder Include="Resources\" />
-    <Folder Include="UIDialog\" />
+    <Folder Include="UI\Dialogs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SMMLib\SMMLib.csproj">
+      <Project>{59ae304c-46ea-4e04-88f9-b6bf797cb6af}</Project>
+      <Name>SMMLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

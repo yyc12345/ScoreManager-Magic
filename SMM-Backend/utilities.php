@@ -55,6 +55,11 @@ namespace SMMUtilities {
         return true;
     }
 
+    function CheckAssocParam($target, $assco, $assocParam) {
+        if (CheckNecessityParam($target, $assoc)) return CheckNecessityParam($assocParam);
+        else return true;
+    }
+
     function GetRandomNumber() {
         //need security random number generator
         return mt_rand(0,6172748);
@@ -62,6 +67,12 @@ namespace SMMUtilities {
 
     function DateAddDays($date, $days) {
         return $date + $days * 60 * 60 * 24;
+    }
+
+    function AdvancedJsonArrayDecoder($jsonstr) {
+        $result = json_decode($jsonstr, true);
+        if(!is_array($result)) throw new Exception("Fail to decode json");
+        return $result;
     }
 }
 

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoreManager-Magic", "Score
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTLD", "BTLD\BTLD.csproj", "{54B1E4CB-360E-4C44-A706-F9B65EC042EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMM-Frontend", "SMM-Frontend\SMM-Frontend.csproj", "{59AE304C-46EA-4E04-88F9-B6BF797CB6AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMMLib", "SMMLib\SMMLib.csproj", "{59AE304C-46EA-4E04-88F9-B6BF797CB6AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

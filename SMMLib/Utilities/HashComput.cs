@@ -4,17 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace SMM_Frontend.Utilities {
-
-    public class StandardResponse {
-        public StandardResponse(bool a, string b) {
-            IsSuccess = a;
-            Description = b;
-        }
-        public bool IsSuccess = true;
-        public string Description = "";
-    }
-
+namespace SMMLib.Utilities {
     public static class HashComput {
         public static string SHA256FromString(string str) {
             System.Security.Cryptography.SHA256 sha256 = new System.Security.Cryptography.SHA256CryptoServiceProvider();
@@ -40,6 +30,4 @@ namespace SMM_Frontend.Utilities {
             return sb.ToString();
         }
     }
-
-
 }

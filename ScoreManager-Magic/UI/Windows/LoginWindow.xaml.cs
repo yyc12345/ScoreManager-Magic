@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ScoreManager_Magic {
+namespace ScoreManager_Magic.UI.Windows {
     /// <summary>
     /// LoginWindow.xaml 的交互逻辑
     /// </summary>

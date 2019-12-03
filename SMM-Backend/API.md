@@ -145,16 +145,17 @@
 |字段名|数据类型|数据条件|描述|
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|用户的token|
-|mapHash|string|必选参数|地图的hash|
+|mapHash|string（JSON数组）|必选参数|地图的hash|
 
 ### 返回
+
+一个JSON数组，其中每一项为。且只返回找到的项，找不到任何一个则为空
 
 |字段名|数据类型|描述|
 |:---:|:---:|:---:|
 |name|string|当前地图的源语言名|
 |i8n|string|当前地图的英文名|
-
-如果不存在则从通用结果内获取失败
+|hash|string|地图hash|
 
 ## getTournament.php
 

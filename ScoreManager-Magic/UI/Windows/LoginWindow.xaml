@@ -1,10 +1,10 @@
-﻿<Window x:Class="ScoreManager_Magic.LoginWindow"
+﻿<Window x:Class="ScoreManager_Magic.UI.Windows.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:control="clr-namespace:ScoreManager_Magic.UIControl"
+        xmlns:control="clr-namespace:ScoreManager_Magic.UI.Controls"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ScoreManager_Magic"
+        xmlns:local="clr-namespace:ScoreManager_Magic.UI.Windows"
         mc:Ignorable="d"
         Title="{DynamicResource ui_LoginWindow_Title}" Height="250" Width="400" WindowStyle="ToolWindow">
     <Grid Background="#7f7f7f">

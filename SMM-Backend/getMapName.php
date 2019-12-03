@@ -13,8 +13,7 @@ try {
     if(!(\SMMUtilities\CheckPriority($db->getPriority($_POST["token"]), \SMMDataStructure\EnumUserPriority::user))) throw new Exception("No permission");
 
     //decode map hash param
-    $mapList = json_decode($_POST["mapHash"], true);
-    if(!is_array($mapList)) throw new Exception("Fail to decode json");
+    $mapList = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["mapHash"]);
     $length = count($mapList);
     $constrcutHelper = array();
     foreach ($mapList as $i) 

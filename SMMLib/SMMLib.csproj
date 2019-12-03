@@ -7,8 +7,8 @@
     <ProjectGuid>{59AE304C-46EA-4E04-88F9-B6BF797CB6AF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SMM_Frontend</RootNamespace>
-    <AssemblyName>SMM-Frontend</AssemblyName>
+    <RootNamespace>SMMLib</RootNamespace>
+    <AssemblyName>SMMLib</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,15 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoreUrl.cs" />
-    <Compile Include="Post.cs" />
-    <Compile Include="CoreMethod.cs" />
+    <Compile Include="Data\StandardResponse.cs" />
+    <Compile Include="Net\SMMCoreUrl.cs" />
+    <Compile Include="Net\Post.cs" />
+    <Compile Include="Net\SMMCoreMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Structure.cs" />
-    <Compile Include="Utilities.cs" />
+    <Compile Include="Data\Structure.cs" />
+    <Compile Include="Utilities\ConfigManager.cs" />
+    <Compile Include="Utilities\FilePathBuilder.cs" />
+    <Compile Include="Utilities\HashComput.cs" />
+    <Compile Include="Utilities\Information.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

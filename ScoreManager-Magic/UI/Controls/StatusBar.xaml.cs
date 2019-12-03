@@ -9,14 +9,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ScoreManager_Magic {
+namespace ScoreManager_Magic.UI.Controls {
     /// <summary>
-    /// ConfigurationWindow.xaml 的交互逻辑
+    /// StatusBar.xaml 的交互逻辑
     /// </summary>
-    public partial class ConfigurationWindow : Window {
-        public ConfigurationWindow() {
+    public partial class StatusBar : UserControl {
+        public StatusBar() {
             InitializeComponent();
         }
     }
