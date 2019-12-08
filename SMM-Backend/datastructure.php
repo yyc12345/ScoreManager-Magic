@@ -11,18 +11,4 @@ namespace SMMDataStructure {
 
 }
 
-namespace SMMDataStructure\DatabaseField {
-
-    function GetTableUser() {
-        return array("sm_name", 
-                    "sm_password",
-                    "sm_registration",
-                    "sm_priority",
-                    "sm_salt",
-                    "sm_token",
-                    "sm_expireOn");
-    }
-
-}
-
 ?>

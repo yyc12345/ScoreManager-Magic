@@ -200,7 +200,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
-|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`name`（string，名称筛选），`vagueName`（bool，启用模糊名称）|
+|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`name`（string，名称筛选）|
 |neededReturn|string (JSON列表)|必选参数，列表不得为空|指定需要返回的字段，每一项为`string`且名称与数据库内匹配|
 
 #### 返回
@@ -263,7 +263,7 @@
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
 |filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`id`（int列表，id筛选，筛选任意符合列表中的id的项），`name`（string，名称筛选），`startDate`（long，起始时间筛选），`endDate`（long，结束时间筛选），`judgeDate`（long，判定结束时间筛选），`cdk`（string，cdk筛选），`map`（string，地图筛选）|
-|neededReturn|string (JSON列表)|必选参数，列表不得为空|指定需要返回的字段，每一项为`string`且名称与数据库内匹配|
+|neededReturn|string (JSON列表)|必选参数，列表不得为空|指定需要返回的字段，每一项为`string`且名称与数据库内匹配。对于参赛者的返回字段名称，定义为`sm_participant`|
 
 #### 返回
 

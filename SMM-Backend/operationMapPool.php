@@ -7,17 +7,17 @@ require_once "datastructure.php";
 try {
     if (!\SMMUtilities\CheckNecessityParam($_POST, array("name"))) throw new Exception("Invalid parameter");
 
-    if (\SMMUtilitie\CheckHardcodeParam($_POST, array("method" => "query"))) {
+    if (\SMMUtilities\CheckHardcodeParam($_POST, array("method" => "query"))) {
         //query
 
 
 
-    } else if (\SMMUtilitie\CheckHardcodeParam($_POST, array("method" => "add"))) {
+    } else if (\SMMUtilities\CheckHardcodeParam($_POST, array("method" => "add"))) {
         //add
 
 
         
-    } else if (\SMMUtilitie\CheckHardcodeParam($_POST, array("method" => "delete"))) {
+    } else if (\SMMUtilities\CheckHardcodeParam($_POST, array("method" => "delete"))) {
         //rm
 
 
