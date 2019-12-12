@@ -24,7 +24,7 @@ try {
         $whereStatement = "";
         $args = array();
         \SMMUtilities\DatabaseStatementGenerator\GenerateFieldFilterStatement($decodeFilter, array(
-            "name" => new \SMMUtilities\DatabaseStatementGenerator\ParamPropetry(true, PDO::PARAM_STR, "sm_name")
+            "name" => new \SMMUtilities\DatabaseStatementGenerator\ParamFilterUserInput(true, PDO::PARAM_STR, "sm_name")
         ), $whereStatement, $args);
 
         $selectStatemnt = \SMMUtilities\DatabaseStatementGenerator\GenerateFieldStatement($decodeNeeded,
@@ -40,8 +40,31 @@ try {
 
     } else if (\SMMUtilities\CheckHardcodeParam($_POST, array("method" => "add"))) {
         //add, check param
+        if(!\SMMUtilities\CheckNecessityParam($_POST, array("newValues"))) throw new Exception("Invalid parameter");
+        $decodeNewValues = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["filterRules"]);
+        if(!\SMMUtilities\CheckNecessityParam($decodeNewValues, array("name", "password", "priority"))) throw new Exception("Invalid parameter");
 
+        //construct statement
+        $insertKeyStatement = "";
+        $insertValueStatement = "";
+        $args = array();
+        \SMMUtilities\DatabaseStatementGenerator\GenerateSeparatedStatement($decodeNewValues, 
+        array("name" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedUserInput(PDO::PARAM_INT, "sm_name"),
+            "password" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedUserInput(PDO::PARAM_STR, "sm_password"),
+            "priority" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedUserInput(PDO::PARAM_INT, "sm_priority")),
+        array("sm_registration" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedConstantInput(PDO::PARAM_INT, time()),
+            "sm_salt" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedConstantInput(PDO::PARAM_INT, \SMMUtilities\GetRandomNumber()),
+            "sm_token" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedConstantInput(PDO::PARAM_STR, ""),
+            "sm_expireOn" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedConstantInput(PDO::PARAM_INT, 0)),
+        $insertKeyStatement, $insertValueStatement, $args);
 
+        //bind param and execute
+        $stmt = $db->conn->prepare('INSERT user ' . $insertKeyStatement . ' VALUES ' . $insertValueStatement);
+        for($i = 0; $i<count($args); $i++) 
+            $stmt->bindParam($i+1, $args[$i]->paramValue, $args[$i]->paramSQLType);
+        $stmt->execute();
+
+        echo json_encode(\SMMUtilities\GetUniversalReturn());
         
     } else if (\SMMUtilities\CheckHardcodeParam($_POST, array("method" => "delete"))) {
         //rm, check param
