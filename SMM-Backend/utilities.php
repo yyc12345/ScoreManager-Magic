@@ -78,15 +78,15 @@ namespace SMMUtilities {
 
 }
 
-namespace SMMUtilities\DatabaseStatementGenerator {
+namespace SMMDatabaseStatement {
 
     class ParamFilterUserInput {
-        var $paramLikeMode;
+        var $paramCompareSymbol;
         var $paramSQLType;
         var $paramDatabaseField;
 
         function __construct($pLike, $pType, $pField) {
-            $this->paramLikeMode = $pLike;
+            $this->paramCompareSymbol = $pLike;
             $this->paramSQLType = $pType;
             $this->paramDatabaseField = $pField;
         }
@@ -104,11 +104,11 @@ namespace SMMUtilities\DatabaseStatementGenerator {
 
     class ParamFilterConstantInput {
         var $paramValue;
-        var $paramLikeMode;
+        var $paramCompareSymbol;
         var $paramSQLType;
 
         function __construct($pLike, $pType, $pValue) {
-            $this->paramLikeMode = $pLike;
+            $this->paramCompareSymbol = $pLike;
             $this->paramSQLType = $pType;
             $this->paramValue = $pValue;
         }
@@ -156,15 +156,13 @@ namespace SMMUtilities\DatabaseStatementGenerator {
                     $cache2 = array();
 
                     foreach($data[$i] as $ii) {
-                        if ($criteria[$i]->paramLikeMode) $cache2[] = ' (' . $criteria[$i]->paramDatabaseField . ' LIKE ' . '?) '; //use like
-                        else $cache2[] = ' (' . $criteria[$i]->paramDatabaseField . ' = ' . '?) '; //use equal
-
+                        $cache2[] = ' (' . $criteria[$i]->paramDatabaseField . ' ' . $criteria[$i]->paramCompareSymbol .' ?) ';
                         $outArguments[] = new ParamOutput($ii, $criteria[$i]->paramSQLType);
                     }
 
                     $cache[] = ' (' . join(' || ', $cache2) . ') ';
                 } else {
-                    if ($criteria[$i]->paramLikeMode) $cache[] = ' (' . $criteria[$i]->paramDatabaseField . ' LIKE ' . '?) '; //use like
+                    if ($criteria[$i]->paramCompareSymbol) $cache[] = ' (' . $criteria[$i]->paramDatabaseField . ' ' . $criteria[$i]->paramCompareSymbol .' ?) '; //use like
                     else $cache[] = ' (' . $criteria[$i]->paramDatabaseField . ' = ' . '?) '; //use equal
 
                     $outArguments[] = new ParamOutput($data[$i], $criteria[$i]->paramSQLType);
@@ -178,17 +176,13 @@ namespace SMMUtilities\DatabaseStatementGenerator {
                     $cache2 = array();
 
                     foreach($value as $ii) {
-                        if ($value->paramLikeMode) $cache2[] = ' (' . $key . ' LIKE ' . '?) '; //use like
-                        else $cache2[] = ' (' . $key . ' = ' . '?) '; //use equal
-
+                        $cache2[] = ' (' . $key . ' ' . $value->paramCompareSymbol .' ?) ';
                         $outArguments[] = new ParamOutput($ii, $value->paramSQLType);
                     }
 
                     $cache[] = ' (' . join(' || ', $cache2) . ') ';
                 } else {
-                    if ($value->paramLikeMode) $cache[] = ' (' . $key . ' LIKE ' . '?) '; //use like
-                    else $cache[] = ' (' . $key . ' = ' . '?) '; //use equal
-
+                    $cache2[] = ' (' . $key . ' ' . $value->paramCompareSymbol .' ?) ';
                     $outArguments[] = new ParamOutput($value->paramValue, $value->paramSQLType);
                 }
             }

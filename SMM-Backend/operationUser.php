@@ -23,11 +23,11 @@ try {
         //contruct statement
         $whereStatement = "";
         $args = array();
-        \SMMUtilities\DatabaseStatementGenerator\GenerateFieldFilterStatement($decodeFilter, array(
-            "name" => new \SMMUtilities\DatabaseStatementGenerator\ParamFilterUserInput(true, PDO::PARAM_STR, "sm_name")
+        \SMMDatabaseStatement\GenerateFieldFilterStatement($decodeFilter, array(
+            "name" => new \SMMDatabaseStatement\ParamFilterUserInput('LIKE', PDO::PARAM_STR, "sm_name")
         ), $whereStatement, $args);
 
-        $selectStatemnt = \SMMUtilities\DatabaseStatementGenerator\GenerateFieldStatement($decodeNeeded,
+        $selectStatemnt = \SMMDatabaseStatement\GenerateFieldStatement($decodeNeeded,
         array("sm_name", "sm_password", "sm_registration", "sm_priority", "sm_salt", "sm_token", "sm_expireOn"));
 
         //bind param and execute
@@ -48,14 +48,14 @@ try {
         $insertKeyStatement = "";
         $insertValueStatement = "";
         $args = array();
-        \SMMUtilities\DatabaseStatementGenerator\GenerateSeparatedStatement($decodeNewValues, 
-        array("name" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedUserInput(PDO::PARAM_INT, "sm_name"),
-            "password" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedUserInput(PDO::PARAM_STR, "sm_password"),
-            "priority" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedUserInput(PDO::PARAM_INT, "sm_priority")),
-        array("sm_registration" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedConstantInput(PDO::PARAM_INT, time()),
-            "sm_salt" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedConstantInput(PDO::PARAM_INT, \SMMUtilities\GetRandomNumber()),
-            "sm_token" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedConstantInput(PDO::PARAM_STR, ""),
-            "sm_expireOn" => new \SMMUtilities\DatabaseStatementGenerator\ParamSeperatedConstantInput(PDO::PARAM_INT, 0)),
+        \SMMDatabaseStatement\GenerateSeparatedStatement($decodeNewValues, 
+        array("name" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_INT, "sm_name"),
+            "password" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_STR, "sm_password"),
+            "priority" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_INT, "sm_priority")),
+        array("sm_registration" => new \SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_INT, time()),
+            "sm_salt" => new \SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_INT, \SMMUtilities\GetRandomNumber()),
+            "sm_token" => new \SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_STR, ""),
+            "sm_expireOn" => new \SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_INT, 0)),
         $insertKeyStatement, $insertValueStatement, $args);
 
         //bind param and execute
