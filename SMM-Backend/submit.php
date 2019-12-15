@@ -2,7 +2,7 @@
 
 require_once "database.php";
 require_once "utilities.php";
-require_once "datastructure.php";
+require_once "databasehelper.php";
 
 try {
     if (!\SMMUtilities\CheckNecessityParam($_POST, array("token", "installedOn", "map", "score", "srTime", "lifeUp", "lifeLost", "extraPoint", "subExtraPoint", "trafo", "checkpoint", "verify", "bsmToken", "localTime")))

@@ -2,7 +2,7 @@
 
 require_once "database.php";
 require_once "utilities.php";
-require_once "datastructure.php";
+require_once "databasehelper.php";
 
 try {
     $db = new database();
@@ -23,7 +23,7 @@ try {
         //contruct statement
         $whereStatement = "";
         $args = array();
-        \SMMDatabaseStatement\GenerateFieldFilterStatement($decodeFilter, array(
+        \SMMDatabaseStatement\GenerateFilterStatement($decodeFilter, array(
             "name" => new \SMMDatabaseStatement\ParamFilterUserInput('LIKE', PDO::PARAM_STR, "sm_name")
         ), $whereStatement, $args);
 
@@ -68,37 +68,57 @@ try {
         
     } else if (\SMMUtilities\CheckHardcodeParam($_POST, array("method" => "delete"))) {
         //rm, check param
+        if(!\SMMUtilities\CheckNecessityParam($_POST, array("target"))) throw new Exception("Invalid parameter");
+        $decodeTarget = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["target"]);
+        if(count($decodeTarget) == 0) throw new Exception("Zero target is not allowed");
 
+        //construct statement
+        $whereStatement = "";
+        $args = array();
+        \SMMDatabaseStatement\GenerateFilterStatement(array(), array(),
+        array("sm_name" => new \SMMDatabaseStatement\ParamFilterConstantInput("=", PDO::PARAM_STR, $decodeTarget)),
+        $whereStatement, $args);
+        //bind param and execute
+        $stmt = $db->conn->prepare('DELETE FROM user WHERE ' . $whereStatement);
+        for($i = 0; $i<count($args); $i++) 
+            $stmt->bindParam($i+1, $args[$i]->paramValue, $args[$i]->paramSQLType);
+        $stmt->execute();
 
+        echo json_encode(\SMMUtilities\GetUniversalReturn());
         
     } else if (\SMMUtilities\CheckHardcodeParam($_POST, array("method" => "update"))) {
         //update, check param
+        if(!\SMMUtilities\CheckNecessityParam($_POST, array("target", "newValues"))) throw new Exception("Invalid parameter");
+        $decodeTarget = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["target"]);
+        $decodeNewValues = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["filterRules"]);
+        if(!\SMMUtilities\CheckOptionalParam($decodeNewValues, array("name", "password", "priority"), 1)) throw new Exception("Invalid parameter");
+        if(count($decodeTarget) == 0) throw new Exception("Zero target is not allowed");
 
+        //construct statement
+        $setStatement = "";
+        $whereStatement = "";
+        $args = array();
+        \SMMDatabaseStatement\GenerateFilterStatement($decodeNewValues,
+        array("password" => new \SMMDatabaseStatement\ParamFilterUserInput("=", PDO::PARAM_STR, "sm_password"),
+            "priority" => new \SMMDatabaseStatement\ParamFilterUserInput("=", PDO::PARAM_INT, "sm_priority"),
+            "expireOn" => new \SMMDatabaseStatement\ParamFilterUserInput("=", PDO::PARAM_INT, "sm_expireOn")),
+        array(), $setStatement, $args);
+        \SMMDatabaseStatement\GenerateFilterStatement(array(), array(),
+        array("sm_name" => new \SMMDatabaseStatement\ParamFilterConstantInput("=", PDO::PARAM_STR, $decodeTarget)),
+        $whereStatement, $args);
 
+        //bind param and execute
+        $stmt = $db->conn->prepare('UPDATE user SET ' . $setStatement . ' WHERE ' . $whereStatement);
+        for($i = 0; $i<count($args); $i++) 
+            $stmt->bindParam($i+1, $args[$i]->paramValue, $args[$i]->paramSQLType);
+        $stmt->execute();
+
+        echo json_encode(\SMMUtilities\GetUniversalReturn());
         
     } else throw new Exception("Invalid parameter");
 
     $db->unlockdb();
     $db = NULL;
-    /*
-    if (!\SMMUtilities\CheckNecessityParam($_POST, array("name"))) throw new Exception("Invalid parameter");
-    
-    $db = new database();
-    $db->lockdb();
-    if(!$db->checkUser($_POST["name"])) throw new Exception("Invalid user name");
-    
-    //start stmt to do job
-    $salt = \SMMUtilities\GetRandomNumber();
-    $stmt = $db->conn->prepare("UPDATE user SET sm_salt = ? WHERE sm_name = ?");
-    $stmt->bindParam(1, $salt, PDO::PARAM_INT);
-    $stmt->bindParam(2, $_POST["name"], PDO::PARAM_STR);
-    $stmt->execute();
-
-    $db->unlockdb();
-    $db = NULL;
-
-    echo json_encode(\SMMUtilities\GetUniversalReturn(true, "OK", array("rnd" => $salt)));
-    */
 } catch (Exception $e) {
     echo json_encode(\SMMUtilities\GetUniversalReturn(false, $e->getMessage()));
 }
