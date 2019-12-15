@@ -47,9 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\StandardResponse.cs" />
-    <Compile Include="Net\SMMCoreUrl.cs" />
+    <Compile Include="Net\ScoreManager.cs" />
+    <Compile Include="Net\CoreUrl.cs" />
     <Compile Include="Net\Post.cs" />
-    <Compile Include="Net\SMMCoreMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\Structure.cs" />
     <Compile Include="Utilities\ConfigManager.cs" />

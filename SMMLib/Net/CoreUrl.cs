@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace SMMLib.Net {
-    internal static class SMMCoreUrl {
+    internal static class CoreUrl {
 
         internal static string RequestBaseUrl = "http://yyc.bkt.moe:6666/";
 

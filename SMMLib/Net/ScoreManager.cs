@@ -2,25 +2,56 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SMMLib.Data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SMMLib.Data;
 using SMMLib.Utilities;
 
 namespace SMMLib.Net {
-    public static class SMMCoreMethod {
+    public class ScoreManager {
 
-        public static void ChangeDomain(string str) => SMMCoreUrl.RequestBaseUrl = str;
+        public ScoreManager() {
+            Token = "";
+            Priority = SM_Priority.None;
+        }
 
-        private static string JsonDecoder(string str) {
+        private string _token;
+        public string Token {
+            get {
+                if (_token == "") throw new Exception("No token.");
+                else return _token;
+            }
+            private set {
+                _token = value;
+            }
+        }
+        public SM_Priority Priority { get; private set; }
+        public string ServerDomain {
+            get {
+                return CoreUrl.RequestBaseUrl;
+            }
+            set {
+                CoreUrl.RequestBaseUrl = value;
+            }
+        }
+
+        #region utility methods
+
+        public void ChangeDomain(string str) => CoreUrl.RequestBaseUrl = str;
+
+        private string JsonDecoder(string str) {
             JObject decodeData = (JObject)JsonConvert.DeserializeObject(str);
             if (decodeData["code"].ToString() != "200") throw new Exception(decodeData["err"].ToString());
             return decodeData["data"].ToString();
         }
 
-        public static (StandardResponse status, string version) Version() {
+        #endregion
+
+        #region user methods
+
+        public (StandardResponse status, string version) Version() {
             try {
-                var data = NetworkMethod.Post(SMMCoreUrl.Version, new Dictionary<string, string>());
+                var data = NetworkMethod.Post(CoreUrl.Version, new Dictionary<string, string>());
                 var realData = JsonDecoder(data);
                 var decodeData = JsonConvert.DeserializeObject<Structure_Version>(realData);
 
@@ -29,11 +60,11 @@ namespace SMMLib.Net {
                 return (new StandardResponse(false, e.Message), "");
             }
         }
-             
-        public static (StandardResponse status, string token, int priority) Login(string user, string password) {
+
+        public StandardResponse Login(string user, string password) {
             try {
                 //========================================get salt
-                var data = NetworkMethod.Post(SMMCoreUrl.Salt, new Dictionary<string, string>() {
+                var data = NetworkMethod.Post(CoreUrl.Salt, new Dictionary<string, string>() {
                     {"name", user}
                 });
                 var realData = JsonDecoder(data);
@@ -44,33 +75,40 @@ namespace SMMLib.Net {
                 var authStr = HashComput.SHA256FromString(HashComput.SHA256FromString(password) + rnd.ToString());
 
                 //========================================login
-                data = NetworkMethod.Post(SMMCoreUrl.Login, new Dictionary<string, string>() {
+                data = NetworkMethod.Post(CoreUrl.Login, new Dictionary<string, string>() {
                     {"name", user },
                     {"hash", authStr }
                 });
                 realData = JsonDecoder(data);
                 var decodeData2 = JsonConvert.DeserializeObject<Structure_Login>(realData);
-                return (new StandardResponse(true, ""), decodeData2.token, decodeData2.priority);
-            } catch (Exception e) {
-                return (new StandardResponse(false, e.Message), "", 0);
-            }
-        }
 
-        public static StandardResponse Logout(string token) {
-            try {
-                var data = NetworkMethod.Post(SMMCoreUrl.Logout, new Dictionary<string, string>() {
-                    {"token", token}
-                });
-                //invoke decoder to ensure check result
-                JsonDecoder(data);
+                //set internal value
+                Token = decodeData2.token;
+                Priority = (SM_Priority)decodeData2.priority;
                 return new StandardResponse(true, "");
             } catch (Exception e) {
                 return new StandardResponse(false, e.Message);
             }
         }
 
-        public static StandardResponse Submit(string token,
-            int installOn,
+        public StandardResponse Logout() {
+            try {
+                var data = NetworkMethod.Post(CoreUrl.Logout, new Dictionary<string, string>() {
+                    {"token", Token}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+
+                //reset token
+                Token = "";
+                Priority = SM_Priority.None;
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
+        }
+
+        public StandardResponse Submit(int installOn,
             string map,
             int score,
             int srTime,
@@ -85,8 +123,8 @@ namespace SMMLib.Net {
 
             try {
                 var localTimestamp = (DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000000;
-                var data = NetworkMethod.Post(SMMCoreUrl.Submit, new Dictionary<string, string>() {
-                    {"token", token},
+                var data = NetworkMethod.Post(CoreUrl.Submit, new Dictionary<string, string>() {
+                    {"token", Token},
                     {"installOn", installOn.ToString()},
                     {"map",map },
                     {"score",score.ToString() },
@@ -109,14 +147,14 @@ namespace SMMLib.Net {
             }
         }
 
-        public static StandardResponse ChangePassword(string token, string newPassword) {
+        public StandardResponse ChangePassword(string newPassword) {
             try {
                 //comput password
                 var realPassword = HashComput.SHA256FromString(newPassword);
 
                 //post request
-                var data = NetworkMethod.Post(SMMCoreUrl.ChangePassword, new Dictionary<string, string>() {
-                    {"token", token},
+                var data = NetworkMethod.Post(CoreUrl.ChangePassword, new Dictionary<string, string>() {
+                    {"token", Token},
                     {"newPassword", realPassword}
                 });
                 //invoke decoder to ensure check result
@@ -127,10 +165,10 @@ namespace SMMLib.Net {
             }
         }
 
-        public static (StandardResponse status, List<Structure_GetFutureCompetition> data) GetFutureCompetition(string token) {
+        public (StandardResponse status, List<Structure_GetFutureCompetition> data) GetFutureCompetition() {
             try {
-                var data = NetworkMethod.Post(SMMCoreUrl.GetFutureCompetition, new Dictionary<string, string>() {
-                    {"token", token}
+                var data = NetworkMethod.Post(CoreUrl.GetFutureCompetition, new Dictionary<string, string>() {
+                    {"token", Token}
                 });
                 //check result
                 var realData = JsonDecoder(data);
@@ -141,10 +179,10 @@ namespace SMMLib.Net {
             }
         }
 
-        public static (StandardResponse status, List<Structure_GetMapName> data) GetMapName(string token, List<string> mapHashs) {
+        public (StandardResponse status, List<Structure_GetMapName> data) GetMapName(List<string> mapHashs) {
             try {
-                var data = NetworkMethod.Post(SMMCoreUrl.GetMapName, new Dictionary<string, string>() {
-                    {"token", token},
+                var data = NetworkMethod.Post(CoreUrl.GetMapName, new Dictionary<string, string>() {
+                    {"token", Token},
                     {"mapHash", JsonConvert.SerializeObject(mapHashs)}
                 });
                 //check result
@@ -155,10 +193,10 @@ namespace SMMLib.Net {
             }
         }
 
-        public static (StandardResponse status, List<Structure_GetTournament> data) GetTournament(string token) {
+        public (StandardResponse status, List<Structure_GetTournament> data) GetTournament() {
             try {
-                var data = NetworkMethod.Post(SMMCoreUrl.GetTournament, new Dictionary<string, string>() {
-                    {"token", token}
+                var data = NetworkMethod.Post(CoreUrl.GetTournament, new Dictionary<string, string>() {
+                    {"token", Token}
                 });
                 //check result and return data
                 var realData = JsonDecoder(data);
@@ -168,10 +206,10 @@ namespace SMMLib.Net {
             }
         }
 
-        public static StandardResponse RegisterTournament(string token, string tournament) {
+        public StandardResponse RegisterTournament(string tournament) {
             try {
-                var data = NetworkMethod.Post(SMMCoreUrl.Logout, new Dictionary<string, string>() {
-                    {"token", token},
+                var data = NetworkMethod.Post(CoreUrl.Logout, new Dictionary<string, string>() {
+                    {"token", Token},
                     {"tournament", tournament}
                 });
                 //invoke decoder to ensure check result
@@ -181,6 +219,13 @@ namespace SMMLib.Net {
                 return new StandardResponse(false, e.Message);
             }
         }
-    }
 
+        #endregion
+
+        #region admin methods
+
+
+        #endregion
+
+    }
 }
