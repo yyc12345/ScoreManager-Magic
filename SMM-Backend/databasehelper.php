@@ -95,8 +95,7 @@ namespace SMMDatabaseStatement {
 
                     $cache[] = ' (' . join(' || ', $cache2) . ') ';
                 } else {
-                    if ($criteria[$i]->paramCompareSymbol) $cache[] = ' (' . $criteria[$i]->paramDatabaseField . ' ' . $criteria[$i]->paramCompareSymbol .' ?) '; //use like
-                    else $cache[] = ' (' . $criteria[$i]->paramDatabaseField . ' = ' . '?) '; //use equal
+                    $cache[] = ' (' . $criteria[$i]->paramDatabaseField . ' ' . $criteria[$i]->paramCompareSymbol . ' ?)';
 
                     $outArguments[] = new ParamOutput($data[$i], $criteria[$i]->paramSQLType);
                 }
@@ -127,10 +126,12 @@ namespace SMMDatabaseStatement {
     //    item: string(correspond with database field name, from pre-definition)
     //data:
     //    item: string(correspond with database field name, from user input)
-    function GenerateFieldStatement($data, $criteria) {
+    //constantValue:
+    //    item: string(correspond with database field name, from constant. it will be set as the head of the entire statement)
+    function GenerateFieldStatement($data, $criteria, $constantValue) {
         $usefulField = array_intersect($data, $criteria);
-        if(count($usefulField) == 0) throw new Exception("Selected colums should not be zero");
-        return ' SELECT ' . join(', ', $usefulField) . ' ';
+        if(count($usefulField) == 0 && count($constantValue) == 0) throw new Exception("Selected colums should not be zero");
+        return ' SELECT ' . join(', ', array_merge($constantValue, $usefulField)) . ' ';
     }
 
     //criteria:

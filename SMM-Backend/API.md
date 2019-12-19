@@ -201,11 +201,10 @@
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
 |filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`name`（string，名称筛选）|
-|neededReturn|string (JSON列表)|必选参数，列表不得为空|指定需要返回的字段，每一项为`string`且名称与数据库内匹配|
 
 #### 返回
 
-返回`neededReturn`指定的字段的列表
+返回符合条件的结果的列表，每一项为对应数据库的字段的内容
 
 ### 添加接口
 
@@ -262,12 +261,11 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
-|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`id`（int列表，id筛选，筛选任意符合列表中的id的项），`name`（string，名称筛选），`startDate`（long，起始时间筛选），`endDate`（long，结束时间筛选），`judgeDate`（long，判定结束时间筛选），`cdk`（string，cdk筛选），`map`（string，地图筛选）|
-|neededReturn|string (JSON列表)|必选参数，列表不得为空|指定需要返回的字段，每一项为`string`且名称与数据库内匹配。对于参赛者的返回字段名称，定义为`sm_participant`|
+|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`id`（int列表，id筛选，筛选任意符合列表中的id的项），`name`（string，名称筛选），`startDate`（long，起始时间筛选，按字段`sm_startDate`筛选，筛选此时间之后的比赛），`endDate`（long，结束时间筛选，按字段`sm_endDate`筛选，筛选此时间之前的比赛），`cdk`（string，cdk筛选），`map`（string，地图筛选）|
 
 #### 返回
 
-返回`neededReturn`指定的字段的列表
+返回符合条件的结果的列表，每一项为对应数据库的字段的内容。具有额外字段`sm_participant`，以JSON格式列出此比赛的参赛者
 
 ### 添加接口
 
@@ -277,7 +275,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`add`|
-|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`startDate`（string，开始时间），`endDate`（string，结束时间），`judgeEndDate`（string，判断结束时间）|
+|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`startDate`（string，开始时间），`endDate`（string，结束时间），`judgeEndDate`（string，判断结束时间），`participant`（string列表，参与此比赛的用户名）|
 
 #### 返回
 
@@ -305,7 +303,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`update`|
-|target|string|必选参数，列表不得为空|用于确认作用对象，是作用对象的`sm_id`字段值|
+|target|string|必选参数|用于确认作用对象，是作用对象的`sm_id`字段值|
 |newValues|string (JSON字典)|必选参数，字典不得为空|用于更新数值，为字典，可用字段：`result`（string（JSON字典），比赛结果纪录），`map`（string，比赛地图），`banMap`（string（JSON列表），比赛被Ban的地图），`winner`（string，比赛胜者）|
 
 #### 返回
@@ -325,7 +323,6 @@
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
 |filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`installedOn`（int，安装关卡筛选），`name`（string，名称筛选），`startDate`（long，起始时间筛选），`endDate`（long，结束时间筛选），`score`（int，分数筛选），`time`（int，时间筛选），`map`（string，地图筛选）|
-|neededReturn|string (JSON列表)|必选参数，列表不得为空|指定需要返回的字段，每一项为`string`且名称与数据库内匹配|
 
 #### 返回
 
@@ -344,7 +341,6 @@
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
 |filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`name`（string，联赛名称）|
-|neededReturn|string (JSON列表)|必选参数，列表不得为空|指定需要返回的字段，每一项为`string`且名称与数据库内匹配|
 
 #### 返回
 
@@ -407,11 +403,10 @@
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
 |filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`user`（string，用户筛选），`vagueName`（bool，启用模糊用户名称），`tournament`（string，联赛名称筛选）|
-|neededReturn|string (JSON列表)|必选参数，列表不得为空|指定需要返回的字段，每一项为`string`且名称与数据库内匹配|
 
 #### 返回
 
-返回`neededReturn`指定的字段的列表
+返回符合条件的结果的列表，每一项为对应数据库的字段的内容
 
 ### 添加接口
 
@@ -455,11 +450,10 @@
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
 |filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`hash`（string，hash筛选），`tournament`（string，联赛筛选）|
-|neededReturn|string (JSON列表)|必选参数，列表不得为空|指定需要返回的字段，每一项为`string`且名称与数据库内匹配|
 
 #### 返回
 
-返回`neededReturn`指定的字段的列表
+返回符合条件的结果的列表，每一项为对应数据库的字段的内容
 
 ### 添加接口
 
@@ -502,11 +496,10 @@
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
 |filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`name`（string，原名称筛选），`i18n`（string，英文名称筛选），`hash`（string，hash筛选）|
-|neededReturn|string (JSON列表)|必选参数，列表不得为空|指定需要返回的字段，每一项为`string`且名称与数据库内匹配|
 
 #### 返回
 
-返回`neededReturn`指定的字段的列表
+返回符合条件的结果的列表，每一项为对应数据库的字段的内容
 
 ### 添加接口
 

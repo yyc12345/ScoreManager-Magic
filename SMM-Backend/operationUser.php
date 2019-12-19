@@ -15,23 +15,19 @@ try {
 
     if (\SMMUtilities\CheckHardcodeParam($_POST, array("method" => "query"))) {
         //query, check param
-        if (!\SMMUtilities\CheckNecessityParam($_POST, array("filterRules", "neededReturn"))) throw new Exception("Invalid parameter");
+        if (!\SMMUtilities\CheckNecessityParam($_POST, array("filterRules"))) throw new Exception("Invalid parameter");
         //decode filter rules and needed return
         $decodeFilter = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["filterRules"]);
-        $decodeNeeded = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["neededReturn"]);
 
         //contruct statement
         $whereStatement = "";
         $args = array();
         \SMMDatabaseStatement\GenerateFilterStatement($decodeFilter, array(
             "name" => new \SMMDatabaseStatement\ParamFilterUserInput('LIKE', PDO::PARAM_STR, "sm_name")
-        ), $whereStatement, $args);
-
-        $selectStatemnt = \SMMDatabaseStatement\GenerateFieldStatement($decodeNeeded,
-        array("sm_name", "sm_password", "sm_registration", "sm_priority", "sm_salt", "sm_token", "sm_expireOn"));
+        ),array(), $whereStatement, $args);
 
         //bind param and execute
-        $stmt = $db->conn->prepare('SELECT ' . $selectStatemnt . ' FROM user' . ( $whereStatement == "" ? "" : " WHERE " . $whereStatement));
+        $stmt = $db->conn->prepare('SELECT * FROM user' . ( $whereStatement == "" ? "" : " WHERE " . $whereStatement));
         for($i = 0; $i<count($args) ; $i++) 
             $stmt->bindParam($i+1, $args[$i]->paramValue, $args[$i]->paramSQLType);
         $stmt->execute();
@@ -41,7 +37,7 @@ try {
     } else if (\SMMUtilities\CheckHardcodeParam($_POST, array("method" => "add"))) {
         //add, check param
         if(!\SMMUtilities\CheckNecessityParam($_POST, array("newValues"))) throw new Exception("Invalid parameter");
-        $decodeNewValues = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["filterRules"]);
+        $decodeNewValues = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["newValues"]);
         if(!\SMMUtilities\CheckNecessityParam($decodeNewValues, array("name", "password", "priority"))) throw new Exception("Invalid parameter");
 
         //construct statement
@@ -90,7 +86,7 @@ try {
         //update, check param
         if(!\SMMUtilities\CheckNecessityParam($_POST, array("target", "newValues"))) throw new Exception("Invalid parameter");
         $decodeTarget = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["target"]);
-        $decodeNewValues = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["filterRules"]);
+        $decodeNewValues = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["newValues"]);
         if(!\SMMUtilities\CheckOptionalParam($decodeNewValues, array("name", "password", "priority"), 1)) throw new Exception("Invalid parameter");
         if(count($decodeTarget) == 0) throw new Exception("Zero target is not allowed");
 

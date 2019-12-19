@@ -70,7 +70,7 @@ try {
     foreach($stmt3->fetchAll(PDO::FETCH_GROUP) as $key=>$value) {
         $cache = array();
         foreach($value as $i) $cache[] = $i["sm_participant"];
-            $participant[$key] = $cache;
+        $participant[$key] = $cache;
     }
     //bind to final query data
     for($i = 0; $i<$length; $i++)
