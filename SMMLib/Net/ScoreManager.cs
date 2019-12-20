@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SMMLib.Data.SMMStructure;
 using SMMLib.Data;
 using SMMLib.Utilities;
 
@@ -53,7 +54,7 @@ namespace SMMLib.Net {
             try {
                 var data = NetworkMethod.Post(CoreUrl.Version, new Dictionary<string, string>());
                 var realData = JsonDecoder(data);
-                var decodeData = JsonConvert.DeserializeObject<Structure_Version>(realData);
+                var decodeData = JsonConvert.DeserializeObject<Data.SMMStructure.Version>(realData);
 
                 return (new StandardResponse(true, ""), decodeData.ver);
             } catch (Exception e) {
@@ -68,7 +69,7 @@ namespace SMMLib.Net {
                     {"name", user}
                 });
                 var realData = JsonDecoder(data);
-                var decodeData = JsonConvert.DeserializeObject<Structure_Salt>(realData);
+                var decodeData = JsonConvert.DeserializeObject<Salt>(realData);
                 var rnd = decodeData.rnd;
 
                 //calc number
@@ -80,7 +81,7 @@ namespace SMMLib.Net {
                     {"hash", authStr }
                 });
                 realData = JsonDecoder(data);
-                var decodeData2 = JsonConvert.DeserializeObject<Structure_Login>(realData);
+                var decodeData2 = JsonConvert.DeserializeObject<Login>(realData);
 
                 //set internal value
                 Token = decodeData2.token;
@@ -165,7 +166,7 @@ namespace SMMLib.Net {
             }
         }
 
-        public (StandardResponse status, List<Structure_GetFutureCompetition> data) GetFutureCompetition() {
+        public (StandardResponse status, List<GetFutureCompetition> data) GetFutureCompetition() {
             try {
                 var data = NetworkMethod.Post(CoreUrl.GetFutureCompetition, new Dictionary<string, string>() {
                     {"token", Token}
@@ -173,13 +174,13 @@ namespace SMMLib.Net {
                 //check result
                 var realData = JsonDecoder(data);
                 //decode data and return
-                return (new StandardResponse(true, ""), JsonConvert.DeserializeObject<List<Structure_GetFutureCompetition>>(realData));
+                return (new StandardResponse(true, ""), JsonConvert.DeserializeObject<List<GetFutureCompetition>>(realData));
             } catch (Exception e) {
                 return (new StandardResponse(false, e.Message), null);
             }
         }
 
-        public (StandardResponse status, List<Structure_GetMapName> data) GetMapName(List<string> mapHashs) {
+        public (StandardResponse status, List<GetMapName> data) GetMapName(List<string> mapHashs) {
             try {
                 var data = NetworkMethod.Post(CoreUrl.GetMapName, new Dictionary<string, string>() {
                     {"token", Token},
@@ -187,20 +188,20 @@ namespace SMMLib.Net {
                 });
                 //check result
                 var realData = JsonDecoder(data);
-                return (new StandardResponse(true, ""), JsonConvert.DeserializeObject<List<Structure_GetMapName>>(realData));
+                return (new StandardResponse(true, ""), JsonConvert.DeserializeObject<List<GetMapName>>(realData));
             } catch (Exception e) {
                 return (new StandardResponse(false, e.Message), null);
             }
         }
 
-        public (StandardResponse status, List<Structure_GetTournament> data) GetTournament() {
+        public (StandardResponse status, List<GetTournament> data) GetTournament() {
             try {
                 var data = NetworkMethod.Post(CoreUrl.GetTournament, new Dictionary<string, string>() {
                     {"token", Token}
                 });
                 //check result and return data
                 var realData = JsonDecoder(data);
-                return (new StandardResponse(true, ""), JsonConvert.DeserializeObject<List<Structure_GetTournament>>(realData));
+                return (new StandardResponse(true, ""), JsonConvert.DeserializeObject<List<GetTournament>>(realData));
             } catch (Exception e) {
                 return (new StandardResponse(false, e.Message), null);
             }
@@ -224,6 +225,109 @@ namespace SMMLib.Net {
 
         #region admin methods
 
+        public (StandardResponse status, List<OperationUserQuery> data) OperationUser_Query(bool useName, string name = default) {
+
+        }
+
+        public StandardResponse OperationUser_Add(string name, string password, SM_Priority priority) {
+
+        }
+
+        public StandardResponse OperationUser_Delete(List<string> target) {
+
+        }
+
+        public StandardResponse OperationUser_Update(List<string> target,
+            bool usePassword, bool usePriority, bool useExpireOn,
+            string password = default, SM_Priority priority = default, long expireOn = default) {
+
+        }
+
+        public (StandardResponse status, List<OperationCompetitionQuery> data) OperationCompetition_Query(
+            bool useId, bool useName, bool useStartDate, bool useEndDate, bool useCDK, bool useMap,
+            List<long> id = default, string name = default, long startDate = default, long endDate = default, string cdk = default, string map = default) {
+
+        }
+
+        public StandardResponse OperationCompetition_Add(long startDate, long endDate, long judgeEndDate, List<string> participant) {
+
+        }
+
+        public StandardResponse OperationCompetition_Delete(List<long> target) {
+
+        }
+
+        public StandardResponse OperationCompetition_Update(long target,
+            bool useResult, bool useMap, bool useBanMap, bool useWinner,
+            string result = default, string map = default, List<string> banMap = default, string winner = default) {
+
+        }
+
+        public (StandardResponse status, List<OperationRecordQuery>) OperationRecord_Query(
+            bool useInstallOn, bool useName, bool useStartDate, bool useEndDate, bool useScore, bool useTime, bool useMap,
+            int installOn = default, string name = default, long startDate = default, long endDate = default, int score = default, int time = default, string map = default) {
+
+        }
+
+        public (StandardResponse status, List<OperationTournamentQuery> data) OperationTournament_Query(bool useName, string name = default) {
+
+        }
+
+        public StandardResponse OperationTournament_Add(long startDate, long endDate, string name) {
+
+        }
+
+        public StandardResponse OperationTournament_Delete(List<string> target) {
+
+        }
+
+        public StandardResponse OperationTournament_Update(long target,
+            bool useStartDate, bool useEndDate, bool useSchedule,
+            long startDate = default, long endDate = default, string schedule = default) {
+
+        }
+
+        public (StandardResponse status, List<OperationRegistryQuery> data) OperationRegistry_Query(
+            bool useName, bool useTournament,
+            string name = default, string tournament = default) {
+
+        }
+
+        public StandardResponse OperationRegistry_Add(string user, string tournament) {
+
+        }
+
+        public StandardResponse OperationRegistry_Delete(string user, string tournament) {
+
+        }
+
+        public (StandardResponse status, List<OperationMapPoolQuery> data) OperationMapPool_Query(
+            bool useHash, bool useTournament,
+            string hash = default, string tournament = default) {
+
+        }
+
+        public StandardResponse OperationMapPool_Add(string hash, string tournament) {
+
+        }
+
+        public StandardResponse OperationMapPool_Delete(List<string> hash) {
+
+        }
+
+        public (StandardResponse status, List<OperationMapQuery> data) OperationMap_Query(
+            bool useName, bool useI18n, bool useHash,
+            string name = default, string i18n = default, string hash = default) {
+
+        }
+
+        public StandardResponse OperationMap_Add(string name, string i18n, string hasn) {
+
+        }
+
+        public StandardResponse OperationMap_Delete(List<string> hash) {
+
+        }
 
         #endregion
 

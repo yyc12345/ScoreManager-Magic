@@ -24,7 +24,7 @@ try {
         $args = array();
         \SMMDatabaseStatement\GenerateFilterStatement($decodeFilter, array(
             "name" => new \SMMDatabaseStatement\ParamFilterUserInput('=', PDO::PARAM_STR, "sm_name"),
-            "installOn" => new \SMMDatabaseStatement\ParamFilterUserInput('=', PDO::PARAM_INT, "sm_installOn"),
+            "installedOn" => new \SMMDatabaseStatement\ParamFilterUserInput('=', PDO::PARAM_INT, "sm_installedOn"),
             "startDate" => new \SMMDatabaseStatement\ParamFilterUserInput('=', PDO::PARAM_INT, "sm_startDate"),
             "endDate" => new \SMMDatabaseStatement\ParamFilterUserInput('=', PDO::PARAM_INT, "sm_endDate"),
             "score" => new \SMMDatabaseStatement\ParamFilterUserInput('=', PDO::PARAM_INT, "sm_score"),
