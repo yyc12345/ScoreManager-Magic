@@ -382,7 +382,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`update`|
-|target|string|必选参数，列表不得为空|用于确认作用对象，是作用对象的`sm_id`字段值|
+|target|string|必选参数|用于确认作用对象，是作用对象的`sm_tournament`字段值|
 |newValues|string (JSON字典)|必选参数，字典不得为空|用于更新数值，为字典，可用字段：`startDate`（string，注册开始时间），`endDate`（string，注册结束时间），`schedule`（string（超长JSON数据），比赛赛程完整安排）|
 
 #### 返回
@@ -402,7 +402,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
-|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`user`（string，用户筛选），`vagueName`（bool，启用模糊用户名称），`tournament`（string，联赛名称筛选）|
+|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`user`（string，用户筛选），`tournament`（string，联赛名称筛选）|
 
 #### 返回
 

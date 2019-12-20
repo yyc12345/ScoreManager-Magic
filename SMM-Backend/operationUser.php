@@ -28,8 +28,7 @@ try {
 
         //bind param and execute
         $stmt = $db->conn->prepare('SELECT * FROM user' . ( $whereStatement == "" ? "" : " WHERE " . $whereStatement));
-        for($i = 0; $i<count($args) ; $i++) 
-            $stmt->bindParam($i+1, $args[$i]->paramValue, $args[$i]->paramSQLType);
+        foreach($args as $key=>$value) $stmt->bindParam($key+1, $value->paramValue, $value->paramSQLType);
         $stmt->execute();
 
         echo json_encode(\SMMUtilities\GetUniversalReturn(true, "OK", $stmt->fetchAll(PDO::FETCH_ASSOC)));
@@ -56,8 +55,7 @@ try {
 
         //bind param and execute
         $stmt = $db->conn->prepare('INSERT user ' . $insertKeyStatement . ' VALUES ' . $insertValueStatement);
-        for($i = 0; $i<count($args); $i++) 
-            $stmt->bindParam($i+1, $args[$i]->paramValue, $args[$i]->paramSQLType);
+        foreach($args as $key=>$value) $stmt->bindParam($key+1, $value->paramValue, $value->paramSQLType);
         $stmt->execute();
 
         echo json_encode(\SMMUtilities\GetUniversalReturn());
@@ -76,8 +74,7 @@ try {
         $whereStatement, $args);
         //bind param and execute
         $stmt = $db->conn->prepare('DELETE FROM user WHERE ' . $whereStatement);
-        for($i = 0; $i<count($args); $i++) 
-            $stmt->bindParam($i+1, $args[$i]->paramValue, $args[$i]->paramSQLType);
+        foreach($args as $key=>$value) $stmt->bindParam($key+1, $value->paramValue, $value->paramSQLType);
         $stmt->execute();
 
         echo json_encode(\SMMUtilities\GetUniversalReturn());
@@ -105,8 +102,7 @@ try {
 
         //bind param and execute
         $stmt = $db->conn->prepare('UPDATE user SET ' . $setStatement . ' WHERE ' . $whereStatement);
-        for($i = 0; $i<count($args); $i++) 
-            $stmt->bindParam($i+1, $args[$i]->paramValue, $args[$i]->paramSQLType);
+        foreach($args as $key=>$value) $stmt->bindParam($key+1, $value->paramValue, $value->paramSQLType);
         $stmt->execute();
 
         echo json_encode(\SMMUtilities\GetUniversalReturn());

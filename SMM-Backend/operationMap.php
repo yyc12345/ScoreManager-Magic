@@ -78,6 +78,9 @@ try {
         echo json_encode(\SMMUtilities\GetUniversalReturn());
 
     } else throw new Exception("Invalid parameter");
+    
+    $db->unlockdb();
+    $db = NULL;
 } catch (Exception $e) {
     echo json_encode(\SMMUtilities\GetUniversalReturn(false, $e->getMessage()));
 }
