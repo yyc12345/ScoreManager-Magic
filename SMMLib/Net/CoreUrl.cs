@@ -6,7 +6,7 @@ using System.Text;
 namespace SMMLib.Net {
     internal static class CoreUrl {
 
-        internal static string RequestBaseUrl = "http://yyc.bkt.moe:6666/";
+        internal static string RequestBaseUrl = "";
 
         internal static string Version => RequestBaseUrl + "version.php";
         internal static string Salt => RequestBaseUrl + "salt.php";

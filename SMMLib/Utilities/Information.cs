@@ -19,6 +19,7 @@ namespace SMMLib.Utilities {
         }
 
         public static string GetSMMVersion() { return "0.5"; }
+        public static string GetSMMProtocolVersion() { return "1"; }
 
     }
 
