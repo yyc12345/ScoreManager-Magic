@@ -17,17 +17,13 @@ This backend needs HTTPS protocol to ensure each data is safe.
 
 ## Nginx config
 
-`config.php`, `utilities.php`, `preconfig.php` and `database.php` shouldn't be visited outside from the server, use following Nginx config to ban related connections.
+`config.php`, `utilities.php`, `databasehelper.php`, `init.php` and `database.php` shouldn't be visited outside from the server, use following Nginx config to ban related connections.
 
 ```
-location ~* ^/(preconfig|config|utilities|database).php {
+location ~* ^/(databasehelper|config|utilities|database|init).php {
 	return 404;
 }
 ```
-
-After invoking `init.php`, you also can add `init` into above code to avoid more attack.
-
-TIP: If you have invoked init.php, you also can add init.php into banned urls for preventing protential attack.
 
 ## API list
 

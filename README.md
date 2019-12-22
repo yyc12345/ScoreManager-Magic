@@ -1,10 +1,22 @@
 # ScoreManager-Magic
 
-A [*Ballance*](https://en.wikipedia.org/wiki/Ballance) game plugin provides speedrun and statistics data exporting.
+A brand-new, groundbreaking [Ballance](https://en.wikipedia.org/wiki/Ballance) Score Manager
 
-This repository contains the core functions of *ScoreManager*, including `menulevel.nmo` injection, data capture, verify and analyze.
+Play with worldwide Ballance players, awake ancient game - Ballance.
 
-Fork from [ScoreManager-Core](https://github.com/BearKidsTeam/ScoreManager-Core). This app's function is similar to ScoreManager-Core but it provides a friendly user interface and account system \(this function is existing in ScoreManager but not included in ScoreManager-Core and I don't use ScoreManager's backend code due to denied permission\)
+## Feature
+
+* Ballance speedrun and statistics data exporting
+* Online system
+* Global Highscore & Speedrun leaderboard (WIP on v2)
+* Full custom competition and tournament configuration and support (Will be promoted on v2)
+* Full self-host
+
+## Perpositional project
+
+* [ScoreManager-Core](https://github.com/BearKidsTeam/ScoreManager-Core)
+* [BallanceRecordChanger](https://github.com/BearKidsTeam/BallanceRecordChanger)
+* ScoreManager (*private project*)
 
 <!-- 
 ![snapshot.png](snapshot.png)
@@ -25,7 +37,11 @@ The program needs reading and writing permission, so if you are running it or *B
 
 -->
 
-Work in progress.
+## Progress
+
+Work in progress on v1.
+
+v2 is designing.
 
 ## License
 
