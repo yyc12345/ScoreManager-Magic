@@ -45,8 +45,8 @@ try {
         $insertValueStatement = "";
         $args = array();
         \SMMDatabaseStatement\GenerateSeparatedStatement($decodeNewValues, 
-        array("user" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_STR, "sm_user"),
-            "tournament" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_STR, "sm_tournament")),
+        array("user" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_user"),
+            "tournament" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_tournament")),
         array(), $insertKeyStatement, $insertValueStatement, $args);
 
         //bind param and execute

@@ -44,13 +44,13 @@ try {
         $insertValueStatement = "";
         $args = array();
         \SMMDatabaseStatement\GenerateSeparatedStatement($decodeNewValues, 
-        array("name" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_INT, "sm_name"),
-            "password" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_STR, "sm_password"),
-            "priority" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_INT, "sm_priority")),
-        array("sm_registration" => new \SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_INT, time()),
-            "sm_salt" => new \SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_INT, \SMMUtilities\GetRandomNumber()),
-            "sm_token" => new \SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_STR, ""),
-            "sm_expireOn" => new \SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_INT, 0)),
+        array("name" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_name"),
+            "password" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_password"),
+            "priority" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_INT, "sm_priority")),
+        array("sm_registration" => new \SMMDatabaseStatement\ParamValueConstantInput(PDO::PARAM_INT, time()),
+            "sm_salt" => new \SMMDatabaseStatement\ParamValueConstantInput(PDO::PARAM_INT, \SMMUtilities\GetRandomNumber()),
+            "sm_token" => new \SMMDatabaseStatement\ParamValueConstantInput(PDO::PARAM_STR, ""),
+            "sm_expireOn" => new \SMMDatabaseStatement\ParamValueConstantInput(PDO::PARAM_INT, 0)),
         $insertKeyStatement, $insertValueStatement, $args);
 
         //bind param and execute
@@ -91,10 +91,10 @@ try {
         $setStatement = "";
         $whereStatement = "";
         $args = array();
-        \SMMDatabaseStatement\GenerateFilterStatement($decodeNewValues,
-        array("password" => new \SMMDatabaseStatement\ParamFilterUserInput("=", PDO::PARAM_STR, "sm_password"),
-            "priority" => new \SMMDatabaseStatement\ParamFilterUserInput("=", PDO::PARAM_INT, "sm_priority"),
-            "expireOn" => new \SMMDatabaseStatement\ParamFilterUserInput("=", PDO::PARAM_INT, "sm_expireOn")),
+        \SMMDatabaseStatement\GenerateUpdateStatement($decodeNewValues,
+        array("password" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_password"),
+            "priority" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_INT, "sm_priority"),
+            "expireOn" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_INT, "sm_expireOn")),
         array(), $setStatement, $args);
         \SMMDatabaseStatement\GenerateFilterStatement(array(), array(),
         array("sm_name" => new \SMMDatabaseStatement\ParamFilterConstantInput("=", PDO::PARAM_STR, $decodeTarget)),

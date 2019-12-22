@@ -46,9 +46,9 @@ try {
         $insertValueStatement = "";
         $args = array();
         \SMMDatabaseStatement\GenerateSeparatedStatement($decodeNewValues, 
-        array("name" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_STR, "sm_name"),
-            "i18n" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_STR, "sm_i18n"),
-            "hash" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_STR, "sm_hash")),
+        array("name" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_name"),
+            "i18n" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_i18n"),
+            "hash" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_hash")),
         array(), $insertKeyStatement, $insertValueStatement, $args);
 
         //bind param and execute

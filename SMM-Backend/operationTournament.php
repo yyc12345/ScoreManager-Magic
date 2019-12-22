@@ -44,10 +44,10 @@ try {
         $insertValueStatement = "";
         $args = array();
         \SMMDatabaseStatement\GenerateSeparatedStatement($decodeNewValues, 
-        array("name" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_STR, "sm_tournament"),
-            "startDate" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_INT, "sm_startDate"),
-            "endDate" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_INT, "sm_endDate")),
-        array("sm_schedule" => new \SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_STR, "[]")),
+        array("name" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_tournament"),
+            "startDate" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_INT, "sm_startDate"),
+            "endDate" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_INT, "sm_endDate")),
+        array("sm_schedule" => new \SMMDatabaseStatement\ParamValueConstantInput(PDO::PARAM_STR, "[]")),
         $insertKeyStatement, $insertValueStatement, $args);
 
         //bind param and execute
@@ -78,10 +78,10 @@ try {
         $setStatement = "";
         $whereStatement = "";
         $args = array();
-        \SMMDatabaseStatement\GenerateFilterStatement($decodeNewValues,
-        array("startDate" => new \SMMDatabaseStatement\ParamFilterUserInput("=", PDO::PARAM_INT, "sm_startDate"),
-            "endDate" => new \SMMDatabaseStatement\ParamFilterUserInput("=", PDO::PARAM_INT, "sm_endDate"),
-            "schedule" => new \SMMDatabaseStatement\ParamFilterUserInput("=", PDO::PARAM_STR, "sm_schedule")),
+        \SMMDatabaseStatement\GenerateUpdateStatement($decodeNewValues,
+        array("startDate" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_INT, "sm_startDate"),
+            "endDate" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_INT, "sm_endDate"),
+            "schedule" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_schedule")),
         array(), $setStatement, $args);
         \SMMDatabaseStatement\GenerateFilterStatement(array(), array(),
         array("sm_tournament" => new \SMMDatabaseStatement\ParamFilterConstantInput("=", PDO::PARAM_STR, $_POST["target"])),

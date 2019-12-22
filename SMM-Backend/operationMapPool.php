@@ -45,8 +45,8 @@ try {
         $insertValueStatement = "";
         $args = array();
         \SMMDatabaseStatement\GenerateSeparatedStatement($decodeNewValues, 
-        array("hash" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_STR, "sm_hash"),
-            "tournament" => new \SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_STR, "sm_tournament")),
+        array("hash" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_hash"),
+            "tournament" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_tournament")),
         array(), $insertKeyStatement, $insertValueStatement, $args);
 
         //bind param and execute

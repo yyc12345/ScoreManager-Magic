@@ -25,7 +25,7 @@ namespace SMMDatabaseStatement {
         }
     }
 
-    class ParamSeperatedUserInput {
+    class ParamValueUserInput {
         var $paramSQLType;
         var $paramDatabaseField;
 
@@ -47,7 +47,7 @@ namespace SMMDatabaseStatement {
         }
     }
 
-    class ParamSeperatedConstantInput {
+    class ParamValueConstantInput {
         var $paramValue;
         var $paramSQLType;
 
@@ -80,7 +80,7 @@ namespace SMMDatabaseStatement {
     //    value: ParamFilterConstantInput(indicate like mode, value and input type)
     function GenerateFilterStatement($data, $criteria, $constantValue, &$outStatement, &$outArguments) {
         $usefulField = array_intersect(array_keys($data), array_keys($criteria));
-        if(count($usefulField) != 0 && count($constantValue) != 0) {
+        if(count($usefulField) != 0 || count($constantValue) != 0) {
             $cache = array();
             //input user data
             foreach($usefulField as $i) {
@@ -89,13 +89,14 @@ namespace SMMDatabaseStatement {
                     $cache2 = array();
 
                     foreach($data[$i] as $ii) {
-                        $cache2[] = ' (' . $criteria[$i]->paramDatabaseField . ' ' . $criteria[$i]->paramCompareSymbol .' ?) ';
+                        $cache2[] = ' ' . $criteria[$i]->paramDatabaseField . ' ' . $criteria[$i]->paramCompareSymbol .' ? ';
                         $outArguments[] = new ParamOutput($ii, $criteria[$i]->paramSQLType);
                     }
 
-                    $cache[] = ' (' . join(' || ', $cache2) . ') ';
+                    if (count($cache2) == 1) $cache[] = $cache2[0];
+                    else $cache[] = ' (' . join(' || ', $cache2) . ') ';
                 } else {
-                    $cache[] = ' (' . $criteria[$i]->paramDatabaseField . ' ' . $criteria[$i]->paramCompareSymbol . ' ?)';
+                    $cache[] = ' ' . $criteria[$i]->paramDatabaseField . ' ' . $criteria[$i]->paramCompareSymbol . ' ? ';
 
                     $outArguments[] = new ParamOutput($data[$i], $criteria[$i]->paramSQLType);
                 }
@@ -103,22 +104,25 @@ namespace SMMDatabaseStatement {
             }
             //input constant data
             foreach($constantValue as $key => $value) {
-                if (is_array($value)) {
+                if (is_array($value->paramValue)) {
                     //value is array
                     $cache2 = array();
 
-                    foreach($value as $ii) {
-                        $cache2[] = ' (' . $key . ' ' . $value->paramCompareSymbol .' ?) ';
+                    foreach($value->paramValue as $ii) {
+                        $cache2[] = ' ' . $key . ' ' . $value->paramCompareSymbol .' ? ';
                         $outArguments[] = new ParamOutput($ii, $value->paramSQLType);
                     }
 
-                    $cache[] = ' (' . join(' || ', $cache2) . ') ';
+                    if (count($cache2) == 1) $cache[] = $cache2[0];
+                    else $cache[] = ' (' . join(' || ', $cache2) . ') ';
                 } else {
-                    $cache2[] = ' (' . $key . ' ' . $value->paramCompareSymbol .' ?) ';
+                    $cache[] = ' ' . $key . ' ' . $value->paramCompareSymbol .' ? ';
                     $outArguments[] = new ParamOutput($value->paramValue, $value->paramSQLType);
                 }
             }
-            $outStatement = ' (' . join(' && ', $cache) . ') ';
+            
+            if(count($cache) == 1) $outStatement = $cache[0];
+            else $outStatement = ' (' . join(' && ', $cache) . ') ';
         } else $outStatement = "";
     }
 
@@ -136,16 +140,16 @@ namespace SMMDatabaseStatement {
 
     //criteria:
     //    key: string(correspond with input field name)
-    //    value: ParamSeperatedUserInput
+    //    value: ParamValueUserInput
     //data:
     //    key: string(correspond with input field name)
     //    value: string(real data)
     //constantValue:
     //    key: string(correspond with database field name)
-    //    value: ParamSeperatedConstantInput(indicate like mode, value and input type)
+    //    value: ParamValueConstantInput(indicate like mode, value and input type)
     function GenerateSeparatedStatement($data, $criteria, $constantValue, &$outKeyStatement, &$outValueStatement, &$outArguments) {
-        $usefulField = array_intersect(array_key($data), array($criteria));
-        if(count($usefulField) != 0 && count($constantValue) != 0){
+        $usefulField = array_intersect(array_keys($data), array_keys($criteria));
+        if(count($usefulField) != 0 || count($constantValue) != 0){
             $cache = array();
             foreach($usefulField as $i) {
                 $cache[] = $criteria[$i]->paramDatabaseField;
@@ -164,6 +168,32 @@ namespace SMMDatabaseStatement {
         }
     }
 
+    //criteria:
+    //    key: string(correspond with input field name)
+    //    value: ParamValueUserInput
+    //data:
+    //    key: string(correspond with input field name)
+    //    value: string(real data)
+    //constantValue:
+    //    key: string(correspond with database field name)
+    //    value: ParamValueConstantInput(indicate like mode, value and input type)
+    function GenerateUpdateStatement($data, $criteria, $constantValue, &$outStatement, &$outArguments) {
+        $usefulField = array_intersect(array_keys($data), array_keys($criteria));
+        if(count($usefulField) != 0 || count($constantValue) != 0){
+            $cache = array();
+
+            foreach($usefulField as $i) {
+                $cache[] = $criteria[$i]->paramDatabaseField . ' = ? ';
+                $outArguments[] = new ParamOutput($data[$i], $criteria[$i]->paramSQLType);
+            }
+            foreach($constantValue as $key => $value) {
+                $cache[] = $key . ' = ? ';
+                $outArguments[] = new ParamOutput($value->paramValue, $value->paramSQLType);
+            }
+
+            $outStatement = ' ' . join(', ', $cache) . ' ';
+        } else $outStatement = "";
+    }
 }
 
 

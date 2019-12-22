@@ -1,5 +1,4 @@
 <?php
-use function SMMUtilities\GetRandomCDK;
 
 require_once "database.php";
 require_once "utilities.php";
@@ -30,9 +29,10 @@ try {
             $preWhereStatement, $args);
             
             $prestmt = $db->conn->prepare('SELECT sm_id FROM competitionParticipant WHERE ' . $preWhereStatement);
-            $prestmt->execute($args);
+            foreach($args as $key=>$value) $prestmt->bindParam($key+1, $value->paramValue, $value->paramSQLType);
+            $prestmt->execute();
 
-            $constant["sm_id"] = $prestmt->fetchAll(PDO::FETCH_COLUMN, 0);
+            $constant["sm_id"] = new \SMMDatabaseStatement\ParamFilterConstantInput("=", PDO::PARAM_INT, $prestmt->fetchAll(PDO::FETCH_COLUMN, 0));
         }
         
         //construct statement
@@ -40,7 +40,6 @@ try {
         $args = array();
         SMMDatabaseStatement\GenerateFilterStatement($decodeFilter,
         array("id" => new \SMMDatabaseStatement\ParamFilterUserInput('=', PDO::PARAM_INT, "sm_id"),
-            "name" => new \SMMDatabaseStatement\ParamFilterUserInput('=', PDO::PARAM_INT, "sm_id"),
             "startDate" => new \SMMDatabaseStatement\ParamFilterUserInput('>', PDO::PARAM_INT, "sm_startDate"),
             "endDate" => new \SMMDatabaseStatement\ParamFilterUserInput('<', PDO::PARAM_INT, "sm_endDate"),
             "cdk" => new \SMMDatabaseStatement\ParamFilterUserInput('=', PDO::PARAM_STR, "sm_cdk"),
@@ -49,76 +48,76 @@ try {
 
         //bind param and execute
         $stmt = $db->conn->prepare('SELECT * FROM competition' . ($whereStatement == "" ? "" : " WHERE " . $whereStatement));
-        for($i =0;$i<count($args); $i++)
-            $stmt->bindParam($i+1, $args[$i]->paramValue, $args[$i]->paramSQLType);
+        foreach($args as $key=>$value) $stmt->bindParam($key+1, $value->paramValue, $value->paramSQLType);
         $stmt->execute();
 
         $finalData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        //try detect sm_participant field
-        $finalId = array();
-        foreach($finalData as $i) $finalId[] = $i["sm_id"];
+        if(count($finalData) != 0) {
+            //try detect sm_participant field
+            $finalId = array();
+            foreach($finalData as $i) $finalId[] = $i["sm_id"];
 
-        $idWhereStatement = "";
-        $args = array();
-        SMMDatabaseStatement\GenerateFilterStatement(array(), array(), 
-        array("sm_id" => new \SMMDatabaseStatement\ParamFilterConstantInput('=', PDO::PARAM_INT, $finalId)),
-        $idWhereStatement, $args);
+            $idWhereStatement = "";
+            $args = array();
+            SMMDatabaseStatement\GenerateFilterStatement(array(), array(), 
+            array("sm_id" => new \SMMDatabaseStatement\ParamFilterConstantInput('=', PDO::PARAM_INT, $finalId)),
+            $idWhereStatement, $args);
 
-        $stmt2 = $db->conn->prepare('SELECT sm_id, sm_participant FROM competitionParticipant WHERE ' . $idWhereStatement);
-        for($i =0;$i<count($args); $i++)
-            $stmt2->bindParam($i+1, $args[$i]->paramValue, $args[$i]->paramSQLType);
-        $stmt2->execute();
+            $stmt2 = $db->conn->prepare('SELECT sm_id, sm_participant FROM competitionParticipant WHERE ' . $idWhereStatement);
+            for($i =0;$i<count($args); $i++)
+                $stmt2->bindParam($i+1, $args[$i]->paramValue, $args[$i]->paramSQLType);
+            $stmt2->execute();
 
-        $participant = array();
-        foreach($stmt2->fetchAll(PDO::FETCH_GROUP) as $key=> $value) {
-            $cache = array();
-            foreach($value as $i) $cache[] = $i["sm_participant"];
-            $participant[$key] = $cache;
+            $participant = array();
+            foreach($stmt2->fetchAll(PDO::FETCH_GROUP) as $key=> $value) {
+                $cache = array();
+                foreach($value as $i) $cache[] = $i["sm_participant"];
+                $participant[$key] = $cache;
+            }
+
+            //bind correspond output
+            foreach($finalData as &$i) 
+                $i["sm_participant"] = $participant[$i["sm_id"]];
         }
 
-        //bind correspond output
-        foreach($finalData as &$i) 
-            $i["sm_participant"] = $participant[$i["sm_id"]];
-
-            echo json_encode(\SMMUtilities\GetUniversalReturn(true, "OK", $finalData));
+        echo json_encode(\SMMUtilities\GetUniversalReturn(true, "OK", $finalData));
 
     } else if (\SMMUtilities\CheckHardcodeParam($_POST, array("method" => "add"))) {
         //add, check param
         if(!\SMMUtilities\CheckNecessityParam($_POST, array("newValues"))) throw new Exception("Invalid parameter");
         $decodeNewValues = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["newValues"]);
         if(!\SMMUtilities\CheckNecessityParam($decodeNewValues, array("startDate", "endDate", "judgeEndDate", "participant"))) throw new Exception("Invalid parameter");
-        $decodedParticipant = SMMUtilities\AdvancedJsonArrayDecoder($decodeNewValues["participant"]);
+        $decodedParticipant = $decodeNewValues["participant"];
 
         //construct main table statement
         $insertKeyStatement = "";
         $insertValueStatement = "";
         $args = array();
         SMMDatabaseStatement\GenerateSeparatedStatement($decodeNewValues,
-        array("startDate" => new SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_INT, "sm_startDate"),
-            "endDate" => new SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_INT, "sm_endDate"),
-            "judgeEndDate" => new SMMDatabaseStatement\ParamSeperatedUserInput(PDO::PARAM_INT, "sm_judgeEndDate")),
-        array("sm_result" => new SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_STR, ""),
-            "sm_map" => new SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_STR, ""),
-            "sm_banMap" => new SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_STR, "[]"),
-            "sm_cdk" => new SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_STR, GetRandomCDK()),
-            "sm_winner" => new SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_STR, "")),
+        array("startDate" => new SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_INT, "sm_startDate"),
+            "endDate" => new SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_INT, "sm_endDate"),
+            "judgeEndDate" => new SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_INT, "sm_judgeEndDate")),
+        array("sm_result" => new SMMDatabaseStatement\ParamValueConstantInput(PDO::PARAM_STR, "[]"),
+            "sm_map" => new SMMDatabaseStatement\ParamValueConstantInput(PDO::PARAM_STR, ""),
+            "sm_banMap" => new SMMDatabaseStatement\ParamValueConstantInput(PDO::PARAM_STR, "[]"),
+            "sm_cdk" => new SMMDatabaseStatement\ParamValueConstantInput(PDO::PARAM_STR, \SMMUtilities\GetRandomCDK()),
+            "sm_winner" => new SMMDatabaseStatement\ParamValueConstantInput(PDO::PARAM_STR, "")),
         $insertKeyStatement, $insertValueStatement, $args);
 
         $stmt = $db->conn->prepare('INSERT competition ' . $insertKeyStatement . ' VALUES ' . $insertValueStatement);
-        foreach($args as $key=>$value)
-            $stmt->bindParam($key+1, $value->paramValue, $value->paramSQLType);
+        foreach($args as $key=>$value) $stmt->bindParam($key+1, $value->paramValue, $value->paramSQLType);
         $stmt->execute();
 
         //construct assi table statement
-        $lastID = PDO::lastInsertId();
+        $lastID = $db->conn->lastInsertId();
         foreach($decodedParticipant as $player) {
             $insertKeyStatement = "";
             $insertValueStatement = "";
             $args = array();
             SMMDatabaseStatement\GenerateSeparatedStatement(array(), array(),
-            array("sm_id" => new SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_INT, $lastID),
-                "sm_participant" => new SMMDatabaseStatement\ParamSeperatedConstantInput(PDO::PARAM_STR, $player)),
+            array("sm_id" => new SMMDatabaseStatement\ParamValueConstantInput(PDO::PARAM_INT, $lastID),
+                "sm_participant" => new SMMDatabaseStatement\ParamValueConstantInput(PDO::PARAM_STR, $player)),
             $insertKeyStatement, $insertValueStatement, $args);
 
             $stmt2 = $db->conn->prepare('INSERT competitionParticipant ' . $insertKeyStatement . ' VALUES ' . $insertValueStatement);
@@ -161,18 +160,18 @@ try {
         $setStatement = "";
         $whereStatement = "";
         $args = array();
-        \SMMDatabaseStatement\GenerateFilterStatement($decodeNewValues,
-        array("result" => new \SMMDatabaseStatement\ParamFilterUserInput("=", PDO::PARAM_STR, "sm_result"),
-            "map" => new \SMMDatabaseStatement\ParamFilterUserInput("=", PDO::PARAM_STR, "sm_map"),
-            "banMap" => new \SMMDatabaseStatement\ParamFilterUserInput("=", PDO::PARAM_STR, "sm_banMap"),
-            "winner" => new \SMMDatabaseStatement\ParamFilterUserInput("=", PDO::PARAM_STR, "sm_winner")),
+        \SMMDatabaseStatement\GenerateUpdateStatement($decodeNewValues,
+        array("result" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_result"),
+            "map" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_map"),
+            "banMap" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_banMap"),
+            "winner" => new \SMMDatabaseStatement\ParamValueUserInput(PDO::PARAM_STR, "sm_winner")),
         array(), $setStatement, $args);
         \SMMDatabaseStatement\GenerateFilterStatement(array(), array(),
-        array("sm_name" => new \SMMDatabaseStatement\ParamFilterConstantInput("=", PDO::PARAM_STR, $_POST["target"])),
+        array("sm_id" => new \SMMDatabaseStatement\ParamFilterConstantInput("=", PDO::PARAM_INT, $_POST["target"])),
         $whereStatement, $args);
 
         //bind param and execute
-        $stmt = $db->conn->prepare('UPDATE user SET ' . $setStatement . ' WHERE ' . $whereStatement);
+        $stmt = $db->conn->prepare('UPDATE competition SET ' . $setStatement . ' WHERE ' . $whereStatement);
         foreach($args as $key=>$value) $stmt->bindParam($key+1, $value->paramValue, $value->paramSQLType);
         $stmt->execute();
 
