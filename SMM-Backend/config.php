@@ -8,7 +8,7 @@ $GLOBAL_CONFIG = array(
         "url" => "localhost",
         "port" => "3306"
     ),
-    "version" => "v0.5"
+    "version" => "1"
 );
 
 ?>

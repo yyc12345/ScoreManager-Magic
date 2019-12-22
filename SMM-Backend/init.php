@@ -84,7 +84,7 @@ try {
     //set init user
     $srvTime = time();
     $rndNumber = \SMMUtilities\GetRandomNumber();
-    $stmt = $db->conn->prepare("INSERT INTO user (sm_name, sm_password, sm_registration, sm_priority, sm_salt, sm_token, sm_expireOn) VALUES (?, ?, ?, 4, ?, '', 0)");
+    $stmt = $db->conn->prepare("INSERT INTO user (sm_name, sm_password, sm_registration, sm_priority, sm_salt, sm_token, sm_expireOn) VALUES (?, ?, ?, 15, ?, '', 0)");
     $stmt->bindParam(1, $INIT_ROOT_ACCOUNT["user"], PDO::PARAM_STR);
     $stmt->bindParam(2, $user_hash, PDO::PARAM_STR);
     $stmt->bindParam(3, $srvTime, PDO::PARAM_INT);

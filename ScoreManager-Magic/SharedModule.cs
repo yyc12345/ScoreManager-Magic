@@ -10,7 +10,7 @@ namespace ScoreManager_Magic {
 
         public static ConfigManager configManager = new ConfigManager("sccoremanager-magic.cfg", new Dictionary<string, string>() {
             {"BallancePath", Information.WorkPath.Enter("Ballance").Path },
-            {"Server", "http://yyc.bkt.moe:6666" },
+            {"Server", "http://yyc.bkt.moe:7777/" },
             {"RememberUser", "0"},
             {"RememberPassword", "0"},
             {"RememberedUser", ""},
