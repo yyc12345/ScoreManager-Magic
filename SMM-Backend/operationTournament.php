@@ -23,7 +23,7 @@ try {
         $whereStatement = "";
         $args = array();
         \SMMDatabaseStatement\GenerateFilterStatement($decodeFilter, array(
-            "name" => new \SMMDatabaseStatement\ParamFilterUserInput('LIKE', PDO::PARAM_STR, "sm_name")
+            "name" => new \SMMDatabaseStatement\ParamFilterUserInput('LIKE', PDO::PARAM_STR, "sm_tournament")
         ),array(), $whereStatement, $args);
 
         //bind param and execute
@@ -88,7 +88,7 @@ try {
         $whereStatement, $args);
 
         //bind param and execute
-        $stmt = $db->conn->prepare('UPDATE participant SET ' . $setStatement . ' WHERE ' . $whereStatement);
+        $stmt = $db->conn->prepare('UPDATE tournament SET ' . $setStatement . ' WHERE ' . $whereStatement);
         foreach($args as $key=>$value) $stmt->bindParam($key+1, $value->paramValue, $value->paramSQLType);
         $stmt->execute();
 

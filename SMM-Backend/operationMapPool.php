@@ -60,17 +60,12 @@ try {
         //rm, check param
         if(!\SMMUtilities\CheckNecessityParam($_POST, array("target"))) throw new Exception("Invalid parameter");
         $decodeTarget = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["target"]);
-        if(count($decodeTarget) == 0) throw new Exception("Zero target is not allowed");
+        if(!\SMMUtilities\CheckNecessityParam($decodeTarget, array("hash", "tournament"))) throw new Exception("Target is not limited");
 
-        //construct statement
-        $whereStatement = "";
-        $args = array();
-        \SMMDatabaseStatement\GenerateFilterStatement(array(), array(),
-        array("sm_hash" => new \SMMDatabaseStatement\ParamFilterConstantInput("=", PDO::PARAM_STR, $decodeTarget)),
-        $whereStatement, $args);
-        //bind param and execute
-        $stmt = $db->conn->prepare('DELETE FROM mapPool WHERE ' . $whereStatement);
-        foreach($args as $key=>$value) $stmt->bindParam($key+1, $value->paramValue, $value->paramSQLType);
+        //invoke stmt directly
+        $stmt = $db->conn->prepare('DELETE FROM mapPool WHERE (sm_hash = ? && sm_tournament = ?)');
+        $stmt->bindParam(1, $decodeTarget["hash"], PDO::PARAM_STR);
+        $stmt->bindParam(2, $decodeTarget["tournament"], PDO::PARAM_STR);
         $stmt->execute();
 
         echo json_encode(\SMMUtilities\GetUniversalReturn());

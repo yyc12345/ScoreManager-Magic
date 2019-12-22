@@ -368,7 +368,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`delete`|
-|target|string (JSON列表)|必选参数，列表不得为空|用于确认作用对象，列表每一项是作用对象的`sm_tournament`字段值|
+|target|string|必选参数|用于确认作用对象，是作用对象的`sm_tournament`字段值|
 
 #### 返回
 

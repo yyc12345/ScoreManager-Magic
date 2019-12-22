@@ -76,7 +76,7 @@ namespace SMMUtilities {
 
     function AdvancedJsonArrayDecoder($jsonstr) {
         $result = json_decode($jsonstr, true);
-        if(!is_array($result)) throw new Exception("Fail to decode json");
+        if(!is_array($result)) throw new \Exception("Fail to decode json");
         return $result;
     }
 

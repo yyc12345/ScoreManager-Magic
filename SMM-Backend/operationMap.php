@@ -39,7 +39,7 @@ try {
         //add, check param
         if(!\SMMUtilities\CheckNecessityParam($_POST, array("newValues"))) throw new Exception("Invalid parameter");
         $decodeNewValues = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["newValues"]);
-        if(!\SMMUtilities\CheckNecessityParam($decodeNewValues, array("name", "password", "priority"))) throw new Exception("Invalid parameter");
+        if(!\SMMUtilities\CheckNecessityParam($decodeNewValues, array("name", "i18n", "hash"))) throw new Exception("Invalid parameter");
 
         //construct statement
         $insertKeyStatement = "";
