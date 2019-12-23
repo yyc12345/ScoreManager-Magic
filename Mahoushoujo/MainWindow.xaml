@@ -1,0 +1,545 @@
+﻿<Window x:Class="Mahoushoujo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mahoushoujo"
+        mc:Ignorable="d"
+        Title="Mahoushoujo" Height="450" Width="800">
+    <Grid>
+        <Grid Visibility="Collapsed" x:Name="uiLoginLayer" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Height="200">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Margin="0,5,0,5" Grid.Column="0" Grid.Row="0" Text="User name" VerticalAlignment="Center"/>
+            <TextBox x:Name="uiUserName" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Input your user name"/>
+
+            <TextBlock Grid.Column="0" Margin="0,5,0,5" Grid.Row="1" Text="Password" VerticalAlignment="Center"/>
+            <PasswordBox x:Name="uiPassword" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Input your password"/>
+
+            <TextBlock Margin="0,5,0,5" Grid.Column="0" Grid.Row="2" Text="Server domain" VerticalAlignment="Center"/>
+            <TextBox x:Name="uiDomain" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Change server location"/>
+
+            <Button Margin="0,10,0,0" Grid.ColumnSpan="2" Grid.Row="6" Height="25" Content="Login"/>
+
+        </Grid>
+        <Grid x:Name="uiOperLayer">
+            <TabControl>
+                <TabItem Header="User">
+                    <Grid Background="#FFE5E5E5">
+
+                        <TabControl Margin="10">
+                            <TabItem Header="Query user">
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Expander Header="Query filter" Grid.Column="0" Grid.Row="0">
+                                        <Grid Background="#FFE5E5E5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="Name" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Vague search (name)" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                        </Grid>
+                                    </Expander>
+                                    <Button Grid.Column="2" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
+
+                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="name (sm__name)" Binding="{Binding sm_name}"/>
+                                            <DataGridTextColumn Header="password (sm__password)" Binding="{Binding sm_password}"/>
+                                            <DataGridTextColumn Header="registration (conv sm__registration)" Binding="{Binding conv_registration}"/>
+                                            <DataGridTextColumn Header="priority (conv sm__priority)" Binding="{Binding conv_priority}"/>
+                                            <DataGridTextColumn Header="salt (sm__salt)" Binding="{Binding sm_salt}"/>
+                                            <DataGridTextColumn Header="token (sm__token)" Binding="{Binding sm_token}"/>
+                                            <DataGridTextColumn Header="expireOn (conv sm__expireOn)" Binding="{Binding conv_expireOn}"/>
+                                        </DataGrid.Columns>
+                                        <DataGrid.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Copy names (JSON)"/>
+                                                <MenuItem Header="Copy name"/>
+                                            </ContextMenu>
+                                        </DataGrid.ContextMenu>
+                                    </DataGrid>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Add user">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                            <TabItem Header="Delete user">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                            <TabItem Header="Update user">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                        </TabControl>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Competition">
+                    <Grid Background="#FFE5E5E5">
+
+                        <TabControl Margin="10">
+                            <TabItem Header="Query competition">
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Expander Header="Query filter" Grid.Column="0" Grid.Row="0">
+                                        <Grid Background="#FFE5E5E5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="Id (JSON)" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Name" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="2" Content="Start date" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="3" Content="End date" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="4" Content="CDK" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="5" Content="Map" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                            <local:DatetimePicker Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                            <local:DatetimePicker Grid.Column="1" Grid.Row="3" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="4" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="5" Margin="5"/>
+                                        </Grid>
+                                    </Expander>
+
+                                    <Button Grid.Column="1" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
+
+                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="id (sm__id)" Binding="{Binding sm_id}"/>
+                                            <DataGridTextColumn Header="result (sm__result)" Binding="{Binding sm_result}"/>
+                                            <DataGridTextColumn Header="start date (conv sm__startDate)" Binding="{Binding conv_startDate}"/>
+                                            <DataGridTextColumn Header="end date (conv sm__endDate)" Binding="{Binding conv_endDate}"/>
+                                            <DataGridTextColumn Header="judge end date (conv sm__judgeEndDate)" Binding="{Binding conv_judgeEndDate}"/>
+                                            <DataGridTextColumn Header="map (conv sm__map)" Binding="{Binding conv_map}"/>
+                                            <DataGridTextColumn Header="ban map (conv sm__banMap)" Binding="{Binding conv_banMap}"/>
+                                            <DataGridTextColumn Header="cdk (sm__cdk)" Binding="{Binding sm_cdk}"/>
+                                            <DataGridTextColumn Header="winner (sm__winner)" Binding="{Binding sm_winner}"/>
+                                        </DataGrid.Columns>
+                                        <DataGrid.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Copy ids (JSON)"/>
+                                                <MenuItem Header="Copy id"/>
+                                                <MenuItem Header="Copy map field"/>
+                                                <MenuItem Header="Copy ban map field"/>
+                                            </ContextMenu>
+                                        </DataGrid.ContextMenu>
+                                    </DataGrid>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Add competition">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                            <TabItem Header="Delete competition">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                            <TabItem Header="Update competition">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                        </TabControl>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Record">
+                    <Grid Background="#FFE5E5E5">
+
+                        <TabControl Margin="10">
+                            <TabItem Header="Query record">
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Expander Header="Query filter" Grid.Column="0" Grid.Row="0">
+                                        <Grid Background="#FFE5E5E5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="Install on" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Name" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="2" Content="Start date" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="3" Content="End date" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="4" Content="Score" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="5" Content="SR time" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="6" Content="Map" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                            <local:DatetimePicker Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                            <local:DatetimePicker Grid.Column="1" Grid.Row="3" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="4" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="5" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="6" Margin="5"/>
+                                        </Grid>
+                                    </Expander>
+
+                                    <Button Grid.Column="1" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
+
+                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="name (sm__name)" Binding="{Binding sm_name}"/>
+                                            <DataGridTextColumn Header="install on (sm__installOn)" Binding="{Binding sm_installOn}"/>
+                                            <DataGridTextColumn Header="map (conv sm__map)" Binding="{Binding conv_map}"/>
+                                            <DataGridTextColumn Header="score (sm__score)" Binding="{Binding sm_score}"/>
+                                            <DataGridTextColumn Header="sr time (conv sm__srTime)" Binding="{Binding conv_srTime}"/>
+                                            <DataGridTextColumn Header="life up (sm__lifeUp)" Binding="{Binding sm_lifeUp}"/>
+                                            <DataGridTextColumn Header="life lost (sm__lifeLost)" Binding="{Binding sm_lifeLost}"/>
+                                            <DataGridTextColumn Header="extra point (sm__extraPoint)" Binding="{Binding sm_extraPoint}"/>
+                                            <DataGridTextColumn Header="sub extra point (sm__subExtraPoint)" Binding="{Binding sm_subExtraPoint}"/>
+                                            <DataGridTextColumn Header="trafo (conv sm__trafo)" Binding="{Binding sm_trafo}"/>
+                                            <DataGridTextColumn Header="checkpoint (sm__checkpoint)" Binding="{Binding sm_checkpoint}"/>
+                                            <DataGridTextColumn Header="verify (conv sm__verify)" Binding="{Binding conv_verify}"/>
+                                            <DataGridTextColumn Header="bsm token (sm__token)" Binding="{Binding sm_token}"/>
+                                            <DataGridTextColumn Header="local submit time (conv sm__localUTC)" Binding="{Binding conv_localUTC}"/>
+                                            <DataGridTextColumn Header="server receive time (conv sm__serverUTC)" Binding="{Binding conv_serverUTC}"/>
+                                        </DataGrid.Columns>
+                                        <DataGrid.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Copy ids (JSON)"/>
+                                                <MenuItem Header="Copy id"/>
+                                                <MenuItem Header="Copy map field"/>
+                                                <MenuItem Header="Copy ban map field"/>
+                                            </ContextMenu>
+                                        </DataGrid.ContextMenu>
+                                    </DataGrid>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Tournament">
+                    <Grid Background="#FFE5E5E5">
+
+                        <TabControl Margin="10">
+                            <TabItem Header="Query tournament">
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Expander Header="Query filter" Grid.Column="0" Grid.Row="0">
+                                        <Grid Background="#FFE5E5E5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="Name" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Vague search (name)" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                        </Grid>
+                                    </Expander>
+                                    <Button Grid.Column="2" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
+
+                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="name (sm__tournament)" Binding="{Binding sm_tournament}"/>
+                                            <DataGridTextColumn Header="registration start date (conv sm__startDate)" Binding="{Binding conv_startDate}"/>
+                                            <DataGridTextColumn Header="registration end date (conv sm__endDate)" Binding="{Binding conv_endDate}"/>
+                                            <DataGridTextColumn Header="schedule (conv sm__schedule)" Binding="{Binding conv_schedule}"/>
+                                        </DataGrid.Columns>
+                                        <DataGrid.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Copy name"/>
+                                                <MenuItem Header="Copy schedule"/>
+                                            </ContextMenu>
+                                        </DataGrid.ContextMenu>
+                                    </DataGrid>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Add tournament">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                            <TabItem Header="Delete tournament">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                            <TabItem Header="Update tournament">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                        </TabControl>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Registry">
+                    <Grid Background="#FFE5E5E5">
+
+                        <TabControl Margin="10">
+                            <TabItem Header="Query registry">
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Expander Header="Query filter" Grid.Column="0" Grid.Row="0">
+                                        <Grid Background="#FFE5E5E5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="User name" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Vague search (user name)" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="2" Content="Tournament" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                        </Grid>
+                                    </Expander>
+                                    <Button Grid.Column="2" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
+
+                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="user name (sm__user)" Binding="{Binding sm_user}"/>
+                                            <DataGridTextColumn Header="tournament (sm__tournament)" Binding="{Binding sm_tournament}"/>
+                                        </DataGrid.Columns>
+                                        <DataGrid.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Copy name"/>
+                                                <MenuItem Header="Copy tournament"/>
+                                            </ContextMenu>
+                                        </DataGrid.ContextMenu>
+                                    </DataGrid>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Add registry">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                            <TabItem Header="Delete registry">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                        </TabControl>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Map Pool">
+                    <Grid Background="#FFE5E5E5">
+
+                        <TabControl Margin="10">
+                            <TabItem Header="Query map pool">
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Expander Header="Query filter" Grid.Column="0" Grid.Row="0">
+                                        <Grid Background="#FFE5E5E5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="Map hash" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Tournament" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                        </Grid>
+                                    </Expander>
+                                    <Button Grid.Column="2" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
+
+                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="map (conv sm__hash)" Binding="{Binding conv_hash}"/>
+                                            <DataGridTextColumn Header="tournament (sm__tournament)" Binding="{Binding sm_tournament}"/>
+                                        </DataGrid.Columns>
+                                        <DataGrid.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Copy name"/>
+                                                <MenuItem Header="Copy tournament"/>
+                                            </ContextMenu>
+                                        </DataGrid.ContextMenu>
+                                    </DataGrid>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Add map pool">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                            <TabItem Header="Delete map pool">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                        </TabControl>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Map">
+                    <Grid Background="#FFE5E5E5">
+
+                        <TabControl Margin="10">
+                            <TabItem Header="Query map">
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Expander Header="Query filter" Grid.Column="0" Grid.Row="0">
+                                        <Grid Background="#FFE5E5E5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="Map hash" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Name" Margin="5"/>
+                                            <CheckBox Grid.Column="0" Grid.Row="2" Content="I18N" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                            <TextBox Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                        </Grid>
+                                    </Expander>
+                                    <Button Grid.Column="2" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
+
+                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="name (sm__name)" Binding="{Binding sm_name}"/>
+                                            <DataGridTextColumn Header="i18n (sm__i18n)" Binding="{Binding sm_i18n}"/>
+                                            <DataGridTextColumn Header="hash (sm__hash)" Binding="{Binding sm_hash}"/>
+                                        </DataGrid.Columns>
+                                        <DataGrid.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Copy hashes (JSON)"/>
+                                                <MenuItem Header="Copy hash"/>
+                                                <MenuItem Header="Copy name"/>
+                                                <MenuItem Header="Copy i18n"/>
+                                            </ContextMenu>
+                                        </DataGrid.ContextMenu>
+                                    </DataGrid>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Add map">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                            <TabItem Header="Delete map">
+                                <Grid Background="#FFE5E5E5"/>
+                            </TabItem>
+                        </TabControl>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Settings">
+                    <Grid Background="#FFE5E5E5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <CheckBox Grid.Column="0" Grid.Row="0" Content="Assume UTC" IsChecked="True" Margin="5"/>
+                        <CheckBox Grid.Column="0" Grid.Row="1" Content="Display as UTC" IsChecked="True" Margin="5"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Margin="5" Text="Assume start and end date is input as UTC time instead of local time"/>
+                        <TextBlock Grid.Column="1" Grid.Row="1" Margin="5" Text="All converted time will be displayed as UTC time (no timezone convert)"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="About">
+                    <StackPanel Orientation="Vertical" Background="#FFE5E5E5">
+                        <TextBlock Text="Mahoushoujo v1"/>
+                        <TextBlock Text="Admin tools for ScoreManager-Magic"/>
+                        <TextBlock Text="In next version, this project will be merged into SMM"/>
+                        <TextBlock Text="Mahoushoujo will implement a console version with Python"/>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+
+        </Grid>
+    </Grid>
+</Window>
