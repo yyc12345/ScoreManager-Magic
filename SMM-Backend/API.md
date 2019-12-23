@@ -14,6 +14,8 @@
 
 若后文返回写为无返回，则表明程序通常是要去读取`code`字段判断是否执行成功
 
+如果参数中写出是JSON但是不参与序列化，则表明此值不应该在传输过程中被显示传输，将持续作为文本串进行传输并仅在客户端由客户端自行解开。在传输过程中表现为整体被序列化且被包括在`""`内进行传输
+
 ### 数据传输格式
 
 * 后文中的bool类型数据传输将通过int类型进行实现
@@ -200,7 +202,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
-|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`name`（string，名称筛选）|
+|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`name`（string，允许模糊搜索；名称筛选）|
 
 #### 返回
 
@@ -214,7 +216,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`add`|
-|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`name`（string，名称），`password`（string，密码），`priority`（int，权限）|
+|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`name`（string；名称），`password`（string；密码，已被SHA256哈希化的），`priority`（int；权限）|
 
 #### 返回
 
@@ -243,7 +245,7 @@
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`update`|
 |target|string (JSON列表)|必选参数，列表不得为空|用于确认作用对象，列表每一项是作用对象的`sm_name`字段值|
-|newValues|string (JSON字典)|必选参数，字典不得为空|用于更新数值，为字典，可用字段：`password`（string，密码），`priority`（int，权限），`expireOn`（int，token过期时间）|
+|newValues|string (JSON字典)|必选参数，字典不得为空|用于更新数值，为字典，可用字段：`password`（string；密码，已被SHA256哈希化的），`priority`（int；权限），`expireOn`（int；token过期时间）|
 
 #### 返回
 
@@ -261,7 +263,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
-|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`id`（int列表，id筛选，筛选任意符合列表中的id的项），`name`（string，名称筛选），`startDate`（long，起始时间筛选，按字段`sm_startDate`筛选，筛选此时间之后的比赛），`endDate`（long，结束时间筛选，按字段`sm_endDate`筛选，筛选此时间之前的比赛），`cdk`（string，cdk筛选），`map`（string，地图筛选）|
+|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`id`（JSON列表，每一项位int；id筛选，筛选任意符合列表中的id的项），`name`（string；名称筛选），`startDate`（long；起始时间筛选，按字段`sm_startDate`筛选，筛选此时间之后的比赛），`endDate`（long；结束时间筛选，按字段`sm_endDate`筛选，筛选此时间之前的比赛），`cdk`（string；cdk筛选），`map`（string；地图筛选）|
 
 #### 返回
 
@@ -275,7 +277,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`add`|
-|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`startDate`（string，开始时间），`endDate`（string，结束时间），`judgeEndDate`（string，判断结束时间），`participant`（string列表，参与此比赛的用户名）|
+|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`startDate`（string；开始时间），`endDate`（string；结束时间），`judgeEndDate`（string；判断结束时间），`participant`（JSON列表，每一项为string；参与此比赛的用户名）|
 
 #### 返回
 
@@ -304,7 +306,7 @@
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`update`|
 |target|string|必选参数|用于确认作用对象，是作用对象的`sm_id`字段值|
-|newValues|string (JSON字典)|必选参数，字典不得为空|用于更新数值，为字典，可用字段：`result`（string（JSON字典），比赛结果纪录），`map`（string，比赛地图），`banMap`（string（JSON列表），比赛被Ban的地图），`winner`（string，比赛胜者）|
+|newValues|string (JSON字典)|必选参数，字典不得为空|用于更新数值，为字典，可用字段：`result`（JSON列表，每一项类型参见数据库手册，不参与序列化；比赛结果纪录），`map`（string；比赛地图），`banMap`（JSON列表，每一项为string，不参与序列化；比赛被Ban的地图），`winner`（string；比赛胜者）|
 
 #### 返回
 
@@ -322,7 +324,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
-|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`installedOn`（int，安装关卡筛选），`name`（string，名称筛选），`startDate`（long，起始时间筛选），`endDate`（long，结束时间筛选），`score`（int，分数筛选），`time`（int，时间筛选），`map`（string，地图筛选）|
+|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`installedOn`（int；安装关卡筛选），`name`（string；名称筛选），`startDate`（long；起始时间筛选），`endDate`（long；结束时间筛选），`score`（int；分数筛选），`time`（int；时间筛选），`map`（string；地图筛选）|
 
 #### 返回
 
@@ -340,7 +342,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
-|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`name`（string，联赛名称）|
+|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`name`（string，支持模糊查询；联赛名称）|
 
 #### 返回
 
@@ -354,7 +356,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`add`|
-|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`startDate`（string，注册开始时间），`endDate`（string，注册结束时间），`name`（string，联赛名称）|
+|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`startDate`（string；注册开始时间），`endDate`（string；注册结束时间），`name`（string；联赛名称）|
 
 #### 返回
 
@@ -383,7 +385,7 @@
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`update`|
 |target|string|必选参数|用于确认作用对象，是作用对象的`sm_tournament`字段值|
-|newValues|string (JSON字典)|必选参数，字典不得为空|用于更新数值，为字典，可用字段：`startDate`（string，注册开始时间），`endDate`（string，注册结束时间），`schedule`（string（超长JSON数据），比赛赛程完整安排）|
+|newValues|string (JSON字典)|必选参数，字典不得为空|用于更新数值，为字典，可用字段：`startDate`（string；注册开始时间），`endDate`（string；注册结束时间），`schedule`（JSON列表，不参与序列化，很长；比赛赛程完整安排）|
 
 #### 返回
 
@@ -402,7 +404,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
-|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`user`（string，用户筛选），`tournament`（string，联赛名称筛选）|
+|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`user`（string，支持模糊查询；用户筛选），`tournament`（string；联赛名称筛选）|
 
 #### 返回
 
@@ -416,7 +418,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`add`|
-|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`user`（string，用户），`tournament`（string，所属联赛名称）|
+|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`user`（string；用户），`tournament`（string；所属联赛名称）|
 
 #### 返回
 
@@ -430,7 +432,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`delete`|
-|target|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于确认作用对象，，为字典，可用字段：`user`（string，用户），`tournament`（string，所属联赛名称）|
+|target|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于确认作用对象，为字典，可用字段：`user`（string；用户），`tournament`（string；所属联赛名称）|
 
 #### 返回
 
@@ -449,7 +451,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
-|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`hash`（string，hash筛选），`tournament`（string，联赛筛选）|
+|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`hash`（string；hash筛选），`tournament`（string；联赛筛选）|
 
 #### 返回
 
@@ -463,7 +465,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`add`|
-|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`hash`（string，hash），`tournament`（string，所属联赛）|
+|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`hash`（string；hash），`tournament`（string；所属联赛）|
 
 #### 返回
 
@@ -477,7 +479,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`delete`|
-|target|string (JSON列表)|必选参数，列表不得为空|用于确认作用对象，列表每一项是作用对象的`sm_hash`字段值|
+|target|string (JSON字典)|必选参数，必须包含全部可选参数|用于确认作用对象，可用字段为：`hash`（string；地图hash），`tournament`（string；联赛名）|
 
 #### 返回
 
@@ -495,7 +497,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`query`|
-|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`name`（string，原名称筛选），`i18n`（string，英文名称筛选），`hash`（string，hash筛选）|
+|filterRules|string (JSON字典)|必选参数，字典可以为空|用于筛选结果，为字典，可用字段：`name`（string，支持模糊查询；原名称筛选），`i18n`（string，支持模糊查询；英文名称筛选），`hash`（string；hash筛选）|
 
 #### 返回
 
@@ -509,7 +511,7 @@
 |:---:|:---:|:---:|:---:|
 |token|string|必选参数|管路员的token，用于确认权限|
 |method|string|必选参数|固定值，为`add`|
-|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`name`（string，原名称），`i18n`（string，英文名称），`hash`（string，hash）|
+|newValues|string (JSON字典)|必选参数，字典必须包含所有可用字段|用于添加新项的初始数据，为字典，可用字段：`name`（string；原名称），`i18n`（string；英文名称），`hash`（string；hash）|
 
 #### 返回
 
