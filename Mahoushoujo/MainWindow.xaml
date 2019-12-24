@@ -91,13 +91,80 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Header="Add user">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Name" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Password" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Priority" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
+                                        <CheckBox Content="user" IsChecked="True" Margin="5"/>
+                                        <CheckBox Content="live" Margin="5"/>
+                                        <CheckBox Content="speedrun" Margin="5"/>
+                                        <CheckBox Content="admin" Margin="5"/>
+                                    </StackPanel>
+
+                                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Add" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                             <TabItem Header="Delete user">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Name (JSON)" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+
+                                    <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red" Content="Delete" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                             <TabItem Header="Update user">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Target user (JSON)" Margin="5"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="1" Content="Password" Margin="5"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="2" Content="Priority" Margin="5"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="3" Content="Expire on" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
+                                        <CheckBox Content="user" IsChecked="True" Margin="5"/>
+                                        <CheckBox Content="live" Margin="5"/>
+                                        <CheckBox Content="speedrun" Margin="5"/>
+                                        <CheckBox Content="admin" Margin="5"/>
+                                    </StackPanel>
+                                    <local:DatetimePicker Grid.Column="1" Grid.Row="3" Margin="5"/>
+
+                                    <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Update" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                         </TabControl>
 
@@ -174,13 +241,77 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Header="Add competition">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Start date" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="End date" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Judge end date" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Participant (JSON)" Margin="5"/>
+                                    <local:DatetimePicker Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <local:DatetimePicker Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <local:DatetimePicker Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="3" Margin="5"/>
+
+                                    <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Add" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                             <TabItem Header="Delete competition">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="ID (JSON)" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+
+                                    <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red" Content="Delete" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                             <TabItem Header="Update competition">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Target competition" Margin="5"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="1" Content="Result (inner JSON)" Margin="5"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="2" Content="Map" Margin="5"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="3" Content="Ban map (inner JSON)" Margin="5"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="4" Content="Winner" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="3" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="4" Margin="5"/>
+                                    
+
+                                    <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content="Update" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                         </TabControl>
 
@@ -256,10 +387,8 @@
                                         </DataGrid.Columns>
                                         <DataGrid.ContextMenu>
                                             <ContextMenu>
-                                                <MenuItem Header="Copy ids (JSON)"/>
-                                                <MenuItem Header="Copy id"/>
-                                                <MenuItem Header="Copy map field"/>
-                                                <MenuItem Header="Copy ban map field"/>
+                                                <MenuItem Header="Copy score"/>
+                                                <MenuItem Header="Copy SR time"/>
                                             </ContextMenu>
                                         </DataGrid.ContextMenu>
                                     </DataGrid>
@@ -319,13 +448,71 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Header="Add tournament">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Name" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Start date" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="End date" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <local:DatetimePicker Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <local:DatetimePicker Grid.Column="1" Grid.Row="2" Margin="5"/>
+
+                                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Add" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                             <TabItem Header="Delete tournament">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Name" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+
+                                    <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red" Content="Delete" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                             <TabItem Header="Update tournament">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Target competition" Margin="5"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="1" Content="Registry start date" Margin="5"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="2" Content="Registry end date" Margin="5"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="3" Content="Schedule" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <local:DatetimePicker  Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <local:DatetimePicker  Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="3" Margin="5"/>
+
+
+                                    <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Update" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                         </TabControl>
 
@@ -382,10 +569,44 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Header="Add registry">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="User name" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Tournament name" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+
+                                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Add" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                             <TabItem Header="Delete registry">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="User name" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Tournament name" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+
+                                    <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red" Content="Delete" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                         </TabControl>
 
@@ -440,10 +661,44 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Header="Add map pool">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Map hash" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Tournament name" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+
+                                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Add" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                             <TabItem Header="Delete map pool">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Map hash" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Tournament name" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+
+                                    <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red" Content="Delete" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                         </TabControl>
 
@@ -504,10 +759,44 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Header="Add map">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Map name" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Map i18n name" Margin="5"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Map hash" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="2" Margin="5"/>
+
+                                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Add" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                             <TabItem Header="Delete map">
-                                <Grid Background="#FFE5E5E5"/>
+                                <Grid Background="#FFE5E5E5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Map hash (JSON)" Margin="5"/>
+                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+
+                                    <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red" Content="Delete" Margin="5" VerticalAlignment="Bottom"/>
+                                </Grid>
                             </TabItem>
                         </TabControl>
 
@@ -523,7 +812,7 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        
+
                         <CheckBox Grid.Column="0" Grid.Row="0" Content="Assume UTC" IsChecked="True" Margin="5"/>
                         <CheckBox Grid.Column="0" Grid.Row="1" Content="Display as UTC" IsChecked="True" Margin="5"/>
                         <TextBlock Grid.Column="1" Grid.Row="0" Margin="5" Text="Assume start and end date is input as UTC time instead of local time"/>

@@ -125,7 +125,7 @@ try {
             $stmt2->execute();
         }
 
-        echo json_encode(\SMMUtilities\GetUniversalReturn());
+        echo json_encode(\SMMUtilities\GetUniversalReturn(true, "OK", $lastID));
 
     } else if (\SMMUtilities\CheckHardcodeParam($_POST, array("method" => "delete"))) {
         //rm, check param
