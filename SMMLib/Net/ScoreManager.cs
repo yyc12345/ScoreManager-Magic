@@ -249,7 +249,7 @@ namespace SMMLib.Net {
 
         }
 
-        public StandardResponse OperationCompetition_Add(long startDate, long endDate, long judgeEndDate, List<string> participant) {
+        public (StandardResponse status, long inserID) OperationCompetition_Add(long startDate, long endDate, long judgeEndDate, List<string> participant) {
 
         }
 

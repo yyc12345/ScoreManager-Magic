@@ -58,6 +58,7 @@
     <Compile Include="Utilities\FilePathBuilder.cs" />
     <Compile Include="Utilities\HashComput.cs" />
     <Compile Include="Utilities\Information.cs" />
+    <Compile Include="Utilities\LogManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
