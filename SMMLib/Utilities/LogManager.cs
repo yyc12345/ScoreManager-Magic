@@ -12,11 +12,6 @@ namespace SMMLib.Utilities {
             logfs = new StreamWriter(file, false, Encoding.UTF8);
         }
 
-        ~LogManager() {
-            logfs.Close();
-            logfs.Dispose();
-        }
-
         StreamWriter logfs;
         object lockfs = new object();
         public event Action<string> NewLog;
@@ -34,6 +29,7 @@ namespace SMMLib.Utilities {
                 }
             });
         }
+
 
     }
 }

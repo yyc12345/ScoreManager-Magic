@@ -5,6 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SMMLib.Data.SMMStructure;
+using SMMLib.Data.SMMInputBuilder;
 using SMMLib.Data;
 using SMMLib.Utilities;
 
@@ -225,108 +226,92 @@ namespace SMMLib.Net {
 
         #region admin methods
 
-        public (StandardResponse status, List<OperationUserQuery> data) OperationUser_Query(bool useName, string name = default) {
-
+        public (StandardResponse status, List<OperationUserQuery> data) OperationUser_Query(UserQueryFilter filter) {
+            throw new NotImplementedException();
         }
 
-        public StandardResponse OperationUser_Add(string name, string password, SM_Priority priority) {
-
+        public StandardResponse OperationUser_Add(UserAddBuilder inputValues) {
+            throw new NotImplementedException();
         }
 
         public StandardResponse OperationUser_Delete(List<string> target) {
-
+            throw new NotImplementedException();
         }
 
-        public StandardResponse OperationUser_Update(List<string> target,
-            bool usePassword, bool usePriority, bool useExpireOn,
-            string password = default, SM_Priority priority = default, long expireOn = default) {
-
+        public StandardResponse OperationUser_Update(List<string> target, UserUpdateFilter filter) {
+            throw new NotImplementedException();
         }
 
-        public (StandardResponse status, List<OperationCompetitionQuery> data) OperationCompetition_Query(
-            bool useId, bool useName, bool useStartDate, bool useEndDate, bool useCDK, bool useMap,
-            List<long> id = default, string name = default, long startDate = default, long endDate = default, string cdk = default, string map = default) {
-
+        public (StandardResponse status, List<OperationCompetitionQuery> data) OperationCompetition_Query(CompetitionQueryFilter filter) {
+            throw new NotImplementedException();
         }
 
-        public (StandardResponse status, long inserID) OperationCompetition_Add(long startDate, long endDate, long judgeEndDate, List<string> participant) {
-
+        public (StandardResponse status, long inserID) OperationCompetition_Add(CompetitionAddBuilder inputValues) {
+            throw new NotImplementedException();
         }
 
         public StandardResponse OperationCompetition_Delete(List<long> target) {
-
+            throw new NotImplementedException();
         }
 
-        public StandardResponse OperationCompetition_Update(long target,
-            bool useResult, bool useMap, bool useBanMap, bool useWinner,
-            string result = default, string map = default, List<string> banMap = default, string winner = default) {
-
+        public StandardResponse OperationCompetition_Update(long target, CompetitionUpdateFilter filter) {
+            throw new NotImplementedException();
         }
 
-        public (StandardResponse status, List<OperationRecordQuery>) OperationRecord_Query(
-            bool useInstallOn, bool useName, bool useStartDate, bool useEndDate, bool useScore, bool useTime, bool useMap,
-            int installOn = default, string name = default, long startDate = default, long endDate = default, int score = default, int time = default, string map = default) {
-
+        public (StandardResponse status, List<OperationRecordQuery>) OperationRecord_Query(RecordQueryFilter filter) {
+            throw new NotImplementedException();
         }
 
-        public (StandardResponse status, List<OperationTournamentQuery> data) OperationTournament_Query(bool useName, string name = default) {
-
+        public (StandardResponse status, List<OperationTournamentQuery> data) OperationTournament_Query(TournamentQueryFilter filter) {
+            throw new NotImplementedException();
         }
 
-        public StandardResponse OperationTournament_Add(long startDate, long endDate, string name) {
-
+        public StandardResponse OperationTournament_Add(TournamentAddBuilder inputValues) {
+            throw new NotImplementedException();
         }
 
         public StandardResponse OperationTournament_Delete(List<string> target) {
-
+            throw new NotImplementedException();
         }
 
-        public StandardResponse OperationTournament_Update(long target,
-            bool useStartDate, bool useEndDate, bool useSchedule,
-            long startDate = default, long endDate = default, string schedule = default) {
-
+        public StandardResponse OperationTournament_Update(long target, TournamentUpdateFilter filter) {
+            throw new NotImplementedException();
         }
 
-        public (StandardResponse status, List<OperationRegistryQuery> data) OperationRegistry_Query(
-            bool useName, bool useTournament,
-            string name = default, string tournament = default) {
-
+        public (StandardResponse status, List<OperationRegistryQuery> data) OperationRegistry_Query(RegistryQueryFilter filter) {
+            throw new NotImplementedException();
         }
 
-        public StandardResponse OperationRegistry_Add(string user, string tournament) {
-
+        public StandardResponse OperationRegistry_Add(RegistryAddDeleteBuilder inputValues) {
+            throw new NotImplementedException();
         }
 
-        public StandardResponse OperationRegistry_Delete(string user, string tournament) {
-
+        public StandardResponse OperationRegistry_Delete(RegistryAddDeleteBuilder inputValues) {
+            throw new NotImplementedException();
         }
 
-        public (StandardResponse status, List<OperationMapPoolQuery> data) OperationMapPool_Query(
-            bool useHash, bool useTournament,
-            string hash = default, string tournament = default) {
-
+        public (StandardResponse status, List<OperationMapPoolQuery> data) OperationMapPool_Query(MapPoolQueryFilter filter) {
+            throw new NotImplementedException();
         }
 
-        public StandardResponse OperationMapPool_Add(string hash, string tournament) {
-
+        public StandardResponse OperationMapPool_Add(MapPoolAddDeleteBuilder inputValues) {
+            throw new NotImplementedException();
         }
 
-        public StandardResponse OperationMapPool_Delete(List<string> hash) {
-
+        public StandardResponse OperationMapPool_Delete(MapPoolAddDeleteBuilder inputValues) {
+            throw new NotImplementedException();
         }
 
-        public (StandardResponse status, List<OperationMapQuery> data) OperationMap_Query(
-            bool useName, bool useI18n, bool useHash,
-            string name = default, string i18n = default, string hash = default) {
-
+        public (StandardResponse status, List<OperationMapQuery> data) OperationMap_Query(MapQueryFilter filter) {
+            throw new NotImplementedException();
         }
 
-        public StandardResponse OperationMap_Add(string name, string i18n, string hasn) {
-
+        public StandardResponse OperationMap_Add(MapAddBuilder inputValues) {
+            throw new NotImplementedException();
         }
 
         public StandardResponse OperationMap_Delete(List<string> hash) {
-
+            throw new NotImplementedException();
         }
 
         #endregion

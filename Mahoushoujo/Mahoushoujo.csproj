@@ -71,6 +71,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Data\ObservableStructure.cs" />
     <Compile Include="DatetimePicker.xaml.cs">
       <DependentUpon>DatetimePicker.xaml</DependentUpon>
     </Compile>
@@ -103,5 +104,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SMMLib\SMMLib.csproj">
+      <Project>{59ae304c-46ea-4e04-88f9-b6bf797cb6af}</Project>
+      <Name>SMMLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

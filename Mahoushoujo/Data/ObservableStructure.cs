@@ -1,0 +1,151 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using SMMLib.Utilities;
+using SMMLib.Data;
+
+namespace Mahoushoujo.Data {
+
+    public class OperationUserQuery : SMMLib.Data.SMMStructure.OperationUserQuery {
+        public OperationUserQuery(SMMLib.Data.SMMStructure.OperationUserQuery root) {
+            this.sm_name = root.sm_name;
+            this.sm_password = root.sm_password;
+            this.sm_registration = root.sm_registration;
+            this.sm_priority = root.sm_priority;
+            this.sm_salt = root.sm_salt;
+            this.sm_token = root.sm_token;
+            this.sm_expireOn = root.sm_expireOn;
+        }
+
+        public string conv_registration {
+            get {
+                return sm_registration.ConvertToDatetime().ToString();
+            }
+            set {; }
+        }
+
+        public string conv_priority {
+            get {
+                List<string> res = new List<string>();
+                if ((sm_priority & SM_Priority.User) == SM_Priority.User) res.Add(SM_Priority.User.ToString());
+                if ((sm_priority & SM_Priority.Live) == SM_Priority.Live) res.Add(SM_Priority.Live.ToString());
+                if ((sm_priority & SM_Priority.Speedrun) == SM_Priority.Speedrun) res.Add(SM_Priority.Speedrun.ToString());
+                if ((sm_priority & SM_Priority.Admin) == SM_Priority.Admin) res.Add(SM_Priority.Admin.ToString());
+
+                if (res.Count == 0) return "None";
+                else return string.Join(", ", res);
+            }
+            set {; }
+        }
+
+        public string conv_expireOn {
+            get {
+                return sm_expireOn.ConvertToDatetime().ToString();
+            }
+            set {; }
+        }
+    }
+
+    public class OperationCompetitionQuery : SMMLib.Data.SMMStructure.OperationCompetitionQuery {
+        public OperationCompetitionQuery(SMMLib.Data.SMMStructure.OperationCompetitionQuery root) {
+            this.sm_id = root.sm_id;
+            this.sm_result = root.sm_result;
+            this.sm_startDate = root.sm_startDate;
+            this.sm_endDate = root.sm_endDate;
+            this.sm_judgeEndDate = root.sm_judgeEndDate;
+            this.sm_map = root.sm_map;
+            this.sm_banMap = root.sm_banMap;
+            this.sm_cdk = root.sm_cdk;
+            this.winner = root.winner;
+            this.sm_participant = root.sm_participant;
+        }
+
+        public string conv_startDate {
+            get {
+                return sm_startDate.ConvertToDatetime().ToString();
+            }
+            set {; }
+        }
+
+        public string conv_endDate {
+            get {
+                return sm_endDate.ConvertToDatetime().ToString();
+            }
+            set {; }
+        }
+
+        public string conv_judgeEndDate {
+            get {
+                return sm_judgeEndDate.ConvertToDatetime().ToString();
+            }
+            set {; }
+        }
+    }
+
+    public class OperationCompetitionQuery_SMResult : SMMLib.Data.SMMStructure.OperationCompetitionQuery_SMResult {
+        public OperationCompetitionQuery_SMResult(SMMLib.Data.SMMStructure.OperationCompetitionQuery_SMResult root) {
+            this.name = root.name;
+            this.result = root.result;
+            this.link = root.link;
+
+        }
+    }
+
+    public class OperationRecordQuery : SMMLib.Data.SMMStructure.OperationRecordQuery {
+        public OperationRecordQuery(SMMLib.Data.SMMStructure.OperationRecordQuery root) {
+            this.sm_name = root.sm_name;
+            this.installedOn = root.installedOn;
+            this.sm_map = root.sm_map;
+            this.sm_score = root.sm_score;
+            this.sm_srTime = root.sm_srTime;
+            this.sm_lifeUp = root.sm_lifeUp;
+            this.sm_lifeLost = root.sm_lifeLost;
+            this.sm_extraPoint = root.sm_extraPoint;
+            this.sm_subExtraPoint = root.sm_subExtraPoint;
+            this.sm_trafo = root.sm_trafo;
+            this.sm_checkpoint = root.sm_checkpoint;
+            this.sm_verify = root.sm_verify;
+            this.sm_token = root.sm_token;
+            this.sm_localUTC = root.sm_localUTC;
+            this.sm_serverUTC = root.sm_serverUTC;
+
+        }
+    }
+
+    public class OperationTournamentQuery : SMMLib.Data.SMMStructure.OperationTournamentQuery {
+        public OperationTournamentQuery(SMMLib.Data.SMMStructure.OperationTournamentQuery root) {
+            this.sm_tournament = root.sm_tournament;
+            this.sm_startDate = root.sm_startDate;
+            this.sm_endDate = root.sm_endDate;
+            this.sm_schedule = root.sm_schedule;
+
+        }
+    }
+
+    public class OperationRegistryQuery : SMMLib.Data.SMMStructure.OperationRegistryQuery {
+        public OperationRegistryQuery(SMMLib.Data.SMMStructure.OperationRegistryQuery root) {
+            this.sm_user = root.sm_user;
+            this.sm_tournament = root.sm_tournament;
+
+        }
+    }
+
+    public class OperationMapPoolQuery : SMMLib.Data.SMMStructure.OperationMapPoolQuery {
+        public OperationMapPoolQuery(SMMLib.Data.SMMStructure.OperationMapPoolQuery root) {
+            this.sm_hash = root.sm_hash;
+            this.sm_tournament = root.sm_tournament;
+
+        }
+    }
+
+    public class OperationMapQuery : SMMLib.Data.SMMStructure.OperationMapQuery {
+        public OperationMapQuery(SMMLib.Data.SMMStructure.OperationMapQuery root) {
+            this.sm_name = root.sm_name;
+            this.sm_i18n = root.sm_i18n;
+            this.sm_hash = root.sm_hash;
+
+        }
+    }
+
+}

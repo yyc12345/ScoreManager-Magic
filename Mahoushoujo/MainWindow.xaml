@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Mahoushoujo" Height="450" Width="800">
     <Grid>
-        <Grid Visibility="Collapsed" x:Name="uiLoginLayer" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Height="200">
+        <Grid x:Name="uiLoginLayer" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Height="200">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
@@ -25,18 +25,18 @@
             </Grid.RowDefinitions>
 
             <TextBlock Margin="0,5,0,5" Grid.Column="0" Grid.Row="0" Text="User name" VerticalAlignment="Center"/>
-            <TextBox x:Name="uiUserName" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Input your user name"/>
+            <TextBox x:Name="uiLoginUserName" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Input your user name"/>
 
             <TextBlock Grid.Column="0" Margin="0,5,0,5" Grid.Row="1" Text="Password" VerticalAlignment="Center"/>
-            <PasswordBox x:Name="uiPassword" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Input your password"/>
+            <PasswordBox x:Name="uiLoginPassword" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Input your password"/>
 
             <TextBlock Margin="0,5,0,5" Grid.Column="0" Grid.Row="2" Text="Server domain" VerticalAlignment="Center"/>
-            <TextBox x:Name="uiDomain" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Change server location"/>
+            <TextBox x:Name="uiLoginDomain" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Change server location"/>
 
-            <Button Margin="0,10,0,0" Grid.ColumnSpan="2" Grid.Row="6" Height="25" Content="Login"/>
+            <Button Margin="0,10,0,0" Grid.ColumnSpan="2" Grid.Row="6" Height="25" Content="Login" Click="funcLogin"/>
 
         </Grid>
-        <Grid x:Name="uiOperLayer">
+        <Grid Visibility="Collapsed" x:Name="uiOperLayer">
             <TabControl>
                 <TabItem Header="User">
                     <Grid Background="#FFE5E5E5">

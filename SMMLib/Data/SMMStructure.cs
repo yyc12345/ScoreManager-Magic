@@ -5,15 +5,6 @@ using System.Text;
 
 namespace SMMLib.Data.SMMStructure {
 
-    [Flags]
-    public enum SM_Priority {
-        None = 0,
-        User = 0b1,
-        Live = 0b10,
-        Speedrun = 0b100,
-        Admin = 0b1000
-    }
-
     #region user structure
 
     public class Salt {
@@ -59,7 +50,7 @@ namespace SMMLib.Data.SMMStructure {
         public string sm_name { get; set; }
         public string sm_password { get; set; }
         public long sm_registration { get; set; }
-        public int sm_priority { get; set; }
+        public SM_Priority sm_priority { get; set; }
         public int sm_salt { get; set; }
         public string sm_token { get; set; }
         public long sm_expireOn { get; set; }
