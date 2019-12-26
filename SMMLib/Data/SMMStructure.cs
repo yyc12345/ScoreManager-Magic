@@ -58,12 +58,12 @@ namespace SMMLib.Data.SMMStructure {
 
     public class OperationCompetitionQuery {
         public long sm_id { get; set; }
-        public List<OperationCompetitionQuery_SMResult> sm_result { get; set; }
+        public string sm_result { get; set; } //can be serilized as List<OperationCompetitionQuery_SMResult>
         public long sm_startDate { get; set; }
         public long sm_endDate { get; set; }
         public long sm_judgeEndDate { get; set; }
         public string sm_map { get; set; }
-        public List<string> sm_banMap { get; set; }
+        public string sm_banMap { get; set; } // can be serilized as List<string>
         public string sm_cdk { get; set; }
         public string winner { get; set; }
         public List<string> sm_participant { get; set; }
@@ -87,10 +87,10 @@ namespace SMMLib.Data.SMMStructure {
         public int sm_subExtraPoint { get; set; }
         public int sm_trafo { get; set; }
         public int sm_checkpoint { get; set; }
-        public uint sm_verify { get; set; }
+        public int sm_verify { get; set; }
         public string sm_token { get; set; }
-        public ulong sm_localUTC { get; set; }
-        public ulong sm_serverUTC { get; set; }
+        public long sm_localUTC { get; set; }
+        public long sm_serverUTC { get; set; }
     }
 
     public class OperationTournamentQuery {

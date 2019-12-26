@@ -61,6 +61,7 @@
     <Compile Include="Core\Anticheat.cs" />
     <Compile Include="Core\NemosWatcher.cs" />
     <Compile Include="Core\WindowsRegistryHelper.cs" />
+    <Compile Include="Data\ObservableStructure.cs" />
     <Compile Include="SharedModule.cs" />
     <Compile Include="UI\Windows\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
@@ -142,7 +143,6 @@
     <Resource Include="Resources\AnticheatCheckList.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="UI\Dialogs\" />
   </ItemGroup>
   <ItemGroup>

@@ -81,14 +81,19 @@ namespace Mahoushoujo.Data {
             }
             set {; }
         }
-    }
 
-    public class OperationCompetitionQuery_SMResult : SMMLib.Data.SMMStructure.OperationCompetitionQuery_SMResult {
-        public OperationCompetitionQuery_SMResult(SMMLib.Data.SMMStructure.OperationCompetitionQuery_SMResult root) {
-            this.name = root.name;
-            this.result = root.result;
-            this.link = root.link;
+        public string conv_map {
+            get {
+                return sm_map;
+            }
+            set {; }
+        }
 
+        public string conv_banMap {
+            get {
+                return sm_banMap;
+            }
+            set {; }
         }
     }
 
@@ -109,8 +114,47 @@ namespace Mahoushoujo.Data {
             this.sm_token = root.sm_token;
             this.sm_localUTC = root.sm_localUTC;
             this.sm_serverUTC = root.sm_serverUTC;
-
         }
+
+        public string conv_map {
+            get {
+                return sm_map;
+            }
+            set {; }
+        }
+
+        public string conv_srTime {
+            get {
+                return string.Format("{0}:{1}.{2}",
+                    (sm_srTime / (1000 * 60)).ToString(),
+                    (sm_srTime % (1000 * 60) / 1000).ToString().PadLeft(2, '0'),
+                    (sm_srTime % 1000).ToString().PadLeft(4, '0'));
+            }
+            set {; }
+        }
+
+        public string conv_verify {
+            get {
+                return sm_verify.ConvertToBoolean().ToString();
+            }
+            set {; }
+        }
+
+        public string conv_localUTC {
+            get {
+                return sm_localUTC.ConvertToDatetime().ToString();
+            }
+            set {; }
+        }
+
+        public string conv_serverUTC {
+            get {
+                return sm_serverUTC.ConvertToDatetime().ToString();
+            }
+            set {; }
+        }
+
+
     }
 
     public class OperationTournamentQuery : SMMLib.Data.SMMStructure.OperationTournamentQuery {
@@ -119,15 +163,36 @@ namespace Mahoushoujo.Data {
             this.sm_startDate = root.sm_startDate;
             this.sm_endDate = root.sm_endDate;
             this.sm_schedule = root.sm_schedule;
-
         }
+
+        public string conv_startDate {
+            get {
+                return sm_startDate.ConvertToDatetime().ToString();
+            }
+            set {; }
+        }
+
+        public string conv_endDate {
+            get {
+                return sm_endDate.ConvertToDatetime().ToString();
+            }
+            set {; }
+        }
+
+        public string conv_schedule {
+            get {
+                if (sm_schedule.Length < 20) return sm_schedule;
+                else return sm_schedule.Substring(0, 20) + " ...";
+            }
+            set {; }
+        }
+
     }
 
     public class OperationRegistryQuery : SMMLib.Data.SMMStructure.OperationRegistryQuery {
         public OperationRegistryQuery(SMMLib.Data.SMMStructure.OperationRegistryQuery root) {
             this.sm_user = root.sm_user;
             this.sm_tournament = root.sm_tournament;
-
         }
     }
 
@@ -135,8 +200,15 @@ namespace Mahoushoujo.Data {
         public OperationMapPoolQuery(SMMLib.Data.SMMStructure.OperationMapPoolQuery root) {
             this.sm_hash = root.sm_hash;
             this.sm_tournament = root.sm_tournament;
-
         }
+
+        public string conv_hash {
+            get {
+                return sm_hash;
+            }
+            set {; }
+        }
+
     }
 
     public class OperationMapQuery : SMMLib.Data.SMMStructure.OperationMapQuery {
