@@ -6,6 +6,9 @@ using System.Text;
 
 namespace SMMLib.Data.SMMInputBuilder {
 
+    //filter: have ShouldSerializ... method. optional property convert
+    //Builder: don't have ShouldSerializ... method. all property will be converted.
+
     #region filter (query update)
 
     public class UserQueryFilter {
@@ -84,7 +87,7 @@ namespace SMMLib.Data.SMMInputBuilder {
 
     public class CompetitionUpdateFilter {
         public CompetitionUpdateFilter(bool useResult, bool useMap, bool useBanMap, bool useWinner,
-            string result = default, string map = default, List<string> banMap = default, string winner = default) {
+            string result = default, string map = default, string banMap = default, string winner = default) {
             this.result = result;
             this.map = map;
             this.banMap = banMap;
@@ -97,7 +100,7 @@ namespace SMMLib.Data.SMMInputBuilder {
 
         public string result { get; set; }
         public string map { get; set; }
-        public List<string> banMap { get; set; }
+        public string banMap { get; set; }
         public string winner { get; set; }
         private bool useResult { get; set; }
         private bool useMap { get; set; }

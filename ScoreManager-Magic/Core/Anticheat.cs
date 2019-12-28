@@ -19,6 +19,7 @@ namespace ScoreManager_Magic.Core {
             fs.Close();
             fs.Dispose();
 
+            anticheatWatcher = new FileSystemWatcher();
             anticheatWatcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.CreationTime | NotifyFilters.FileName | NotifyFilters.Size;
             anticheatWatcher.Filter = "*.nmo";
             anticheatWatcher.Created += innerWatcherProcessor;

@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScoreManager_Magic.UI.Windows"
         mc:Ignorable="d"
-        Title="{DynamicResource ui_LoginWindow_Title}" Height="250" Width="400" WindowStyle="ToolWindow">
+        Title="登录到 ScoreManager-Magic" Height="250" Width="400" WindowStyle="ToolWindow">
     <Grid Background="#7f7f7f">
         <Grid Margin="10">
 
@@ -25,19 +25,19 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Margin="0,5,0,5" Grid.Column="0" Grid.Row="0" Text="{DynamicResource ui_LoginUIControl_Username}" VerticalAlignment="Center"/>
+            <TextBlock Margin="0,5,0,5" Grid.Column="0" Grid.Row="0" Text="用户名：" VerticalAlignment="Center"/>
             <TextBox x:Name="uiUserName" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Input your user name"/>
 
-            <TextBlock Grid.Column="0" Margin="0,5,0,5" Grid.Row="1" Text="{DynamicResource ui_LoginUIControl_Password}" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Margin="0,5,0,5" Grid.Row="1" Text="密码：" VerticalAlignment="Center"/>
             <PasswordBox x:Name="uiPassword" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Input your password"/>
 
-            <TextBlock Margin="0,5,0,5" Grid.Column="0" Grid.Row="2" Text="Server domain:" VerticalAlignment="Center"/>
-            <TextBox x:Name="uiDomain" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Change server location"/>
+            <TextBlock Margin="0,5,0,5" Grid.Column="0" Grid.Row="2" Text="服务器：" VerticalAlignment="Center"/>
+            <TextBox x:Name="uiServer" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Change server location"/>
 
-            <CheckBox Margin="0,5,0,5" Grid.ColumnSpan="2" Grid.Row="4" IsChecked="False" Content="{DynamicResource ui_LoginUIControl_RememberName}" VerticalAlignment="Center"/>
-            <CheckBox Margin="0,5,0,5" Grid.ColumnSpan="2" Grid.Row="5" IsChecked="False" Content="{DynamicResource ui_LoginUIControl_RememberPassword}" VerticalAlignment="Center"/>
+            <CheckBox x:Name="uiRemName" Margin="0,5,0,5" Grid.ColumnSpan="2" Grid.Row="4" IsChecked="False" Content="记住用户名" VerticalAlignment="Center" Click="func_remName"/>
+            <CheckBox x:Name="uiRemPassword" Margin="0,5,0,5" Grid.ColumnSpan="2" Grid.Row="5" IsChecked="False" Content="记住密码" VerticalAlignment="Center" Click="func_remPassword"/>
 
-            <Button Margin="0,10,0,0" Grid.ColumnSpan="2" Grid.Row="6" Height="25" Content="{DynamicResource ui_LoginUIControl_Login}"/>
+            <Button x:Name="uiLoginBtn" Margin="0,10,0,0" Grid.ColumnSpan="2" Grid.Row="6" Height="25" Content="登录" Click="func_login"/>
 
         </Grid>
     </Grid>

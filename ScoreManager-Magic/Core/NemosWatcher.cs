@@ -10,6 +10,7 @@ namespace ScoreManager_Magic.Core {
     public class NemosWatcher {
 
         public NemosWatcher() {
+            bsmWatcher = new FileSystemWatcher();
             bsmWatcher.NotifyFilter = NotifyFilters.LastWrite;
             bsmWatcher.Filter = "*.bsm";
             bsmWatcher.Changed += innerWatcherProcessor;

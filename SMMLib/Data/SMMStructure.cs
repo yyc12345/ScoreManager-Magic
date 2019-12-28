@@ -69,11 +69,12 @@ namespace SMMLib.Data.SMMStructure {
         public List<string> sm_participant { get; set; }
     }
 
-    public class OperationCompetitionQuery_SMResult {
-        public string name { get; set; }
-        public int result { get; set; }
-        public string link { get; set; }
-    }
+    //this class should be used in client. not in lib
+    //public class OperationCompetitionQuery_SMResult {
+    //    public string name { get; set; }
+    //    public int result { get; set; }
+    //    public string link { get; set; }
+    //}
 
     public class OperationRecordQuery {
         public string sm_name { get; set; }

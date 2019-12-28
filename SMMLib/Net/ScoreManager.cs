@@ -8,6 +8,7 @@ using SMMLib.Data.SMMStructure;
 using SMMLib.Data.SMMInputBuilder;
 using SMMLib.Data;
 using SMMLib.Utilities;
+using System.Threading.Tasks;
 
 namespace SMMLib.Net {
     public class ScoreManager {
@@ -210,7 +211,7 @@ namespace SMMLib.Net {
 
         public StandardResponse RegisterTournament(string tournament) {
             try {
-                var data = NetworkMethod.Post(CoreUrl.Logout, new Dictionary<string, string>() {
+                var data = NetworkMethod.Post(CoreUrl.RegisterTournament, new Dictionary<string, string>() {
                     {"token", Token},
                     {"tournament", tournament}
                 });
@@ -227,91 +228,336 @@ namespace SMMLib.Net {
         #region admin methods
 
         public (StandardResponse status, List<OperationUserQuery> data) OperationUser_Query(UserQueryFilter filter) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationUser, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "query"},
+                    {"filterRules", JsonConvert.SerializeObject(filter)}
+                });
+                //check result and return data
+                var realData = JsonDecoder(data);
+                return (new StandardResponse(true, ""), JsonConvert.DeserializeObject<List<OperationUserQuery>>(realData));
+            } catch (Exception e) {
+                return (new StandardResponse(false, e.Message), null);
+            }
         }
 
         public StandardResponse OperationUser_Add(UserAddBuilder inputValues) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationUser, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "add"},
+                    {"newValues", JsonConvert.SerializeObject(inputValues)}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
         public StandardResponse OperationUser_Delete(List<string> target) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationUser, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "delete"},
+                    {"target", JsonConvert.SerializeObject(target)}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
         public StandardResponse OperationUser_Update(List<string> target, UserUpdateFilter filter) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationUser, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "update"},
+                    {"target", JsonConvert.SerializeObject(target)},
+                    {"newValues", JsonConvert.SerializeObject(filter)}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
         public (StandardResponse status, List<OperationCompetitionQuery> data) OperationCompetition_Query(CompetitionQueryFilter filter) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationCompetition, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "query"},
+                    {"filterRules", JsonConvert.SerializeObject(filter)}
+                });
+                //check result and return data
+                var realData = JsonDecoder(data);
+                return (new StandardResponse(true, ""), JsonConvert.DeserializeObject<List<OperationCompetitionQuery>>(realData));
+            } catch (Exception e) {
+                return (new StandardResponse(false, e.Message), null);
+            }
         }
 
         public (StandardResponse status, long inserID) OperationCompetition_Add(CompetitionAddBuilder inputValues) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationCompetition, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "add"},
+                    {"newValues", JsonConvert.SerializeObject(inputValues)}
+                });
+                //check result and return data
+                var realData = JsonDecoder(data);
+                return (new StandardResponse(true, ""), long.Parse(realData));
+            } catch (Exception e) {
+                return (new StandardResponse(false, e.Message), -1);
+            }
         }
 
         public StandardResponse OperationCompetition_Delete(List<long> target) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationCompetition, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "delete"},
+                    {"target", JsonConvert.SerializeObject(target)}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
         public StandardResponse OperationCompetition_Update(long target, CompetitionUpdateFilter filter) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationCompetition, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "update"},
+                    {"target", target.ToString()},
+                    {"newValues", JsonConvert.SerializeObject(filter)}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
         public (StandardResponse status, List<OperationRecordQuery>) OperationRecord_Query(RecordQueryFilter filter) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationRecord, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "query"},
+                    {"filterRules", JsonConvert.SerializeObject(filter)}
+                });
+                //check result and return data
+                var realData = JsonDecoder(data);
+                return (new StandardResponse(true, ""), JsonConvert.DeserializeObject<List<OperationRecordQuery>>(realData));
+            } catch (Exception e) {
+                return (new StandardResponse(false, e.Message), null);
+            }
         }
 
         public (StandardResponse status, List<OperationTournamentQuery> data) OperationTournament_Query(TournamentQueryFilter filter) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationTournament, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "query"},
+                    {"filterRules", JsonConvert.SerializeObject(filter)}
+                });
+                //check result and return data
+                var realData = JsonDecoder(data);
+                return (new StandardResponse(true, ""), JsonConvert.DeserializeObject<List<OperationTournamentQuery>>(realData));
+            } catch (Exception e) {
+                return (new StandardResponse(false, e.Message), null);
+            }
         }
 
         public StandardResponse OperationTournament_Add(TournamentAddBuilder inputValues) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationTournament, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "add"},
+                    {"newValues", JsonConvert.SerializeObject(inputValues)}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
-        public StandardResponse OperationTournament_Delete(List<string> target) {
-            throw new NotImplementedException();
+        public StandardResponse OperationTournament_Delete(string target) {
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationTournament, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "delete"},
+                    {"target", target}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
-        public StandardResponse OperationTournament_Update(long target, TournamentUpdateFilter filter) {
-            throw new NotImplementedException();
+        public StandardResponse OperationTournament_Update(string target, TournamentUpdateFilter filter) {
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationTournament, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "update"},
+                    {"target", target},
+                    {"newValues", JsonConvert.SerializeObject(filter)}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
         public (StandardResponse status, List<OperationRegistryQuery> data) OperationRegistry_Query(RegistryQueryFilter filter) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationRegistry, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "query"},
+                    {"filterRules", JsonConvert.SerializeObject(filter)}
+                });
+                //check result and return data
+                var realData = JsonDecoder(data);
+                return (new StandardResponse(true, ""), JsonConvert.DeserializeObject<List<OperationRegistryQuery>>(realData));
+            } catch (Exception e) {
+                return (new StandardResponse(false, e.Message), null);
+            }
         }
 
         public StandardResponse OperationRegistry_Add(RegistryAddDeleteBuilder inputValues) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationRegistry, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "add"},
+                    {"newValues", JsonConvert.SerializeObject(inputValues)}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
         public StandardResponse OperationRegistry_Delete(RegistryAddDeleteBuilder inputValues) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationRegistry, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "delete"},
+                    {"target", JsonConvert.SerializeObject(inputValues)}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
         public (StandardResponse status, List<OperationMapPoolQuery> data) OperationMapPool_Query(MapPoolQueryFilter filter) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationMapPool, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "query"},
+                    {"filterRules", JsonConvert.SerializeObject(filter)}
+                });
+                //check result and return data
+                var realData = JsonDecoder(data);
+                return (new StandardResponse(true, ""), JsonConvert.DeserializeObject<List<OperationMapPoolQuery>>(realData));
+            } catch (Exception e) {
+                return (new StandardResponse(false, e.Message), null);
+            }
         }
 
         public StandardResponse OperationMapPool_Add(MapPoolAddDeleteBuilder inputValues) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationMapPool, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "add"},
+                    {"newValues", JsonConvert.SerializeObject(inputValues)}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
         public StandardResponse OperationMapPool_Delete(MapPoolAddDeleteBuilder inputValues) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationMapPool, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "delete"},
+                    {"target", JsonConvert.SerializeObject(inputValues)}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
         public (StandardResponse status, List<OperationMapQuery> data) OperationMap_Query(MapQueryFilter filter) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationMap, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "query"},
+                    {"filterRules", JsonConvert.SerializeObject(filter)}
+                });
+                //check result and return data
+                var realData = JsonDecoder(data);
+                return (new StandardResponse(true, ""), JsonConvert.DeserializeObject<List<OperationMapQuery>>(realData));
+            } catch (Exception e) {
+                return (new StandardResponse(false, e.Message), null);
+            }
         }
 
         public StandardResponse OperationMap_Add(MapAddBuilder inputValues) {
-            throw new NotImplementedException();
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationMap, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "add"},
+                    {"newValues", JsonConvert.SerializeObject(inputValues)}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
-        public StandardResponse OperationMap_Delete(List<string> hash) {
-            throw new NotImplementedException();
+        public StandardResponse OperationMap_Delete(List<string> target) {
+            try {
+                var data = NetworkMethod.Post(CoreUrl.OperationMap, new Dictionary<string, string>() {
+                    {"token", Token},
+                    {"method", "delete"},
+                    {"target", JsonConvert.SerializeObject(target)}
+                });
+                //invoke decoder to ensure check result
+                JsonDecoder(data);
+                return new StandardResponse(true, "");
+            } catch (Exception e) {
+                return new StandardResponse(false, e.Message);
+            }
         }
 
         #endregion

@@ -87,11 +87,12 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Competition_ID}" Binding="{Binding sm_id}"/>
-                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Competition_StartDate}" Binding="{Binding conv_startDate}"/>
-                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Competition_EndDate}" Binding="{Binding conv_endDate}"/>
-                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Competition_Map}" Binding="{Binding conv_map}"/>
-                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Competition_CDK}" Binding="{Binding sm_cdk}"/>
+                            <DataGridTextColumn Header="比赛ID" Binding="{Binding sm_id}"/>
+                            <DataGridTextColumn Header="比赛开始时间" Binding="{Binding conv_startDate}"/>
+                            <DataGridTextColumn Header="比赛结束时间" Binding="{Binding conv_endDate}"/>
+                            <DataGridTextColumn Header="比赛地图" Binding="{Binding conv_map}"/>
+                            <DataGridTextColumn Header="比赛 CDK" Binding="{Binding sm_cdk}"/>
+                            <DataGridTextColumn Header="参赛人员" Binding="{Binding conv_participant}"/>
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
@@ -106,10 +107,10 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Tournament_TournamentName}" Binding="{Binding sm_tournament}"/>
-                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Tournament_RegistryStartDate}" Binding="{Binding conv_startDate}"/>
-                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Tournament_RegistryEndDate}" Binding="{Binding conv_endDate}"/>
-                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Tournament_WhetherRegistry}" Binding="{Binding conv_participanted}"/>
+                            <DataGridTextColumn Header="联赛名称" Binding="{Binding sm_tournament}"/>
+                            <DataGridTextColumn Header="联赛注册开始时间" Binding="{Binding conv_startDate}"/>
+                            <DataGridTextColumn Header="联赛注册结束时间" Binding="{Binding conv_endDate}"/>
+                            <DataGridTextColumn Header="您是否注册了此联赛" Binding="{Binding conv_participanted}"/>
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>

@@ -18,8 +18,8 @@ namespace SMMLib.Utilities {
             }
         }
 
-        public static string GetSMMVersion() { return "0.5"; }
-        public static string GetSMMProtocolVersion() { return "1"; }
+        public static string SMMVersion { get { return "0.5"; } }
+        public static string SMMProtocolVersion { get { return "1"; } }
 
     }
 

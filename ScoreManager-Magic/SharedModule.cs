@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SMMLib.Utilities;
 using ScoreManager_Magic.Core;
+using SMMLib.Net;
 
 namespace ScoreManager_Magic {
     public static class SharedModule {
@@ -25,5 +26,6 @@ namespace ScoreManager_Magic {
         public static NemosWatcher nemosWatcher = new NemosWatcher();
         public static LogManager logSystem = new LogManager(Information.WorkPath.Enter("scoremanager-magic.log").Path);
 
+        public static ScoreManager smm = new ScoreManager();
     }
 }

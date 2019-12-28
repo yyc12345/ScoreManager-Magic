@@ -55,7 +55,7 @@ namespace Mahoushoujo {
                 MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (Information.GetSMMProtocolVersion() != version) {
+            if (Information.SMMProtocolVersion != version) {
                 MessageBox.Show("Unmatched SMM protocol version", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -66,7 +66,7 @@ namespace Mahoushoujo {
                 MessageBox.Show("Fail to login: " + cache.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if ((smmcore.Priority & SM_Priority.Admin) != SM_Priority.Admin) {
+            if (!smmcore.Priority.HasFlag(SM_Priority.Admin)) {
                 MessageBox.Show("Not enough permission", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }

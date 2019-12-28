@@ -7,7 +7,9 @@ using System.Text;
 
 namespace SMMLib.Net {
 
-    internal static class NetworkMethod {
+    public static class NetworkMethod {
+
+        public static event Action<string, string> NewRequest;
 
         internal static string Post(string url, Dictionary<string, string> parameter) {
             var stream = LongPost(url, parameter);
@@ -31,6 +33,9 @@ namespace SMMLib.Net {
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded;charset=utf-8";
             request.ContentLength = data.Length;
+
+            //raise the event
+            NewRequest?.Invoke(url, real_param);
 
             using (var stream = request.GetRequestStream()) {
                 stream.Write(data, 0, data.Length);
