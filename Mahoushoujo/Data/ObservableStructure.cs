@@ -20,7 +20,8 @@ namespace Mahoushoujo.Data {
 
         public string conv_registration {
             get {
-                return sm_registration.ConvertToDatetime().ToString();
+                if (SharedModule.configManager.Configuration["DisplayUTC"].ConvertToBoolean()) return sm_registration.ConvertToDatetime().ToString();
+                else return sm_registration.ConvertToDatetime().ToLocalTime().ToString();
             }
             set {; }
         }
@@ -41,7 +42,8 @@ namespace Mahoushoujo.Data {
 
         public string conv_expireOn {
             get {
-                return sm_expireOn.ConvertToDatetime().ToString();
+                if (SharedModule.configManager.Configuration["DisplayUTC"].ConvertToBoolean()) return sm_expireOn.ConvertToDatetime().ToString();
+                else return sm_expireOn.ConvertToDatetime().ToLocalTime().ToString();
             }
             set {; }
         }
@@ -57,27 +59,30 @@ namespace Mahoushoujo.Data {
             this.sm_map = root.sm_map;
             this.sm_banMap = root.sm_banMap;
             this.sm_cdk = root.sm_cdk;
-            this.winner = root.winner;
+            this.sm_winner = root.sm_winner;
             this.sm_participant = root.sm_participant;
         }
 
         public string conv_startDate {
             get {
-                return sm_startDate.ConvertToDatetime().ToString();
+                if (SharedModule.configManager.Configuration["DisplayUTC"].ConvertToBoolean()) return sm_startDate.ConvertToDatetime().ToString();
+                else return sm_startDate.ConvertToDatetime().ToLocalTime().ToString();
             }
             set {; }
         }
 
         public string conv_endDate {
             get {
-                return sm_endDate.ConvertToDatetime().ToString();
+                if (SharedModule.configManager.Configuration["DisplayUTC"].ConvertToBoolean()) return sm_endDate.ConvertToDatetime().ToString();
+                else return sm_endDate.ConvertToDatetime().ToLocalTime().ToString();
             }
             set {; }
         }
 
         public string conv_judgeEndDate {
             get {
-                return sm_judgeEndDate.ConvertToDatetime().ToString();
+                if (SharedModule.configManager.Configuration["DisplayUTC"].ConvertToBoolean()) return sm_judgeEndDate.ConvertToDatetime().ToString();
+                else return sm_judgeEndDate.ConvertToDatetime().ToLocalTime().ToString();
             }
             set {; }
         }
@@ -92,6 +97,13 @@ namespace Mahoushoujo.Data {
         public string conv_banMap {
             get {
                 return sm_banMap;
+            }
+            set {; }
+        }
+
+        public string conv_participant {
+            get {
+                return string.Join(", ", sm_participant);
             }
             set {; }
         }
@@ -125,10 +137,7 @@ namespace Mahoushoujo.Data {
 
         public string conv_srTime {
             get {
-                return string.Format("{0}:{1}.{2}",
-                    (sm_srTime / (1000 * 60)).ToString(),
-                    (sm_srTime % (1000 * 60) / 1000).ToString().PadLeft(2, '0'),
-                    (sm_srTime % 1000).ToString().PadLeft(4, '0'));
+                return sm_srTime.SRTimeFormat();
             }
             set {; }
         }
@@ -142,14 +151,16 @@ namespace Mahoushoujo.Data {
 
         public string conv_localUTC {
             get {
-                return sm_localUTC.ConvertToDatetime().ToString();
+                if (SharedModule.configManager.Configuration["DisplayUTC"].ConvertToBoolean()) return sm_localUTC.ConvertToDatetime().ToString();
+                else return sm_localUTC.ConvertToDatetime().ToLocalTime().ToString();
             }
             set {; }
         }
 
         public string conv_serverUTC {
             get {
-                return sm_serverUTC.ConvertToDatetime().ToString();
+                if (SharedModule.configManager.Configuration["DisplayUTC"].ConvertToBoolean()) return sm_serverUTC.ConvertToDatetime().ToString();
+                else return sm_serverUTC.ConvertToDatetime().ToLocalTime().ToString();
             }
             set {; }
         }
@@ -167,14 +178,16 @@ namespace Mahoushoujo.Data {
 
         public string conv_startDate {
             get {
-                return sm_startDate.ConvertToDatetime().ToString();
+                if (SharedModule.configManager.Configuration["DisplayUTC"].ConvertToBoolean()) return sm_startDate.ConvertToDatetime().ToString();
+                else return sm_startDate.ConvertToDatetime().ToLocalTime().ToString();
             }
             set {; }
         }
 
         public string conv_endDate {
             get {
-                return sm_endDate.ConvertToDatetime().ToString();
+                if (SharedModule.configManager.Configuration["DisplayUTC"].ConvertToBoolean()) return sm_endDate.ConvertToDatetime().ToString();
+                else return sm_endDate.ConvertToDatetime().ToLocalTime().ToString();
             }
             set {; }
         }

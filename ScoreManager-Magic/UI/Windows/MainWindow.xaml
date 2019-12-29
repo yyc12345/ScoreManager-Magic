@@ -37,13 +37,13 @@
         </Grid.ColumnDefinitions>
 
         <!-- value diaplayer-->
-        <TextBlock VerticalAlignment="Center" Text="--:--:--.---" HorizontalAlignment="Center" FontSize="20" ToolTip="{DynamicResource ui_MainWindow_Speedrun}"/>
-        <TextBlock VerticalAlignment="Center" Text="----" Grid.Column="1" HorizontalAlignment="Center" FontSize="20" ToolTip="{DynamicResource ui_MainWindow_Score}"/>
+        <TextBlock x:Name="uiTime" VerticalAlignment="Center" Text="--:--:--.---" HorizontalAlignment="Center" FontSize="20" ToolTip="{DynamicResource ui_MainWindow_Speedrun}"/>
+        <TextBlock x:Name="uiScore" VerticalAlignment="Center" Text="----" Grid.Column="1" HorizontalAlignment="Center" FontSize="20" ToolTip="{DynamicResource ui_MainWindow_Score}"/>
 
         <!-- status and map dispay-->
-        <TextBlock Text="-" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{DynamicResource ui_MainWindow_CurrentMap}"/>
-        <TextBlock Text="-" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{DynamicResource ui_MainWindow_CurrentCDK}"/>
-        <TextBlock Text="-" Grid.ColumnSpan="2" Foreground="LightGreen" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{DynamicResource ui_MainWindow_CurrentStatus}"/>
+        <TextBlock x:Name="uiMap" Text="-" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{DynamicResource ui_MainWindow_CurrentMap}"/>
+        <TextBlock x:Name="uiCDK" Text="-" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{DynamicResource ui_MainWindow_CurrentCDK}"/>
+        <TextBlock x:Name="uiStatus" Text="-" Grid.ColumnSpan="2" Foreground="LightGreen" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{DynamicResource ui_MainWindow_CurrentStatus}"/>
 
 
     </Grid>

@@ -65,7 +65,7 @@ namespace SMMLib.Data.SMMStructure {
         public string sm_map { get; set; }
         public string sm_banMap { get; set; } // can be serilized as List<string>
         public string sm_cdk { get; set; }
-        public string winner { get; set; }
+        public string sm_winner { get; set; }
         public List<string> sm_participant { get; set; }
     }
 

@@ -17,7 +17,7 @@ namespace SMMLib.Utilities {
         public event Action<string> NewLog;
 
         public void WriteLog(string str) {
-            Task.Factory.StartNew(() => {
+            TaskEx.Run(() => {
                 lock (lockfs) {
                     try {
                         logfs.WriteLine(str);
@@ -30,6 +30,11 @@ namespace SMMLib.Utilities {
             });
         }
 
-
+        public void Close() {
+            lock(lockfs) {
+                logfs.Close();
+                logfs.Dispose();
+            }
+        }
     }
 }

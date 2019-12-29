@@ -18,6 +18,16 @@ namespace ScoreManager_Magic.UI.Windows {
     public partial class ConfigurationWindow : Window {
         public ConfigurationWindow() {
             InitializeComponent();
+
+            //bind event
+            SharedModule.logSystem.NewLog += (obj) => {
+                this.Dispatcher.Invoke(new Action(() => {
+                    if (uiLogLoglist.Items.Count == 100) uiLogLoglist.Items.RemoveAt(0);
+                    uiLogLoglist.Items.Add(obj);
+                    uiLogLoglist.ScrollIntoView(uiLogLoglist.Items[uiLogLoglist.Items.Count - 1]);
+                }));
+            };
         }
+
     }
 }

@@ -77,10 +77,7 @@ namespace ScoreManager_Magic.Data {
             sm_installOn = root.InstallOn.ToString();
             conv_map = map;
             sm_score = root.HSScore.ToString();
-            conv_srTime = string.Format("{0}:{1}.{2}",
-                                        (root.SRTime / (1000 * 60)).ToString(),
-                                        (root.SRTime % (1000 * 60) / 1000).ToString().PadLeft(2, '0'),
-                                        (root.SRTime % 1000).ToString().PadLeft(4, '0'));
+            conv_srTime = root.SRTime.SRTimeFormat();
             sm_lifeUp = root.LifeUp.ToString();
             sm_lifeLost = root.LifeLost.ToString();
             sm_extraPoint = root.ExtraPoints.ToString();

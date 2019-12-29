@@ -52,30 +52,28 @@
                                 <StackPanel Orientation="Vertical" Margin="5">
                                     <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_Game_Start_Desc}" TextWrapping="WrapWithOverflow"/>
                                     <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Start_BtnStart}"/>
-                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Start_BtnRestore}"/>
                                 </StackPanel>
                             </GroupBox>
 
                             <GroupBox Header="{DynamicResource ui_ConfigurationWindow_Game_Install_Title}">
                                 <StackPanel Orientation="Vertical" Margin="5">
                                     <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_Game_Install_Desc}" TextWrapping="WrapWithOverflow"/>
-                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Install_Btn}"/>
+                                    <Button Margin="5" Content="安装地图"/>
                                 </StackPanel>
                             </GroupBox>
 
                             <GroupBox Header="{DynamicResource ui_ConfigurationWindow_Game_Highscore_Title}">
                                 <StackPanel Orientation="Vertical" Margin="5">
                                     <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_Game_Highscore_Desc}" TextWrapping="WrapWithOverflow"/>
-                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Highscore_BtnClean}"/>
-                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Highscore_BtnOpen}"/>
+                                    <Button Margin="5" Content="清空本地排行榜所有成绩"/>
+                                    <Button Margin="5" Content="关卡全开"/>
                                 </StackPanel>
                             </GroupBox>
 
                             <GroupBox Header="{DynamicResource ui_ConfigurationWindow_Game_Registry_Title}">
                                 <StackPanel Orientation="Vertical" Margin="5">
                                     <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_Game_Registry_Desc}" TextWrapping="WrapWithOverflow"/>
-                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Registry_BtnFix}"/>
-                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Registry_BtnLanguage}"/>
+                                    <Button Margin="5" Content="更改游戏语言"/>
                                 </StackPanel>
                             </GroupBox>
 
@@ -96,8 +94,8 @@
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="{DynamicResource ui_ConfigurationWindow_Competition_Menu_Refresh}"/>
-                                <MenuItem Header="{DynamicResource ui_ConfigurationWindow_Competition_Menu_Battle}"/>
+                                <MenuItem Header="刷新列表"/>
+                                <MenuItem Header="打选中比赛"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                     </DataGrid>
@@ -125,7 +123,7 @@
                 <Grid Background="#FFE5E5E5">
                     <DataGrid CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_InstallOn}" Binding="{Binding sm_installOn}"/>
+                            <DataGridTextColumn Header="关卡安装于" Binding="{Binding sm_installOn}"/>
                             <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_Map}" Binding="{Binding conv_map}"/>
                             <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_Score}" Binding="{Binding sm_score}"/>
                             <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_SRTime}" Binding="{Binding conv_srTime}"/>
@@ -142,7 +140,7 @@
             </TabItem>
             <TabItem Header="{DynamicResource ui_ConfigurationWindow_Log_Title}">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox Background="#00000000" BorderThickness="1" Margin="5"/>
+                    <ListBox x:Name="uiLogLoglist" Background="#00000000" BorderThickness="1" Margin="5"/>
                 </Grid>
             </TabItem>
         </TabControl>

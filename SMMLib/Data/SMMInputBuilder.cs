@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SMMLib.Utilities;
 
 namespace SMMLib.Data.SMMInputBuilder {
 
@@ -29,7 +30,7 @@ namespace SMMLib.Data.SMMInputBuilder {
             this.usePassword = usePassword;
             this.usePriority = usePriority;
             this.useExpireOn = useExpireOn;
-            this.password = password;
+            this.password = usePassword ? HashComput.SHA256FromString(password) : "";
             this.priority = priority;
             this.expireOn = expireOn;
         }
@@ -263,7 +264,7 @@ namespace SMMLib.Data.SMMInputBuilder {
     public class UserAddBuilder {
         public UserAddBuilder(string name, string password, SM_Priority priority) {
             this.name = name;
-            this.password = password;
+            this.password = HashComput.SHA256FromString(password);
             this.priority = priority;
         }
 

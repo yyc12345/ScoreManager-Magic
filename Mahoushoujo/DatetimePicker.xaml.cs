@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SMMLib.Utilities;
 
 namespace Mahoushoujo {
     /// <summary>
@@ -35,7 +36,9 @@ namespace Mahoushoujo {
         }
 
         public DateTime GetDatetimePickerData() {
-            return DateTime.Now;
+            if (uiDatepicker.SelectedDate is null) return 0L.ConvertToDatetime();
+            var cache = uiDatepicker.SelectedDate.Value;
+            return new DateTime(cache.Year, cache.Month, cache.Day, uiHour.SelectedIndex, uiMinute.SelectedIndex, uiSecond.SelectedIndex, DateTimeKind.Local);
         }
     }
 }

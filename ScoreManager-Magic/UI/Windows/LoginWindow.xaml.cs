@@ -22,10 +22,15 @@ namespace ScoreManager_Magic.UI.Windows {
         public LoginWindow() {
             InitializeComponent();
 
+            //setup bind in SharedModule
+            SMMLib.Net.NetworkMethod.NewRequest += (url, parameter) => {
+                SharedModule.logSystem.WriteLog("[Network][Info]New request. URL: " + url + " Parameter: " + parameter);
+            };
+
             //apply saved config
-            if (SharedModule.configManager.Configuration["RememberUser"].ConvertToInt().ConvertToBoolean())
+            if (SharedModule.configManager.Configuration["RememberUser"].ConvertToBoolean())
                 uiUserName.Text = SharedModule.configManager.Configuration["RememberedUser"];
-            if (SharedModule.configManager.Configuration["RememberPassword"].ConvertToInt().ConvertToBoolean())
+            if (SharedModule.configManager.Configuration["RememberPassword"].ConvertToBoolean())
                 uiPassword.Password = SharedModule.configManager.Configuration["RememberedPassword"];
             uiServer.Text = SharedModule.configManager.Configuration["Server"];
         }
@@ -94,9 +99,9 @@ namespace ScoreManager_Magic.UI.Windows {
             }
 
             //login ok, record config
-            if (SharedModule.configManager.Configuration["RememberUser"].ConvertToInt().ConvertToBoolean())
+            if (SharedModule.configManager.Configuration["RememberUser"].ConvertToBoolean())
                 SharedModule.configManager.Configuration["RememberedUser"] = user;
-            if (SharedModule.configManager.Configuration["RememberPassword"].ConvertToInt().ConvertToBoolean())
+            if (SharedModule.configManager.Configuration["RememberPassword"].ConvertToBoolean())
                 SharedModule.configManager.Configuration["RememberedPassword"] = password;
             SharedModule.configManager.Configuration["Server"] = server;
             SharedModule.configManager.Save();

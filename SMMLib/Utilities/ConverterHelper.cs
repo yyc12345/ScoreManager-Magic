@@ -18,6 +18,10 @@ namespace SMMLib.Utilities {
             return (input != 0);
         }
 
+        public static bool ConvertToBoolean(this string input) {
+            return input.ConvertToInt().ConvertToBoolean();
+        }
+
         public static int ConvertToInt(this bool input) {
             if (input) return 1;
             else return 0;
@@ -34,6 +38,13 @@ namespace SMMLib.Utilities {
         public static bool UniformBoolean(this bool? input) {
             if (input is null) return false;
             return input.Value;
+        }
+
+        public static string SRTimeFormat(this int time) {
+            return string.Format("{0}:{1}.{2}",
+                    (time / (1000 * 60)).ToString(),
+                    (time % (1000 * 60) / 1000).ToString().PadLeft(2, '0'),
+                    (time % 1000).ToString().PadLeft(4, '0'));
         }
     }
 }

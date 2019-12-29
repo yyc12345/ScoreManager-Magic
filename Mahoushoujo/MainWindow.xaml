@@ -64,14 +64,14 @@
                                                 <RowDefinition Height="auto"/>
                                             </Grid.RowDefinitions>
 
-                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="Name" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Vague search (name)" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryUser_WhetherName" Grid.Column="0" Grid.Row="0" Content="Name" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryUser_WhetherVagueName" Grid.Column="0" Grid.Row="1" Content="Vague search (name)" Margin="5"/>
+                                            <TextBox x:Name="uiQueryUser_Name" Grid.Column="1" Grid.Row="0" Margin="5"/>
                                         </Grid>
                                     </Expander>
-                                    <Button Grid.Column="2" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
+                                    <Button Grid.Column="2" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5" Click="func_queryUser"/>
 
-                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                    <DataGrid x:Name="uiQueryUserResult" ItemsSource="{Binding}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="name (sm__name)" Binding="{Binding sm_name}"/>
                                             <DataGridTextColumn Header="password (sm__password)" Binding="{Binding sm_password}"/>
@@ -106,13 +106,13 @@
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Name" Margin="5"/>
                                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Password" Margin="5"/>
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Priority" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <TextBox x:Name="uiAddUser_Name" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox x:Name="uiAddUser_Password" Grid.Column="1" Grid.Row="1" Margin="5"/>
                                     <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
-                                        <CheckBox Content="user" IsChecked="True" Margin="5"/>
-                                        <CheckBox Content="live" Margin="5"/>
-                                        <CheckBox Content="speedrun" Margin="5"/>
-                                        <CheckBox Content="admin" Margin="5"/>
+                                        <CheckBox x:Name="uiAddUser_Priority_user" Content="user" IsChecked="True" Margin="5"/>
+                                        <CheckBox x:Name="uiAddUser_Priority_live" Content="live" Margin="5"/>
+                                        <CheckBox x:Name="uiAddUser_Priority_speedrun" Content="speedrun" Margin="5"/>
+                                        <CheckBox x:Name="uiAddUser_Priority_admin" Content="admin" Margin="5"/>
                                     </StackPanel>
 
                                     <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Add" Margin="5" VerticalAlignment="Bottom"/>
@@ -130,7 +130,7 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Name (JSON)" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox x:Name="uiDeleteUser_Name" Grid.Column="1" Grid.Row="0" Margin="5"/>
 
                                     <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red" Content="Delete" Margin="5" VerticalAlignment="Bottom"/>
                                 </Grid>
@@ -150,16 +150,16 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Target user (JSON)" Margin="5"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="1" Content="Password" Margin="5"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="2" Content="Priority" Margin="5"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="3" Content="Expire on" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <CheckBox x:Name="uiUpdateUser_WhetherName" Grid.Column="0" Grid.Row="1" Content="Password" Margin="5"/>
+                                    <CheckBox x:Name="uiUpdateUser_WhetherPassword" Grid.Column="0" Grid.Row="2" Content="Priority" Margin="5"/>
+                                    <CheckBox x:Name="uiUpdateUser_WhetherPriority" Grid.Column="0" Grid.Row="3" Content="Expire on" Margin="5"/>
+                                    <TextBox x:Name="uiUpdateUser_Name" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox x:Name="uiUpdateUser_Password" Grid.Column="1" Grid.Row="1" Margin="5"/>
                                     <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
-                                        <CheckBox Content="user" IsChecked="True" Margin="5"/>
-                                        <CheckBox Content="live" Margin="5"/>
-                                        <CheckBox Content="speedrun" Margin="5"/>
-                                        <CheckBox Content="admin" Margin="5"/>
+                                        <CheckBox x:Name="uiUpdateUser_Priority_user" Content="user" IsChecked="True" Margin="5"/>
+                                        <CheckBox x:Name="uiUpdateUser_Priority_live" Content="live" Margin="5"/>
+                                        <CheckBox x:Name="uiUpdateUser_Priority_speedrun" Content="speedrun" Margin="5"/>
+                                        <CheckBox x:Name="uiUpdateUser_Priority_admin" Content="admin" Margin="5"/>
                                     </StackPanel>
                                     <local:DatetimePicker Grid.Column="1" Grid.Row="3" Margin="5"/>
 
@@ -200,24 +200,24 @@
                                                 <RowDefinition Height="auto"/>
                                             </Grid.RowDefinitions>
 
-                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="Id (JSON)" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Name" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="2" Content="Start date" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="3" Content="End date" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="4" Content="CDK" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="5" Content="Map" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
-                                            <local:DatetimePicker Grid.Column="1" Grid.Row="2" Margin="5"/>
-                                            <local:DatetimePicker Grid.Column="1" Grid.Row="3" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="4" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="5" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryCompetition_WhetherID" Grid.Column="0" Grid.Row="0" Content="Id (JSON)" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryCompetition_WhetherName" Grid.Column="0" Grid.Row="1" Content="Name" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryCompetition_WhetherStartDate" Grid.Column="0" Grid.Row="2" Content="Start date" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryCompetition_WhetherEndDate" Grid.Column="0" Grid.Row="3" Content="End date" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryCompetition_WhetherCDK" Grid.Column="0" Grid.Row="4" Content="CDK" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryCompetition_WhetherMap" Grid.Column="0" Grid.Row="5" Content="Map" Margin="5"/>
+                                            <TextBox x:Name="uiQueryCompetition_ID" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                            <TextBox x:Name="uiQueryCompetition_Name" Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                            <local:DatetimePicker x:Name="uiQueryCompetition_StartDate" Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                            <local:DatetimePicker x:Name="uiQueryCompetition_EndDate" Grid.Column="1" Grid.Row="3" Margin="5"/>
+                                            <TextBox x:Name="uiQueryCompetition_CDK" Grid.Column="1" Grid.Row="4" Margin="5"/>
+                                            <TextBox x:Name="uiQueryCompetition_Map" Grid.Column="1" Grid.Row="5" Margin="5"/>
                                         </Grid>
                                     </Expander>
 
-                                    <Button Grid.Column="1" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
+                                    <Button Grid.Column="1" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5" Click="func_queryCompetition"/>
 
-                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                    <DataGrid x:Name="uiQueryCompetitionResult" ItemsSource="{Binding}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="id (sm__id)" Binding="{Binding sm_id}"/>
                                             <DataGridTextColumn Header="result (sm__result)" Binding="{Binding sm_result}"/>
@@ -228,6 +228,7 @@
                                             <DataGridTextColumn Header="ban map (conv sm__banMap)" Binding="{Binding conv_banMap}"/>
                                             <DataGridTextColumn Header="cdk (sm__cdk)" Binding="{Binding sm_cdk}"/>
                                             <DataGridTextColumn Header="winner (sm__winner)" Binding="{Binding sm_winner}"/>
+                                            <DataGridTextColumn Header="participant (conv sm__participant)" Binding="{Binding conv_participant}"/>
                                         </DataGrid.Columns>
                                         <DataGrid.ContextMenu>
                                             <ContextMenu>
@@ -258,10 +259,10 @@
                                     <TextBlock Grid.Column="0" Grid.Row="1" Text="End date" Margin="5"/>
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Judge end date" Margin="5"/>
                                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Participant (JSON)" Margin="5"/>
-                                    <local:DatetimePicker Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                    <local:DatetimePicker Grid.Column="1" Grid.Row="1" Margin="5"/>
-                                    <local:DatetimePicker Grid.Column="1" Grid.Row="2" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="3" Margin="5"/>
+                                    <local:DatetimePicker x:Name="uiAddCompetition_StartDate" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <local:DatetimePicker x:Name="uiAddCompetition_EndDate" Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <local:DatetimePicker x:Name="uiAddCompetition_JudgeEndDate" Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                    <TextBox x:Name="uiAddCompetition_Participant" Grid.Column="1" Grid.Row="3" Margin="5"/>
 
                                     <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Add" Margin="5" VerticalAlignment="Bottom"/>
                                 </Grid>
@@ -278,7 +279,7 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="ID (JSON)" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox x:Name="uiDeleteCompetition_ID" Grid.Column="1" Grid.Row="0" Margin="5"/>
 
                                     <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red" Content="Delete" Margin="5" VerticalAlignment="Bottom"/>
                                 </Grid>
@@ -299,15 +300,15 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Target competition" Margin="5"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="1" Content="Result (inner JSON)" Margin="5"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="2" Content="Map" Margin="5"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="3" Content="Ban map (inner JSON)" Margin="5"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="4" Content="Winner" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="2" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="3" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="4" Margin="5"/>
+                                    <CheckBox x:Name="uiUpdateCompetition_WhetherResult" Grid.Column="0" Grid.Row="1" Content="Result (inner JSON)" Margin="5"/>
+                                    <CheckBox x:Name="uiUpdateCompetition_WhetherMap" Grid.Column="0" Grid.Row="2" Content="Map" Margin="5"/>
+                                    <CheckBox x:Name="uiUpdateCompetition_WhetherBanMap" Grid.Column="0" Grid.Row="3" Content="Ban map (inner JSON)" Margin="5"/>
+                                    <CheckBox x:Name="uiUpdateCompetition_WhetherWinner" Grid.Column="0" Grid.Row="4" Content="Winner" Margin="5"/>
+                                    <TextBox x:Name="uiUpdateCompetition_ID" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox x:Name="uiUpdateCompetition_Result" Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <TextBox x:Name="uiUpdateCompetition_Map" Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                    <TextBox x:Name="uiUpdateCompetition_BanMap" Grid.Column="1" Grid.Row="3" Margin="5"/>
+                                    <TextBox x:Name="uiUpdateCompetition_Winner" Grid.Column="1" Grid.Row="4" Margin="5"/>
                                     
 
                                     <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content="Update" Margin="5" VerticalAlignment="Bottom"/>
@@ -348,26 +349,26 @@
                                                 <RowDefinition Height="auto"/>
                                             </Grid.RowDefinitions>
 
-                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="Install on" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Name" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="2" Content="Start date" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="3" Content="End date" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="4" Content="Score" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="5" Content="SR time" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="6" Content="Map" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
-                                            <local:DatetimePicker Grid.Column="1" Grid.Row="2" Margin="5"/>
-                                            <local:DatetimePicker Grid.Column="1" Grid.Row="3" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="4" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="5" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="6" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryRecord_WhetherInstallOn" Grid.Column="0" Grid.Row="0" Content="Install on" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryRecord_WhetherName" Grid.Column="0" Grid.Row="1" Content="Name" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryRecord_WhetherStartDate" Grid.Column="0" Grid.Row="2" Content="Start date" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryRecord_WhetherEndDate" Grid.Column="0" Grid.Row="3" Content="End date" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryRecord_WhetherScore" Grid.Column="0" Grid.Row="4" Content="Score" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryRecord_WhetherSRTime" Grid.Column="0" Grid.Row="5" Content="SR time" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryRecord_WhetherMap" Grid.Column="0" Grid.Row="6" Content="Map" Margin="5"/>
+                                            <TextBox x:Name="uiQueryRecord_InstallOn" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                            <TextBox x:Name="uiQueryRecord_Name" Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                            <local:DatetimePicker x:Name="uiQueryRecord_StartDate" Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                            <local:DatetimePicker x:Name="uiQueryRecord_EndDate" Grid.Column="1" Grid.Row="3" Margin="5"/>
+                                            <TextBox x:Name="uiQueryRecord_Score" Grid.Column="1" Grid.Row="4" Margin="5"/>
+                                            <TextBox x:Name="uiQueryRecord_SRTime" Grid.Column="1" Grid.Row="5" Margin="5"/>
+                                            <TextBox x:Name="uiQueryRecord_Map" Grid.Column="1" Grid.Row="6" Margin="5"/>
                                         </Grid>
                                     </Expander>
 
                                     <Button Grid.Column="1" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
 
-                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                    <DataGrid x:Name="uiQueryRecordResult" ItemsSource="{Binding}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="name (sm__name)" Binding="{Binding sm_name}"/>
                                             <DataGridTextColumn Header="install on (sm__installOn)" Binding="{Binding sm_installOn}"/>
@@ -424,14 +425,14 @@
                                                 <RowDefinition Height="auto"/>
                                             </Grid.RowDefinitions>
 
-                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="Name" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Vague search (name)" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryTournament_WhetherName" Grid.Column="0" Grid.Row="0" Content="Name" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryTournament_WhetherVagueName" Grid.Column="0" Grid.Row="1" Content="Vague search (name)" Margin="5"/>
+                                            <TextBox x:Name="uiQueryTournament_Name" Grid.Column="1" Grid.Row="0" Margin="5"/>
                                         </Grid>
                                     </Expander>
                                     <Button Grid.Column="2" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
 
-                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                    <DataGrid x:Name="uiQueryTournamentResult" ItemsSource="{Binding}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="name (sm__tournament)" Binding="{Binding sm_tournament}"/>
                                             <DataGridTextColumn Header="registration start date (conv sm__startDate)" Binding="{Binding conv_startDate}"/>
@@ -463,9 +464,9 @@
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Name" Margin="5"/>
                                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Start date" Margin="5"/>
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="End date" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                    <local:DatetimePicker Grid.Column="1" Grid.Row="1" Margin="5"/>
-                                    <local:DatetimePicker Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                    <TextBox x:Name="uiAddTournament_Name" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <local:DatetimePicker x:Name="uiAddTournament_StartDate" Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <local:DatetimePicker x:Name="uiAddTournament_EndDate" Grid.Column="1" Grid.Row="2" Margin="5"/>
 
                                     <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Add" Margin="5" VerticalAlignment="Bottom"/>
                                 </Grid>
@@ -482,7 +483,7 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Name" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox x:Name="uiDeleteTournament_Name" Grid.Column="1" Grid.Row="0" Margin="5"/>
 
                                     <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red" Content="Delete" Margin="5" VerticalAlignment="Bottom"/>
                                 </Grid>
@@ -502,13 +503,13 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Target competition" Margin="5"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="1" Content="Registry start date" Margin="5"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="2" Content="Registry end date" Margin="5"/>
-                                    <CheckBox Grid.Column="0" Grid.Row="3" Content="Schedule" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                    <local:DatetimePicker  Grid.Column="1" Grid.Row="1" Margin="5"/>
-                                    <local:DatetimePicker  Grid.Column="1" Grid.Row="2" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="3" Margin="5"/>
+                                    <CheckBox x:Name="uiUpdateTournament_WhetherStartDate" Grid.Column="0" Grid.Row="1" Content="Registry start date" Margin="5"/>
+                                    <CheckBox x:Name="uiUpdateTournament_WhetherEndDate" Grid.Column="0" Grid.Row="2" Content="Registry end date" Margin="5"/>
+                                    <CheckBox x:Name="uiUpdateTournament_WhetherSchedule" Grid.Column="0" Grid.Row="3" Content="Schedule" Margin="5"/>
+                                    <TextBox x:Name="uiUpdateTournament_Name" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <local:DatetimePicker x:Name="uiUpdateTournament_StartDate" Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <local:DatetimePicker x:Name="uiUpdateTournament_EndDate" Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                    <TextBox x:Name="uiUpdateTournament_Schedule" Grid.Column="1" Grid.Row="3" Margin="5"/>
 
 
                                     <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Update" Margin="5" VerticalAlignment="Bottom"/>
@@ -545,16 +546,16 @@
                                                 <RowDefinition Height="auto"/>
                                             </Grid.RowDefinitions>
 
-                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="User name" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Vague search (user name)" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="2" Content="Tournament" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryRegistry_WhetherName" Grid.Column="0" Grid.Row="0" Content="User name" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryRegistry_WhetherVagueName" Grid.Column="0" Grid.Row="1" Content="Vague search (user name)" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryRegistry_WhetherTournament" Grid.Column="0" Grid.Row="2" Content="Tournament" Margin="5"/>
+                                            <TextBox x:Name="uiQueryRegistry_Name" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                            <TextBox x:Name="uiQueryRegistry_Tournament" Grid.Column="1" Grid.Row="2" Margin="5"/>
                                         </Grid>
                                     </Expander>
                                     <Button Grid.Column="2" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
 
-                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                    <DataGrid x:Name="uiQueryRegistryResult" ItemsSource="{Binding}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="user name (sm__user)" Binding="{Binding sm_user}"/>
                                             <DataGridTextColumn Header="tournament (sm__tournament)" Binding="{Binding sm_tournament}"/>
@@ -582,8 +583,8 @@
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="User name" Margin="5"/>
                                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Tournament name" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <TextBox x:Name="uiAddRegistry_User" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox x:Name="uiAddRegistry_Tournament" Grid.Column="1" Grid.Row="1" Margin="5"/>
 
                                     <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Add" Margin="5" VerticalAlignment="Bottom"/>
                                 </Grid>
@@ -602,8 +603,8 @@
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="User name" Margin="5"/>
                                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Tournament name" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <TextBox x:Name="uiDeleteRegistry_Name" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox x:Name="uiDeleteRegistry_Tournament" Grid.Column="1" Grid.Row="1" Margin="5"/>
 
                                     <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red" Content="Delete" Margin="5" VerticalAlignment="Bottom"/>
                                 </Grid>
@@ -638,15 +639,15 @@
                                                 <RowDefinition Height="auto"/>
                                             </Grid.RowDefinitions>
 
-                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="Map hash" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Tournament" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryMapPool_WhetherHash" Grid.Column="0" Grid.Row="0" Content="Map hash" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryMapPool_WhetherTournament" Grid.Column="0" Grid.Row="1" Content="Tournament" Margin="5"/>
+                                            <TextBox x:Name="uiQueryMapPool_Hash" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                            <TextBox x:Name="uiQueryMapPool_Tournament" Grid.Column="1" Grid.Row="1" Margin="5"/>
                                         </Grid>
                                     </Expander>
                                     <Button Grid.Column="2" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
 
-                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                    <DataGrid x:Name="uiQueryMapPoolResult" ItemsSource="{Binding}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="map (conv sm__hash)" Binding="{Binding conv_hash}"/>
                                             <DataGridTextColumn Header="tournament (sm__tournament)" Binding="{Binding sm_tournament}"/>
@@ -674,8 +675,8 @@
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Map hash" Margin="5"/>
                                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Tournament name" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <TextBox x:Name="uiAddMapPool_Hash" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox x:Name="uiAddMapPool_Tournament" Grid.Column="1" Grid.Row="1" Margin="5"/>
 
                                     <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Add" Margin="5" VerticalAlignment="Bottom"/>
                                 </Grid>
@@ -694,8 +695,8 @@
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Map hash" Margin="5"/>
                                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Tournament name" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <TextBox x:Name="uiDeleteMapPool_Hash" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox x:Name="uiDeleteMapPool_Tournament" Grid.Column="1" Grid.Row="1" Margin="5"/>
 
                                     <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red" Content="Delete" Margin="5" VerticalAlignment="Bottom"/>
                                 </Grid>
@@ -731,17 +732,17 @@
                                                 <RowDefinition Height="auto"/>
                                             </Grid.RowDefinitions>
 
-                                            <CheckBox Grid.Column="0" Grid.Row="0" Content="Map hash" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="1" Content="Name" Margin="5"/>
-                                            <CheckBox Grid.Column="0" Grid.Row="2" Content="I18N" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
-                                            <TextBox Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryMap_WhetherHash" Grid.Column="0" Grid.Row="0" Content="Map hash" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryMap_WhetherName" Grid.Column="0" Grid.Row="1" Content="Name" Margin="5"/>
+                                            <CheckBox x:Name="uiQueryMap_WhetherI18N" Grid.Column="0" Grid.Row="2" Content="I18N" Margin="5"/>
+                                            <TextBox x:Name="uiQueryMap_Hash" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                            <TextBox x:Name="uiQueryMap_Name" Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                            <TextBox x:Name="uiQueryMap_I18N" Grid.Column="1" Grid.Row="2" Margin="5"/>
                                         </Grid>
                                     </Expander>
                                     <Button Grid.Column="2" Grid.Row="0" MaxHeight="50" Content="Query" Margin="5"/>
 
-                                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                                    <DataGrid x:Name="uiQueryMapResult" ItemsSource="{Binding}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="name (sm__name)" Binding="{Binding sm_name}"/>
                                             <DataGridTextColumn Header="i18n (sm__i18n)" Binding="{Binding sm_i18n}"/>
@@ -774,9 +775,9 @@
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Map name" Margin="5"/>
                                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Map i18n name" Margin="5"/>
                                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Map hash" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="2" Margin="5"/>
+                                    <TextBox x:Name="uiAddMap_Name" Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox x:Name="uiAddMap_I18N" Grid.Column="1" Grid.Row="1" Margin="5"/>
+                                    <TextBox x:Name="uiAddMap_Hash" Grid.Column="1" Grid.Row="2" Margin="5"/>
 
                                     <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Add" Margin="5" VerticalAlignment="Bottom"/>
                                 </Grid>
@@ -793,7 +794,7 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Map hash (JSON)" Margin="5"/>
-                                    <TextBox Grid.Column="1" Grid.Row="0" Margin="5"/>
+                                    <TextBox x:Name="uiDeleteMap_Hash" Grid.Column="1" Grid.Row="0" Margin="5"/>
 
                                     <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Foreground="Red" Content="Delete" Margin="5" VerticalAlignment="Bottom"/>
                                 </Grid>
@@ -813,10 +814,15 @@
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
 
-                        <CheckBox Grid.Column="0" Grid.Row="0" Content="Assume UTC" IsChecked="True" Margin="5"/>
-                        <CheckBox Grid.Column="0" Grid.Row="1" Content="Display as UTC" IsChecked="True" Margin="5"/>
+                        <CheckBox x:Name="uiSetting_AssumeUTC" Grid.Column="0" Grid.Row="0" Content="Assume UTC" IsChecked="True" Margin="5" Click="func_assumeUtc"/>
+                        <CheckBox x:Name="uiSetting_DisplayUTC" Grid.Column="0" Grid.Row="1" Content="Display as UTC" IsChecked="True" Margin="5" Click="func_displayUtc"/>
                         <TextBlock Grid.Column="1" Grid.Row="0" Margin="5" Text="Assume start and end date is input as UTC time instead of local time"/>
                         <TextBlock Grid.Column="1" Grid.Row="1" Margin="5" Text="All converted time will be displayed as UTC time (no timezone convert)"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Log">
+                    <Grid Background="#FFE5E5E5">
+                        <ListBox x:Name="uiLog_Loglist" Background="#00000000" BorderThickness="1" Margin="5"/>
                     </Grid>
                 </TabItem>
                 <TabItem Header="About">
