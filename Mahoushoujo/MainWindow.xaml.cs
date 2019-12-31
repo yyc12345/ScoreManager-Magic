@@ -111,6 +111,10 @@ namespace Mahoushoujo {
             get { return SharedModule.configManager.Configuration["AssumeUTC"].ConvertToBoolean(); }
         }
 
+        private void SetClipboard(string str) {
+            Clipboard.SetText(str, TextDataFormat.UnicodeText);
+        }
+
         private void func_assumeUtc(object sender, RoutedEventArgs e) {
             SharedModule.configManager.Configuration["AssumeUTC"] = uiSetting_AssumeUTC.IsChecked.UniformBoolean().ConvertToInt().ToString();
             SharedModule.configManager.Save();
@@ -125,6 +129,111 @@ namespace Mahoushoujo {
 
         #region menu oper
 
+        private void func_menuUserJsonName(object sender, RoutedEventArgs e) {
+            var ls = new List<string>();
+
+            foreach (var item in uiQueryUserResult.SelectedItems) ls.Add(((Data.OperationUserQuery)item).sm_name);
+            SetClipboard(JsonConvert.SerializeObject(ls));
+        }
+        private void func_menuUserName(object sender, RoutedEventArgs e) {
+            var index = uiQueryUserResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(userList[index].sm_name);
+        }
+
+
+        private void func_menuCompetitionJsonID(object sender, RoutedEventArgs e) {
+            var ls = new List<long>();
+
+            foreach (var item in uiQueryCompetitionResult.SelectedItems) ls.Add(((Data.OperationCompetitionQuery)item).sm_id);
+            SetClipboard(JsonConvert.SerializeObject(ls));
+        }
+        private void func_menuCompetitionID(object sender, RoutedEventArgs e) {
+            var index = uiQueryCompetitionResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(competitionList[index].sm_id.ToString());
+        }
+        private void func_menuCompetitionMap(object sender, RoutedEventArgs e) {
+            var index = uiQueryCompetitionResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(competitionList[index].sm_map.ToString());
+        }
+        private void func_menuCompetitionBanMap(object sender, RoutedEventArgs e) {
+            var index = uiQueryCompetitionResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(competitionList[index].sm_map.ToString());
+        }
+
+
+        private void func_menuRecordScore(object sender, RoutedEventArgs e) {
+            var index = uiQueryRecordResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(recordList[index].sm_score.ToString());
+        }
+        private void func_menuRecordSRTime(object sender, RoutedEventArgs e) {
+            var index = uiQueryRecordResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(recordList[index].sm_srTime.ToString());
+        }
+
+
+        private void func_menuTournamentName(object sender, RoutedEventArgs e) {
+            var index = uiQueryTournamentResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(tournamentList[index].sm_tournament);
+        }
+        private void func_menuTournamentSchedule(object sender, RoutedEventArgs e) {
+            var index = uiQueryTournamentResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(tournamentList[index].sm_schedule);
+        }
+
+
+        private void func_menuRegistryName(object sender, RoutedEventArgs e) {
+            var index = uiQueryRegistryResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(registryList[index].sm_user);
+        }
+        private void func_menuRegistryTournament(object sender, RoutedEventArgs e) {
+            var index = uiQueryRegistryResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(registryList[index].sm_tournament);
+        }
+
+
+        private void func_menuMapPoolHash(object sender, RoutedEventArgs e) {
+            var index = uiQueryMapPoolResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(mapPoolList[index].sm_hash);
+        }
+        private void func_menuMapPoolTournament(object sender, RoutedEventArgs e) {
+            var index = uiQueryMapPoolResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(mapPoolList[index].sm_tournament);
+        }
+
+
+        private void func_menuMapJsonHash(object sender, RoutedEventArgs e) {
+            var ls = new List<string>();
+
+            foreach (var item in uiQueryMapResult.SelectedItems) ls.Add(((Data.OperationMapQuery)item).sm_hash);
+            SetClipboard(JsonConvert.SerializeObject(ls));
+        }
+        private void func_menuMapHash(object sender, RoutedEventArgs e) {
+            var index = uiQueryMapResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(mapList[index].sm_hash);
+        }
+        private void func_menuMapName(object sender, RoutedEventArgs e) {
+            var index = uiQueryMapResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(mapList[index].sm_name);
+        }
+        private void func_menuMapI18N(object sender, RoutedEventArgs e) {
+            var index = uiQueryMapResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(mapList[index].sm_i18n);
+        }
 
 
 
@@ -146,6 +255,58 @@ namespace Mahoushoujo {
                 userList.Add(new Data.OperationUserQuery(item));
             MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+        private void func_addUser(object sender, RoutedEventArgs e) {
+            var cachePriority = SM_Priority.None;
+            if (uiAddUser_Priority_user.IsChecked.UniformBoolean()) cachePriority |= SM_Priority.User;
+            if (uiAddUser_Priority_live.IsChecked.UniformBoolean()) cachePriority |= SM_Priority.Live;
+            if (uiAddUser_Priority_speedrun.IsChecked.UniformBoolean()) cachePriority |= SM_Priority.Speedrun;
+            if (uiAddUser_Priority_admin.IsChecked.UniformBoolean()) cachePriority |= SM_Priority.Admin;
+
+            var status = SharedModule.smmcore.OperationUser_Add(new SMMLib.Data.SMMInputBuilder.UserAddBuilder(
+                uiAddUser_Name.Text,
+                uiAddUser_Password.Text,
+                cachePriority));
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void func_deleteUser(object sender, RoutedEventArgs e) {
+            var status = SharedModule.smmcore.OperationUser_Delete(JsonConvert.DeserializeObject<List<string>>(uiDeleteUser_Name.Text));
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void func_updateUser(object sender, RoutedEventArgs e) {
+            var cachePriority = SM_Priority.None;
+            if (uiUpdateUser_Priority_user.IsChecked.UniformBoolean()) cachePriority |= SM_Priority.User;
+            if (uiUpdateUser_Priority_live.IsChecked.UniformBoolean()) cachePriority |= SM_Priority.Live;
+            if (uiUpdateUser_Priority_speedrun.IsChecked.UniformBoolean()) cachePriority |= SM_Priority.Speedrun;
+            if (uiUpdateUser_Priority_admin.IsChecked.UniformBoolean()) cachePriority |= SM_Priority.Admin;
+
+            var status = SharedModule.smmcore.OperationUser_Update(JsonConvert.DeserializeObject<List<string>>(uiUpdateUser_Name.Text),
+                new SMMLib.Data.SMMInputBuilder.UserUpdateFilter(
+                    uiUpdateUser_WhetherPassword.IsChecked.UniformBoolean(),
+                    uiUpdateUser_WhetherPriority.IsChecked.UniformBoolean(),
+                    uiUpdateUser_WhetherExpireOn.IsChecked.UniformBoolean(),
+
+                    uiUpdateUser_Password.Text,
+                    cachePriority,
+                    uiUpdateUser_ExpireOn.GetDatetimePickerData().ConvertToTimestamp(WhetherAssumeUTC)
+                    ));
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
 
         private void func_queryCompetition(object sender, RoutedEventArgs e) {
             var (status, data) = SharedModule.smmcore.OperationCompetition_Query(new SMMLib.Data.SMMInputBuilder.CompetitionQueryFilter(
@@ -173,8 +334,276 @@ namespace Mahoushoujo {
                 competitionList.Add(new Data.OperationCompetitionQuery(item));
             MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+        private void func_addCompetition(object sender, RoutedEventArgs e) {
+            var (status, inserID) = SharedModule.smmcore.OperationCompetition_Add(new SMMLib.Data.SMMInputBuilder.CompetitionAddBuilder(
+                uiAddCompetition_StartDate.GetDatetimePickerData().ConvertToTimestamp(WhetherAssumeUTC),
+                uiAddCompetition_EndDate.GetDatetimePickerData().ConvertToTimestamp(WhetherAssumeUTC),
+                uiAddCompetition_JudgeEndDate.GetDatetimePickerData().ConvertToTimestamp(WhetherAssumeUTC),
+                JsonConvert.DeserializeObject<List<string>>(uiAddCompetition_Participant.Text)));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished" + Environment.NewLine + $"New competition ID is: {inserID}", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void func_deleteCompetition(object sender, RoutedEventArgs e) {
+            var status = SharedModule.smmcore.OperationCompetition_Delete(JsonConvert.DeserializeObject<List<long>>(uiDeleteCompetition_ID.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void func_updateCompetition(object sender, RoutedEventArgs e) {
+            var status = SharedModule.smmcore.OperationCompetition_Update(long.Parse(uiUpdateCompetition_ID.Text),
+                new SMMLib.Data.SMMInputBuilder.CompetitionUpdateFilter(
+                    uiUpdateCompetition_WhetherResult.IsChecked.UniformBoolean(),
+                    uiUpdateCompetition_WhetherMap.IsChecked.UniformBoolean(),
+                    uiUpdateCompetition_WhetherBanMap.IsChecked.UniformBoolean(),
+                    uiUpdateCompetition_WhetherWinner.IsChecked.UniformBoolean(),
+
+                    uiUpdateCompetition_Result.Text,
+                    uiUpdateCompetition_Map.Text,
+                    uiUpdateCompetition_BanMap.Text,
+                    uiUpdateCompetition_Winner.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
+        private void func_queryRecord(object sender, RoutedEventArgs e) {
+            var (status, data) = SharedModule.smmcore.OperationRecord_Query(new SMMLib.Data.SMMInputBuilder.RecordQueryFilter(
+                uiQueryRecord_WhetherInstallOn.IsChecked.UniformBoolean(),
+                uiQueryRecord_WhetherName.IsChecked.UniformBoolean(),
+                uiQueryRecord_WhetherStartDate.IsChecked.UniformBoolean(),
+                uiQueryRecord_WhetherEndDate.IsChecked.UniformBoolean(),
+                uiQueryRecord_WhetherScore.IsChecked.UniformBoolean(),
+                uiQueryRecord_WhetherSRTime.IsChecked.UniformBoolean(),
+                uiQueryRecord_WhetherMap.IsChecked.UniformBoolean(),
+
+                uiQueryRecord_InstallOn.Text.ConvertToInt(),
+                uiQueryRecord_Name.Text,
+                uiQueryRecord_StartDate.GetDatetimePickerData().ConvertToTimestamp(WhetherAssumeUTC),
+                uiQueryRecord_EndDate.GetDatetimePickerData().ConvertToTimestamp(WhetherAssumeUTC),
+                uiQueryRecord_Score.Text.ConvertToInt(),
+                uiQueryRecord_SRTime.Text.ConvertToInt(),
+                uiQueryRecord_Map.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            recordList.Clear();
+            foreach (var item in data)
+                recordList.Add(new Data.OperationRecordQuery(item));
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
+        private void func_queryTournament(object sender, RoutedEventArgs e) {
+            var (status, data) = SharedModule.smmcore.OperationTournament_Query(new SMMLib.Data.SMMInputBuilder.TournamentQueryFilter(
+                uiQueryTournament_WhetherName.IsChecked.UniformBoolean(),
+                uiQueryTournament_WhetherVagueName.IsChecked.UniformBoolean() ? $"%{uiQueryTournament_Name.Text}%" : uiQueryTournament_Name.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            tournamentList.Clear();
+            foreach (var item in data)
+                tournamentList.Add(new Data.OperationTournamentQuery(item));
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void func_addTournament(object sender, RoutedEventArgs e) {
+            var status = SharedModule.smmcore.OperationTournament_Add(new SMMLib.Data.SMMInputBuilder.TournamentAddBuilder(
+                uiAddTournament_StartDate.GetDatetimePickerData().ConvertToTimestamp(WhetherAssumeUTC),
+                uiAddTournament_EndDate.GetDatetimePickerData().ConvertToTimestamp(WhetherAssumeUTC),
+                uiAddTournament_Name.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void func_deleteTournament(object sender, RoutedEventArgs e) {
+            var status = SharedModule.smmcore.OperationTournament_Delete(uiDeleteTournament_Name.Text);
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void func_updateTournament(object sender, RoutedEventArgs e) {
+            var status = SharedModule.smmcore.OperationTournament_Update(uiUpdateTournament_Name.Text, new SMMLib.Data.SMMInputBuilder.TournamentUpdateFilter(
+                uiUpdateTournament_WhetherStartDate.IsChecked.UniformBoolean(),
+                uiUpdateTournament_WhetherEndDate.IsChecked.UniformBoolean(),
+                uiUpdateTournament_WhetherSchedule.IsChecked.UniformBoolean(),
+
+                uiUpdateTournament_StartDate.GetDatetimePickerData().ConvertToTimestamp(WhetherAssumeUTC),
+                uiUpdateTournament_EndDate.GetDatetimePickerData().ConvertToTimestamp(WhetherAssumeUTC),
+                uiUpdateTournament_Schedule.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
+        private void func_queryRegistry(object sender, RoutedEventArgs e) {
+            var (status, data) = SharedModule.smmcore.OperationRegistry_Query(new SMMLib.Data.SMMInputBuilder.RegistryQueryFilter(
+                uiQueryRegistry_WhetherName.IsChecked.UniformBoolean(),
+                uiQueryRegistry_WhetherTournament.IsChecked.UniformBoolean(),
+
+                uiQueryRegistry_WhetherVagueName.IsChecked.UniformBoolean() ? $"%{uiQueryRegistry_Name.Text}%" : uiQueryRegistry_Name.Text,
+                uiQueryRegistry_Tournament.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            registryList.Clear();
+            foreach (var item in data)
+                registryList.Add(new Data.OperationRegistryQuery(item));
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void func_addRegistry(object sender, RoutedEventArgs e) {
+            var status = SharedModule.smmcore.OperationRegistry_Add(new SMMLib.Data.SMMInputBuilder.RegistryAddDeleteBuilder(
+                uiAddRegistry_User.Text,
+                uiAddRegistry_Tournament.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void func_deleteRegistry(object sender, RoutedEventArgs e) {
+            var status = SharedModule.smmcore.OperationRegistry_Delete(new SMMLib.Data.SMMInputBuilder.RegistryAddDeleteBuilder(
+                uiDeleteRegistry_Name.Text,
+                uiDeleteRegistry_Tournament.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
+        private void func_queryMapPool(object sender, RoutedEventArgs e) {
+            var (status, data) = SharedModule.smmcore.OperationMapPool_Query(new SMMLib.Data.SMMInputBuilder.MapPoolQueryFilter(
+                uiQueryMapPool_WhetherHash.IsChecked.UniformBoolean(),
+                uiQueryMapPool_WhetherTournament.IsChecked.UniformBoolean(),
+
+                uiQueryMapPool_Hash.Text,
+                uiQueryMapPool_Tournament.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            mapPoolList.Clear();
+            foreach (var item in data)
+                mapPoolList.Add(new Data.OperationMapPoolQuery(item));
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void func_addMapPool(object sender, RoutedEventArgs e) {
+            var status = SharedModule.smmcore.OperationMapPool_Add(new SMMLib.Data.SMMInputBuilder.MapPoolAddDeleteBuilder(
+                uiAddMapPool_Hash.Text,
+                uiAddMapPool_Tournament.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void func_deleteMapPool(object sender, RoutedEventArgs e) {
+            var status = SharedModule.smmcore.OperationMapPool_Delete(new SMMLib.Data.SMMInputBuilder.MapPoolAddDeleteBuilder(
+                uiDeleteMapPool_Hash.Text,
+                uiDeleteMapPool_Tournament.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
+        private void func_queryMap(object sender, RoutedEventArgs e) {
+            var (status, data) = SharedModule.smmcore.OperationMap_Query(new SMMLib.Data.SMMInputBuilder.MapQueryFilter(
+                uiQueryMap_WhetherName.IsChecked.UniformBoolean(),
+                uiQueryMap_WhetherI18N.IsChecked.UniformBoolean(),
+                uiQueryMap_WhetherHash.IsChecked.UniformBoolean(),
+
+                uiQueryMap_Name.Text,
+                uiQueryMap_I18N.Text,
+                uiQueryMap_Hash.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            mapList.Clear();
+            foreach (var item in data)
+                mapList.Add(new Data.OperationMapQuery(item));
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void func_addMap(object sender, RoutedEventArgs e) {
+            var status = SharedModule.smmcore.OperationMap_Add(new SMMLib.Data.SMMInputBuilder.MapAddBuilder(
+                uiAddMap_Name.Text,
+                uiAddMap_I18N.Text,
+                uiAddMap_Hash.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private void func_deleteMap(object sender, RoutedEventArgs e) {
+            var status = SharedModule.smmcore.OperationMap_Delete(JsonConvert.DeserializeObject<List<string>>(uiDeleteMap_Hash.Text));
+
+            if (!status.IsSuccess) {
+                MessageBox.Show("Error: " + status.Description, "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("Operation finished", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
+
 
         #endregion
+
 
     }
 }
