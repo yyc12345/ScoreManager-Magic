@@ -112,8 +112,8 @@
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="{DynamicResource ui_ConfigurationWindow_Tournament_Menu_Refresh}"/>
-                                <MenuItem Header="{DynamicResource ui_ConfigurationWindow_Tournament_Menu_Register}"/>
+                                <MenuItem Header="刷新列表"/>
+                                <MenuItem Header="注册选中比赛"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                     </DataGrid>

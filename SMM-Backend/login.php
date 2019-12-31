@@ -11,7 +11,7 @@ try {
     if(!$db->checkUser($_POST["name"])) throw new Exception("Invalid user name");
 
     //compute correct hash
-    $stmt = $db->conn->prepare("SELECT sm_password, sm_salt FROM user WHERE sm_name = ?");
+    $stmt = $db->conn->prepare("SELECT sm_name, sm_password, sm_salt FROM user WHERE sm_name = ?");
     $stmt->bindParam(1, $_POST["name"], PDO::PARAM_STR);
     $stmt->execute();
     $data = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -760,7 +760,7 @@
                                 </Grid>
                             </TabItem>
                             <TabItem Header="Add map">
-                                <Grid Background="#FFE5E5E5">
+                                <Grid Background="#FFE5E5E5" AllowDrop="True" Drop="func_dropMapfile">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>

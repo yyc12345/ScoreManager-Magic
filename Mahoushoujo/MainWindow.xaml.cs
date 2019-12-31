@@ -125,6 +125,21 @@ namespace Mahoushoujo {
             SharedModule.configManager.Save();
         }
 
+        private void func_dropMapfile(object sender, DragEventArgs e) {
+            var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+            try {
+                var file = files[0];
+                uiAddMap_Hash.Text = HashComput.SHA256FromFile(file);
+
+                var info = new System.IO.FileInfo(file);
+                uiAddMap_Name.Text = info.Name;
+            } catch {
+                MessageBox.Show("Fail to read file.", "Mahoushoujo", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
         #endregion
 
         #region menu oper
@@ -602,8 +617,8 @@ namespace Mahoushoujo {
 
 
 
-        #endregion
 
+        #endregion
 
     }
 }
