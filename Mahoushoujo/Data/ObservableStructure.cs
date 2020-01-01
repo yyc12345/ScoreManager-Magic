@@ -112,7 +112,7 @@ namespace Mahoushoujo.Data {
     public class OperationRecordQuery : SMMLib.Data.SMMStructure.OperationRecordQuery {
         public OperationRecordQuery(SMMLib.Data.SMMStructure.OperationRecordQuery root) {
             this.sm_name = root.sm_name;
-            this.installedOn = root.installedOn;
+            this.sm_installedOn = root.sm_installedOn;
             this.sm_map = root.sm_map;
             this.sm_score = root.sm_score;
             this.sm_srTime = root.sm_srTime;

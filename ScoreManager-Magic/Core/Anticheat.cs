@@ -39,7 +39,7 @@ namespace ScoreManager_Magic.Core {
         }
 
         public bool StartAnticheat() {
-            var gamePath = SharedModule.configManager.Configuration["GamePath"];
+            var gamePath = SharedModule.configManager.Configuration["BallancePath"];
 
             //check file
             foreach (var item in checkList) {

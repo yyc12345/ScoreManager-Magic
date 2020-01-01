@@ -32,6 +32,20 @@ namespace ScoreManager_Magic.UI.Windows {
                 }));
             };
 
+            SharedModule.NewSubmitCallback += async (hash, bsm) => {
+                var (status, data) = await TaskEx.Run(() => {
+                    return SharedModule.smm.GetMapName(new List<string>() { hash });
+                });
+
+                if (status.IsSuccess) {
+                    if (data.Count != 0) hash = data[0].sm_name;
+                }
+
+                this.Dispatcher.Invoke(new Action(() => {
+                    this.bsmList.Add(new Data.ObservableBsmData(bsm, hash, DateTime.Now));
+                }));
+            };
+
             for (int i = 1; i <= 13; i++)
                 ui_game_installMapLevel.Items.Add(i);
             ui_game_installMapLevel.SelectedIndex = 0;
@@ -73,20 +87,20 @@ namespace ScoreManager_Magic.UI.Windows {
 
         #region misc method
 
-        private void FreezeUI(bool isFreeze) {
-            if (isFreeze) {
-                if (SharedModule.IsGameRunning) {
+        public void FreezeUI(bool isFreeze) {
+                ui_user_changePassword.IsEnabled = !isFreeze;
 
-                } else {
+                ui_game_changeBallancePath.IsEnabled = !isFreeze;
+                ui_game_installMap.IsEnabled = !isFreeze;
+                ui_game_cleanHighscore.IsEnabled = !isFreeze;
+                ui_game_openLevels.IsEnabled = !isFreeze;
+                ui_game_changeBallanceLanguage.IsEnabled = !isFreeze;
 
-                }
-            } else {
-                if (SharedModule.IsGameRunning) {
+                ui_competition_refresh.IsEnabled = !isFreeze;
+                ui_competition_battle.IsEnabled = !isFreeze;
 
-                } else {
-
-                }
-            }
+                ui_tournament_refresh.IsEnabled = !isFreeze;
+                ui_tournament_registry.IsEnabled = !isFreeze;
         }
 
         #endregion
@@ -94,6 +108,8 @@ namespace ScoreManager_Magic.UI.Windows {
         #region ballance oper method
 
         private void func_gameChangePath(object sender, RoutedEventArgs e) {
+            FreezeUI(true);
+
             if (!gamePathDialog.ShowDialog().UniformBoolean()) return;
 
             if (gamePathDialog.FileName != "") {
@@ -106,9 +122,12 @@ namespace ScoreManager_Magic.UI.Windows {
                 MessageBox.Show($"已将游戏目录修改为：{path}", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
             } else MessageBox.Show("修改失败，因为没有选中文件", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
 
+            FreezeUI(false);
         }
 
         private void func_gameInstallMap(object sender, RoutedEventArgs e) {
+            FreezeUI(true);
+
             if (!mapSelectorDialog.ShowDialog().UniformBoolean()) return;
 
             if (mapSelectorDialog.FileName != "") {
@@ -122,9 +141,13 @@ namespace ScoreManager_Magic.UI.Windows {
                 } else MessageBox.Show("修改失败，因为文件不存在，可能是Ballance目录设置错误所致", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
 
             } else MessageBox.Show("修改失败，因为没有选中文件", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            FreezeUI(false);
         }
 
         private void func_gameCleanHighscore(object sender, RoutedEventArgs e) {
+            FreezeUI(true);
+
             var tdb = new FilePathBuilder(SharedModule.configManager.Configuration["BallancePath"]).Enter("Database.tdb").Path;
 
             try {
@@ -143,9 +166,13 @@ namespace ScoreManager_Magic.UI.Windows {
             } catch (Exception ee) {
                 MessageBox.Show("修改失败，可能是Ballance目录设置错误所致。错误如下：" + ee.Message, "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            FreezeUI(false);
         }
 
         private void func_gameOpenLevels(object sender, RoutedEventArgs e) {
+            FreezeUI(true);
+
             var tdb = new FilePathBuilder(SharedModule.configManager.Configuration["BallancePath"]).Enter("Database.tdb").Path;
 
             try {
@@ -160,11 +187,17 @@ namespace ScoreManager_Magic.UI.Windows {
             } catch (Exception ee) {
                 MessageBox.Show("修改失败，可能是Ballance目录设置错误所致。错误如下：" + ee.Message, "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            FreezeUI(false);
         }
 
         private void func_gameChangeLanguage(object sender, RoutedEventArgs e) {
+            FreezeUI(true);
+
             SharedModule.registryHelper.Language = (Core.BallanceLanguage)ui_game_languageList.SelectedIndex;
             MessageBox.Show("修改完成", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            FreezeUI(false);
         }
 
         #endregion
@@ -172,6 +205,7 @@ namespace ScoreManager_Magic.UI.Windows {
         #region net oper method
 
         private async void func_competitionRefresh(object sender, RoutedEventArgs e) {
+            FreezeUI(true);
 
             var (status, data) = await TaskEx.Run(() => {
                 return SharedModule.smm.GetFutureCompetition();
@@ -180,6 +214,7 @@ namespace ScoreManager_Magic.UI.Windows {
             if (!status.IsSuccess) {
                 this.Dispatcher.Invoke(new Action(() => {
                     MessageBox.Show("刷新失败，由于以下错误：" + status.Description, "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
+                    FreezeUI(false);
                 }));
                 return;
             }
@@ -188,7 +223,7 @@ namespace ScoreManager_Magic.UI.Windows {
                 //get map message
                 var neededMaps = new List<string>();
                 foreach (var item in data) {
-                    if (item.sm_map != "" && neededMaps.Contains(item.sm_map))
+                    if (item.sm_map != "" && (!neededMaps.Contains(item.sm_map)))
                         neededMaps.Add(item.sm_map);
                 }
 
@@ -219,22 +254,30 @@ namespace ScoreManager_Magic.UI.Windows {
                     }
 
                     MessageBox.Show("刷新成功", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
+                    FreezeUI(false);
                 }));
             } else {
                 //no data
                 this.Dispatcher.Invoke(new Action(() => {
                     competitionList.Clear();
                     MessageBox.Show("刷新成功", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
+                    FreezeUI(false);
                 }));
             }
 
         }
         private void func_competitionBattle(object sender, RoutedEventArgs e) {
+            var index = ui_competition_datagrid.SelectedIndex;
+            if (index == -1) return;
 
+            var data = competitionList[index];
+            SharedModule.Raise_SelectCompetitionCallback(data.sm_map, data.conv_map, data.sm_cdk);
+            MessageBox.Show("已选中此比赛", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
 
         private async void func_tournamentRefresh(object sender, RoutedEventArgs e) {
+            FreezeUI(true);
 
             var (status, data) = await TaskEx.Run(() => {
                 return SharedModule.smm.GetTournament();
@@ -243,6 +286,7 @@ namespace ScoreManager_Magic.UI.Windows {
             if (!status.IsSuccess) {
                 this.Dispatcher.Invoke(new Action(() => {
                     MessageBox.Show("刷新失败，由于以下错误：" + status.Description, "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
+                    FreezeUI(false);
                 }));
                 return;
             }
@@ -253,10 +297,13 @@ namespace ScoreManager_Magic.UI.Windows {
                 foreach (var item in data)
                     tournamentList.Add(new Data.ObservableGetTournament(item));
                 MessageBox.Show("刷新成功", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
+                FreezeUI(false);
             }));
 
         }
         private async void func_tournamentRegistry(object sender, RoutedEventArgs e) {
+            FreezeUI(true);
+
             var index = ui_tournament_datagrid.SelectedIndex;
             if (index == -1) return;
             var sm_tournament = tournamentList[index].sm_tournament;
@@ -268,17 +315,21 @@ namespace ScoreManager_Magic.UI.Windows {
             if (!status.IsSuccess) {
                 this.Dispatcher.Invoke(new Action(() => {
                     MessageBox.Show("注册失败，由于以下错误：" + status.Description, "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
+                    FreezeUI(false);
                 }));
                 return;
             }
 
             this.Dispatcher.Invoke(new Action(() => {
                 MessageBox.Show("注册成功", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
+                FreezeUI(false);
             }));
         }
 
 
         private async void func_userChangePassword(object sender, RoutedEventArgs e) {
+            FreezeUI(true);
+
             var newPass = ui_user_newPassword.Password;
             if (newPass == "") {
                 MessageBox.Show("新密码不能为空", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -292,12 +343,14 @@ namespace ScoreManager_Magic.UI.Windows {
             if (!status.IsSuccess) {
                 this.Dispatcher.Invoke(new Action(() => {
                     MessageBox.Show("修改密码失败，由于以下错误：" + status.Description, "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
+                    FreezeUI(false);
                 }));
                 return;
             }
 
             this.Dispatcher.Invoke(new Action(() => {
                 MessageBox.Show("密码修改成功，将在下次登陆时应用", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
+                FreezeUI(false);
             }));
         }
 

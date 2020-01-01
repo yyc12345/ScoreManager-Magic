@@ -29,5 +29,15 @@ namespace ScoreManager_Magic {
         public static LogManager logSystem = new LogManager(Information.WorkPath.Enter("scoremanager-magic.log").Path);
 
         public static ScoreManager smm = new ScoreManager();
+
+        //map hash, map name, CDK
+        public static event Action<string, string, string> SelectCompetitionCallback;
+        public static void Raise_SelectCompetitionCallback(string hash, string name, string cdk) {
+            SelectCompetitionCallback?.Invoke(hash, name, cdk);
+        }
+        public static event Action<string, BsmData> NewSubmitCallback;
+        public static void Raise_NewSubmitCallback(string hash, BsmData data) {
+            NewSubmitCallback?.Invoke(hash, data);
+        }
     }
 }

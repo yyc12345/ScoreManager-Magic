@@ -371,7 +371,7 @@
                                     <DataGrid x:Name="uiQueryRecordResult" ItemsSource="{Binding}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Extended" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="name (sm__name)" Binding="{Binding sm_name}"/>
-                                            <DataGridTextColumn Header="install on (sm__installOn)" Binding="{Binding sm_installOn}"/>
+                                            <DataGridTextColumn Header="installed on (sm__installedOn)" Binding="{Binding sm_installedOn}"/>
                                             <DataGridTextColumn Header="map (conv sm__map)" Binding="{Binding conv_map}"/>
                                             <DataGridTextColumn Header="score (sm__score)" Binding="{Binding sm_score}"/>
                                             <DataGridTextColumn Header="sr time (conv sm__srTime)" Binding="{Binding conv_srTime}"/>

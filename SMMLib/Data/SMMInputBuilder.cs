@@ -325,15 +325,15 @@ namespace SMMLib.Data.SMMInputBuilder {
     }
 
     public class MapAddBuilder {
-        public MapAddBuilder(string name, string i18n, string hasn) {
+        public MapAddBuilder(string name, string i18n, string hash) {
             this.name = name;
             this.i18n = i18n;
-            this.hasn = hasn;
+            this.hash = hash;
         }
 
         public string name { get; set; }
         public string i18n { get; set; }
-        public string hasn { get; set; }
+        public string hash { get; set; }
 
     }
 

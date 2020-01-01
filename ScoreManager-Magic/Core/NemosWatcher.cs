@@ -26,7 +26,7 @@ namespace ScoreManager_Magic.Core {
         private void innerWatcherProcessor(object sender, FileSystemEventArgs e) {
             try {
                 BsmRawData rawData = null;
-                var gamePath = SharedModule.configManager.Configuration["GamePath"];
+                var gamePath = SharedModule.configManager.Configuration["BallancePath"];
 
                 //try get bsm
                 if (System.IO.File.Exists(gamePath + "\\Bin\\ScoreOutput.bsm")) {
@@ -114,7 +114,7 @@ namespace ScoreManager_Magic.Core {
 
         public bool GenerateToken() {
             try {
-                var gamePath = SharedModule.configManager.Configuration["GamePath"];
+                var gamePath = SharedModule.configManager.Configuration["BallancePath"];
 
                 Random ran = new Random((int)DateTime.Now.Ticks);
                 tokenCache = ran.Next(1000000);
@@ -137,7 +137,7 @@ namespace ScoreManager_Magic.Core {
         #region public interface
 
         public bool StartMonitor() {
-            var gamePath = SharedModule.configManager.Configuration["GamePath"];
+            var gamePath = SharedModule.configManager.Configuration["BallancePath"];
 
             File.Copy(Information.WorkPath.Enter("Resources").Enter("MenuLevel.nmo").Path, gamePath + @"\3D Entities\MenuLevel.nmo", true);
             File.Copy(Information.WorkPath.Enter("Resources").Enter("ScoreManager.nmo").Path, gamePath + @"\3D Entities\ScoreManager.nmo", true);

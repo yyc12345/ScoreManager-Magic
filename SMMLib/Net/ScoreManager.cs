@@ -130,7 +130,7 @@ namespace SMMLib.Net {
                 var localTimestamp = (DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000000;
                 var data = NetworkMethod.Post(CoreUrl.Submit, new Dictionary<string, string>() {
                     {"token", Token},
-                    {"installOn", installOn.ToString()},
+                    {"installedOn", installOn.ToString()},
                     {"map",map },
                     {"score",score.ToString() },
                     {"srTime",srTime.ToString() },

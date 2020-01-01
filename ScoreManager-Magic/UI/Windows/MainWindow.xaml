@@ -17,10 +17,8 @@
 
         <Grid.ContextMenu>
             <ContextMenu>
-                <MenuItem x:Name="uiMenuStart" Header="Start game"/>
-                <MenuItem x:Name="uiMenuBind" Header="Try finding Ballance window"/>
-                <Separator/>
-                <MenuItem x:Name="uiMenuConfig" Header="Open configuration window" Click="uiMenuConfig_Click"/>
+                <MenuItem x:Name="uiMenuStart" Header="Start game" Click="uiMenuStart_Click"/>
+                <MenuItem x:Name="uiMenuStop" IsEnabled="False" Header="Stop game" Click="uiMenuStop_Click"/>
                 <Separator/>
                 <MenuItem x:Name="uiMenuExit" Header="Exit" Click="uiMenuExit_Click"/>
             </ContextMenu>
@@ -43,7 +41,7 @@
         <!-- status and map dispay-->
         <TextBlock x:Name="uiMap" Text="-" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{DynamicResource ui_MainWindow_CurrentMap}"/>
         <TextBlock x:Name="uiCDK" Text="-" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{DynamicResource ui_MainWindow_CurrentCDK}"/>
-        <TextBlock x:Name="uiStatus" Text="-" Grid.ColumnSpan="2" Foreground="LightGreen" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{DynamicResource ui_MainWindow_CurrentStatus}"/>
+        <TextBlock x:Name="uiStatus" Text="-" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTip="{DynamicResource ui_MainWindow_CurrentStatus}"/>
 
 
     </Grid>

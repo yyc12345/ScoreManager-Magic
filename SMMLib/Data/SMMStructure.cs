@@ -78,7 +78,7 @@ namespace SMMLib.Data.SMMStructure {
 
     public class OperationRecordQuery {
         public string sm_name { get; set; }
-        public int installedOn { get; set; }
+        public int sm_installedOn { get; set; }
         public string sm_map { get; set; }
         public int sm_score { get; set; }
         public int sm_srTime { get; set; }

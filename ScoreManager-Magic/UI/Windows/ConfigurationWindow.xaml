@@ -103,8 +103,8 @@
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="刷新列表" Click="func_competitionRefresh"/>
-                                <MenuItem Header="打选中比赛" Click="func_competitionBattle"/>
+                                <MenuItem x:Name="ui_competition_refresh" Header="刷新列表" Click="func_competitionRefresh"/>
+                                <MenuItem x:Name="ui_competition_battle" Header="打选中比赛" Click="func_competitionBattle"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                     </DataGrid>
@@ -121,8 +121,8 @@
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="刷新列表" Click="func_tournamentRefresh"/>
-                                <MenuItem Header="注册选中比赛" Click="func_tournamentRegistry"/>
+                                <MenuItem x:Name="ui_tournament_refresh" Header="刷新列表" Click="func_tournamentRefresh"/>
+                                <MenuItem x:Name="ui_tournament_registry" Header="注册选中比赛" Click="func_tournamentRegistry"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                     </DataGrid>
@@ -130,7 +130,7 @@
             </TabItem>
             <TabItem Header="上传记录">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="ui_submit_datagrid" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                    <DataGrid x:Name="ui_submit_datagrid" ItemsSource="{Binding}" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="关卡安装于" Binding="{Binding sm_installOn}"/>
                             <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_Map}" Binding="{Binding conv_map}"/>
