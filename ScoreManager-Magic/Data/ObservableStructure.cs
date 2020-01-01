@@ -45,7 +45,7 @@ namespace ScoreManager_Magic.Data {
             this.sm_tournament = root.sm_tournament;
             this.sm_startDate = root.sm_startDate;
             this.sm_endDate = root.sm_endDate;
-            this.participanted = root.participanted;
+            this.participated = root.participated;
         }
 
         public string conv_startDate {
@@ -62,9 +62,9 @@ namespace ScoreManager_Magic.Data {
             set {; }
         }
 
-        public string conv_participanted {
+        public string conv_participated {
             get {
-                return participanted.ToString();
+                return participated.ToString();
             }
             set {; }
         }

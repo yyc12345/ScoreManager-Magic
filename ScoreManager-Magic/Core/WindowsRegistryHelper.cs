@@ -24,7 +24,7 @@ namespace ScoreManager_Magic.Core {
 
             SetupCommand = operKey.GetValue("SetupCommand").ToString();
 
-            var (width, height) = decodeResolutionValue((long)operKey.GetValue("VideoMode"));
+            var (width, height) = decodeResolutionValue((int)operKey.GetValue("VideoMode"));
             ResolutionWidth = width;
             ResolutionHeight = height;
 
@@ -66,10 +66,10 @@ namespace ScoreManager_Magic.Core {
 
         private long computeResolutionValue(int width, int height) {
             var str = width.ToString("X4") + height.ToString("X4");
-            return long.Parse(str, System.Globalization.NumberStyles.HexNumber);
+            return int.Parse(str, System.Globalization.NumberStyles.HexNumber);
         }
 
-        private (int width, int height) decodeResolutionValue(long encodedNum) {
+        private (int width, int height) decodeResolutionValue(int encodedNum) {
             var str = encodedNum.ToString("X8");
             return (int.Parse(str.Substring(0, 4), System.Globalization.NumberStyles.HexNumber),
                 int.Parse(str.Substring(4, 4), System.Globalization.NumberStyles.HexNumber));

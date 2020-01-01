@@ -39,7 +39,7 @@ namespace SMMLib.Data.SMMStructure {
         public string sm_tournament { get; set; }
         public long sm_startDate { get; set; }
         public long sm_endDate { get; set; }
-        public bool participanted { get; set; }
+        public bool participated { get; set; }
     }
 
     #endregion

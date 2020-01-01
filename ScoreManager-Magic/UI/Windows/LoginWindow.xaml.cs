@@ -28,10 +28,14 @@ namespace ScoreManager_Magic.UI.Windows {
             };
 
             //apply saved config
-            if (SharedModule.configManager.Configuration["RememberUser"].ConvertToBoolean())
+            if (SharedModule.configManager.Configuration["RememberUser"].ConvertToBoolean()) {
                 uiUserName.Text = SharedModule.configManager.Configuration["RememberedUser"];
-            if (SharedModule.configManager.Configuration["RememberPassword"].ConvertToBoolean())
+                uiRemName.IsChecked = true;
+            }
+            if (SharedModule.configManager.Configuration["RememberPassword"].ConvertToBoolean()) {
                 uiPassword.Password = SharedModule.configManager.Configuration["RememberedPassword"];
+                uiRemPassword.IsChecked = true;
+            }
             uiServer.Text = SharedModule.configManager.Configuration["Server"];
         }
 

@@ -29,6 +29,7 @@ namespace SMMLib.Net {
             }
         }
         public SM_Priority Priority { get; private set; }
+        public string Username { get; private set; }
         public string ServerDomain {
             get {
                 return CoreUrl.RequestBaseUrl;
@@ -88,6 +89,7 @@ namespace SMMLib.Net {
                 //set internal value
                 Token = decodeData2.token;
                 Priority = (SM_Priority)decodeData2.priority;
+                Username = user;
                 return new StandardResponse(true, "");
             } catch (Exception e) {
                 return new StandardResponse(false, e.Message);

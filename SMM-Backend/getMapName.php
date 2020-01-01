@@ -15,6 +15,13 @@ try {
     //decode map hash param
     $mapList = \SMMUtilities\AdvancedJsonArrayDecoder($_POST["mapHash"]);
     $length = count($mapList);
+
+    //confirm non-zero input
+    if ($length == 0) {
+        echo json_encode(\SMMUtilities\GetUniversalReturn(true, "OK", array()));
+        die();
+    }
+
     $constrcutHelper = array();
     foreach ($mapList as $i) 
         $constrcutHelper[] = " sm_hash = ? ";

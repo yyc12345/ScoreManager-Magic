@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScoreManager_Magic.UI.Windows"
         mc:Ignorable="d" Foreground="White"
-        Title="ScoreManager-Magic configuration" Height="450" Width="500">
+        Title="ScoreManager-Magic 设置" Height="450" Width="500">
     <Grid>
         <TabControl>
-            <TabItem Header="{DynamicResource ui_ConfigurationWindow_ScoreManager_Title}">
+            <TabItem Header="SMM 设置">
                 <Grid Background="#FFE5E5E5">
                     <ScrollViewer>
                         <StackPanel Orientation="Vertical" Margin="10">
-                            
+
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
@@ -25,55 +25,64 @@
                                     </Canvas>
                                 </Viewbox>
 
-                                <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="yyc12345" FontSize="18"/>
+                                <TextBlock x:Name="ui_user_name" Grid.Column="1" VerticalAlignment="Center" Text="yyc12345" FontSize="18"/>
                             </Grid>
 
-                            <TextBlock Margin="5,5,5,0" Text="{DynamicResource ui_ConfigurationWindow_ScoreManager_Permission}"/>
-                            <TextBlock Margin="5,0,5,5" Text="user"/>
-                            
-                            <GroupBox Header="{DynamicResource ui_ConfigurationWindow_ScoreManager_Password_Title}">
+                            <TextBlock Margin="5,5,5,0" Text="我的权限"/>
+                            <TextBlock x:Name="ui_user_priority" Margin="5,0,5,5" Text="user"/>
+
+                            <GroupBox Header="修改密码">
                                 <StackPanel Orientation="Vertical" Margin="5">
-                                    <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_ScoreManager_Password_Desc}" TextWrapping="WrapWithOverflow"/>
-                                    <PasswordBox Margin="5"/>
-                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_ScoreManager_Password_Btn}"/>
+                                    <TextBlock Margin="5" Text="您可以在此处修改您账户的密码，在下面键入新的密码然后点击按钮修改即可" TextWrapping="WrapWithOverflow"/>
+                                    <PasswordBox x:Name="ui_user_newPassword" Margin="5"/>
+                                    <Button x:Name="ui_user_changePassword" Margin="5" Content="修改" Click="func_userChangePassword"/>
                                 </StackPanel>
                             </GroupBox>
-                            
+
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
             </TabItem>
-            <TabItem Header="{DynamicResource ui_ConfigurationWindow_Game_Title}">
+            <TabItem Header="游戏辅助">
                 <Grid Background="#FFE5E5E5">
                     <ScrollViewer>
                         <StackPanel Orientation="Vertical" Margin="10">
-                            
-                            <GroupBox Header="{DynamicResource ui_ConfigurationWindow_Game_Start_Title}">
+
+                            <GroupBox Header="游戏位置">
                                 <StackPanel Orientation="Vertical" Margin="5">
-                                    <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_Game_Start_Desc}" TextWrapping="WrapWithOverflow"/>
-                                    <Button Margin="5" Content="{DynamicResource ui_ConfigurationWindow_Game_Start_BtnStart}"/>
+                                    <TextBlock Margin="5" Text="SMM默认的Ballance游戏位置为程序目录下的Ballance文件夹下。下方展示了当前Ballance的设定目录，如果您需要更改，请点击下方按钮，并选中Ballance根目录下的Database.tdb文件以定位您的Ballance游戏位置。" TextWrapping="WrapWithOverflow"/>
+                                    <TextBlock x:Name="ui_game_currentBallancePath" Margin="5" Text="N/A"/>
+                                    <Button x:Name="ui_game_changeBallancePath" Margin="5" Content="修改游戏所在位置" Click="func_gameChangePath"/>
                                 </StackPanel>
                             </GroupBox>
 
-                            <GroupBox Header="{DynamicResource ui_ConfigurationWindow_Game_Install_Title}">
+                            <GroupBox Header="安装地图">
                                 <StackPanel Orientation="Vertical" Margin="5">
-                                    <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_Game_Install_Desc}" TextWrapping="WrapWithOverflow"/>
-                                    <Button Margin="5" Content="安装地图"/>
+                                    <TextBlock Margin="5" Text="在开始游戏前，您需要先安装比赛用地图。在下方选择一个关卡序号，然后点击按钮，选择一张地图，然后即可将地图安装到指定关卡。" TextWrapping="WrapWithOverflow"/>
+                                    <ComboBox x:Name="ui_game_installMapLevel" Margin="5"/>
+                                    <Button x:Name="ui_game_installMap" Margin="5" Content="安装地图" Click="func_gameInstallMap"/>
                                 </StackPanel>
                             </GroupBox>
 
-                            <GroupBox Header="{DynamicResource ui_ConfigurationWindow_Game_Highscore_Title}">
+                            <GroupBox Header="高分榜操纵">
                                 <StackPanel Orientation="Vertical" Margin="5">
-                                    <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_Game_Highscore_Desc}" TextWrapping="WrapWithOverflow"/>
-                                    <Button Margin="5" Content="清空本地排行榜所有成绩"/>
-                                    <Button Margin="5" Content="关卡全开"/>
+                                    <TextBlock Margin="5" Text="为了使每场比赛都可以输入CDK，您可以通过“清空本地排行榜所有成绩”按钮将每一关的所有成绩置为-1分，这将使得每一次通关都会弹出输入名称界面以方便您输入CDK并进一步验证您的成绩。关卡全开将在不破坏成绩列表的情况下让您畅玩所有关卡。" TextWrapping="WrapWithOverflow"/>
+                                    <Button x:Name="ui_game_cleanHighscore" Margin="5" Content="清空本地排行榜所有成绩" Click="func_gameCleanHighscore"/>
+                                    <Button x:Name="ui_game_openLevels" Margin="5" Content="关卡全开" Click="func_gameOpenLevels"/>
                                 </StackPanel>
                             </GroupBox>
 
-                            <GroupBox Header="{DynamicResource ui_ConfigurationWindow_Game_Registry_Title}">
+                            <GroupBox Header="注册表相关">
                                 <StackPanel Orientation="Vertical" Margin="5">
-                                    <TextBlock Margin="5" Text="{DynamicResource ui_ConfigurationWindow_Game_Registry_Desc}" TextWrapping="WrapWithOverflow"/>
-                                    <Button Margin="5" Content="更改游戏语言"/>
+                                    <TextBlock Margin="5" Text="如果您的Ballance显示语言不正确，可以在下方选择一个语言，然后点击按钮，即可更改游戏语言。" TextWrapping="WrapWithOverflow"/>
+                                    <ComboBox x:Name="ui_game_languageList" Margin="5">
+                                        <ComboBoxItem>Germany</ComboBoxItem>
+                                        <ComboBoxItem>English or Chinese</ComboBoxItem>
+                                        <ComboBoxItem>Spanish</ComboBoxItem>
+                                        <ComboBoxItem>Italian</ComboBoxItem>
+                                        <ComboBoxItem>French</ComboBoxItem>
+                                    </ComboBox>
+                                    <Button x:Name="ui_game_changeBallanceLanguage" Margin="5" Content="更改游戏语言" Click="func_gameChangeLanguage"/>
                                 </StackPanel>
                             </GroupBox>
 
@@ -81,9 +90,9 @@
                     </ScrollViewer>
                 </Grid>
             </TabItem>
-            <TabItem Header="{DynamicResource ui_ConfigurationWindow_Competition_Title}">
+            <TabItem Header="我的比赛">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                    <DataGrid x:Name="ui_competition_datagrid" ItemsSource="{Binding}" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="比赛ID" Binding="{Binding sm_id}"/>
                             <DataGridTextColumn Header="比赛开始时间" Binding="{Binding conv_startDate}"/>
@@ -94,34 +103,34 @@
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="刷新列表"/>
-                                <MenuItem Header="打选中比赛"/>
+                                <MenuItem Header="刷新列表" Click="func_competitionRefresh"/>
+                                <MenuItem Header="打选中比赛" Click="func_competitionBattle"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="{DynamicResource ui_ConfigurationWindow_Tournament_Title}">
+            <TabItem Header="联赛相关">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                    <DataGrid x:Name="ui_tournament_datagrid" ItemsSource="{Binding}" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="联赛名称" Binding="{Binding sm_tournament}"/>
                             <DataGridTextColumn Header="联赛注册开始时间" Binding="{Binding conv_startDate}"/>
                             <DataGridTextColumn Header="联赛注册结束时间" Binding="{Binding conv_endDate}"/>
-                            <DataGridTextColumn Header="您是否注册了此联赛" Binding="{Binding conv_participanted}"/>
+                            <DataGridTextColumn Header="您是否注册了此联赛" Binding="{Binding conv_participated}"/>
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="刷新列表"/>
-                                <MenuItem Header="注册选中比赛"/>
+                                <MenuItem Header="刷新列表" Click="func_tournamentRefresh"/>
+                                <MenuItem Header="注册选中比赛" Click="func_tournamentRegistry"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="{DynamicResource ui_ConfigurationWindow_Submit_Title}">
+            <TabItem Header="上传记录">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
+                    <DataGrid x:Name="ui_submit_datagrid" CanUserReorderColumns="False" CanUserSortColumns="False" IsReadOnly="true" AutoGenerateColumns="False" SelectionUnit="FullRow" SelectionMode="Single" Background="#00000000" BorderThickness="1" Margin="5" HorizontalScrollBarVisibility="Visible">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="关卡安装于" Binding="{Binding sm_installOn}"/>
                             <DataGridTextColumn Header="{DynamicResource ui_ConfigurationWindow_Submit_Map}" Binding="{Binding conv_map}"/>
@@ -138,9 +147,9 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="{DynamicResource ui_ConfigurationWindow_Log_Title}">
+            <TabItem Header="程序日志">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="uiLogLoglist" Background="#00000000" BorderThickness="1" Margin="5"/>
+                    <ListBox x:Name="ui_log_logList" Background="#00000000" BorderThickness="1" Margin="5"/>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -9,6 +9,7 @@ using SMMLib.Net;
 namespace ScoreManager_Magic {
     public static class SharedModule {
 
+        public static bool IsGameRunning = false;
         public static ConfigManager configManager = new ConfigManager("sccoremanager-magic.cfg", new Dictionary<string, string>() {
             {"BallancePath", Information.WorkPath.Enter("Ballance").Path },
 #if DEBUG
@@ -24,6 +25,7 @@ namespace ScoreManager_Magic {
 
         public static Anticheat anticheat = new Anticheat();
         public static NemosWatcher nemosWatcher = new NemosWatcher();
+        public static WindowsRegistryHelper registryHelper = new Core.WindowsRegistryHelper();
         public static LogManager logSystem = new LogManager(Information.WorkPath.Enter("scoremanager-magic.log").Path);
 
         public static ScoreManager smm = new ScoreManager();
