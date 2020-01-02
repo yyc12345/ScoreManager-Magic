@@ -17,6 +17,7 @@ using IWshRuntimeLibrary;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using SMMLib.Utilities;
+using System.Threading;
 
 namespace ScoreManager_Magic.UI.Windows {
     /// <summary>
@@ -31,6 +32,18 @@ namespace ScoreManager_Magic.UI.Windows {
             configWindow.Show();
 
             uiStatus.Text = "空闲";
+
+            //keep topmost
+            tdTopmost = new Thread(() => {
+                while(true) {
+                    this.Dispatcher.Invoke(new Action(() => {
+                        this.Topmost = false;
+                        this.Topmost = true;
+                    }));
+                    Thread.Sleep(1000);
+                }
+            });
+            tdTopmost.Start();
 
             //bind event
             SharedModule.SelectCompetitionCallback += (hash, name, cdk) => {
@@ -129,6 +142,7 @@ namespace ScoreManager_Magic.UI.Windows {
 
         string currentHash = "";
         string playingHash = "";
+        Thread tdTopmost;
 
         #region window operation
 
@@ -237,6 +251,8 @@ namespace ScoreManager_Magic.UI.Windows {
         #region menu
 
         private void uiMenuExit_Click(object sender, RoutedEventArgs e) {
+            tdTopmost.Abort();
+            SharedModule.logSystem.Close();
             App.Current.Shutdown();
         }
 

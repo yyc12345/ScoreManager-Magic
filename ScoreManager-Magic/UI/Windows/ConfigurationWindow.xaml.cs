@@ -49,7 +49,6 @@ namespace ScoreManager_Magic.UI.Windows {
             for (int i = 1; i <= 13; i++)
                 ui_game_installMapLevel.Items.Add(i);
             ui_game_installMapLevel.SelectedIndex = 0;
-            ui_game_languageList.SelectedIndex = 0;
 
             //bind ui
             ui_competition_datagrid.DataContext = competitionList;
@@ -70,6 +69,12 @@ namespace ScoreManager_Magic.UI.Windows {
 
             //setup related data
             ui_game_currentBallancePath.Text = SharedModule.configManager.Configuration["BallancePath"];
+            if (SharedModule.registryHelper.FullScreen) ui_game_fullscreenStatus.Text = "全屏";
+            else ui_game_fullscreenStatus.Text = "窗口化";
+            ui_game_resolutionWidth.Text = SharedModule.registryHelper.ResolutionWidth.ToString();
+            ui_game_resolutionHeight.Text = SharedModule.registryHelper.ResolutionHeight.ToString();
+            ui_game_languageList.SelectedIndex = (int)SharedModule.registryHelper.Language;
+
 
             //setup dialog
             gamePathDialog.Filter = "Database.tdb文件|Database.tdb";
@@ -88,19 +93,21 @@ namespace ScoreManager_Magic.UI.Windows {
         #region misc method
 
         public void FreezeUI(bool isFreeze) {
-                ui_user_changePassword.IsEnabled = !isFreeze;
+            ui_user_changePassword.IsEnabled = !isFreeze;
 
-                ui_game_changeBallancePath.IsEnabled = !isFreeze;
-                ui_game_installMap.IsEnabled = !isFreeze;
-                ui_game_cleanHighscore.IsEnabled = !isFreeze;
-                ui_game_openLevels.IsEnabled = !isFreeze;
-                ui_game_changeBallanceLanguage.IsEnabled = !isFreeze;
+            ui_game_changeBallancePath.IsEnabled = !isFreeze;
+            ui_game_installMap.IsEnabled = !isFreeze;
+            ui_game_cleanHighscore.IsEnabled = !isFreeze;
+            ui_game_openLevels.IsEnabled = !isFreeze;
+            ui_game_changeBallanceLanguage.IsEnabled = !isFreeze;
+            ui_game_changeFullscreen.IsEnabled = !isFreeze;
+            ui_game_changeResolution.IsEnabled = !isFreeze;
 
-                ui_competition_refresh.IsEnabled = !isFreeze;
-                ui_competition_battle.IsEnabled = !isFreeze;
+            ui_competition_refresh.IsEnabled = !isFreeze;
+            ui_competition_battle.IsEnabled = !isFreeze;
 
-                ui_tournament_refresh.IsEnabled = !isFreeze;
-                ui_tournament_registry.IsEnabled = !isFreeze;
+            ui_tournament_refresh.IsEnabled = !isFreeze;
+            ui_tournament_registry.IsEnabled = !isFreeze;
         }
 
         #endregion
@@ -136,17 +143,16 @@ namespace ScoreManager_Magic.UI.Windows {
                 return;
             }
 
-            if (mapSelectorDialog.FileName != "") {
+            try {
                 var mapFile = mapSelectorDialog.FileName;
                 var replaceFile = new FilePathBuilder(SharedModule.configManager.Configuration["BallancePath"]).Enter("3D Entities").Enter("Level")
                     .Enter($"Level_{(ui_game_installMapLevel.SelectedIndex + 1).ToString().PadLeft(2, '0')}.NMO").Path;
 
-                if (System.IO.File.Exists(mapFile) && System.IO.File.Exists(replaceFile)) {
-                    System.IO.File.Copy(mapFile, replaceFile, true);
-                    MessageBox.Show("已安装地图", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
-                } else MessageBox.Show("修改失败，因为文件不存在，可能是Ballance目录设置错误所致", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            } else MessageBox.Show("修改失败，因为没有选中文件", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.IO.File.Copy(mapFile, replaceFile, true);
+                MessageBox.Show("已安装地图", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
+            } catch (Exception ex) {
+                MessageBox.Show("修改失败，由于如下错误：" + ex.Message, "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             FreezeUI(false);
         }
@@ -154,9 +160,9 @@ namespace ScoreManager_Magic.UI.Windows {
         private void func_gameCleanHighscore(object sender, RoutedEventArgs e) {
             FreezeUI(true);
 
-            var tdb = new FilePathBuilder(SharedModule.configManager.Configuration["BallancePath"]).Enter("Database.tdb").Path;
-
             try {
+                var tdb = new FilePathBuilder(SharedModule.configManager.Configuration["BallancePath"]).Enter("Database.tdb").Path;
+
                 //get data
                 var cache = Core.DatabasetdbChanger.ReadDB(tdb);
                 foreach (var item in cache.HighScores) {
@@ -179,9 +185,9 @@ namespace ScoreManager_Magic.UI.Windows {
         private void func_gameOpenLevels(object sender, RoutedEventArgs e) {
             FreezeUI(true);
 
-            var tdb = new FilePathBuilder(SharedModule.configManager.Configuration["BallancePath"]).Enter("Database.tdb").Path;
-
             try {
+                var tdb = new FilePathBuilder(SharedModule.configManager.Configuration["BallancePath"]).Enter("Database.tdb").Path;
+
                 //get data
                 var cache = Core.DatabasetdbChanger.ReadDB(tdb);
                 for (int i = 0; i < cache.Settings.LevelOpened.Length; i++)
@@ -206,6 +212,31 @@ namespace ScoreManager_Magic.UI.Windows {
             FreezeUI(false);
         }
 
+        private void func_gameChangeFullscreen(object sender, RoutedEventArgs e) {
+            FreezeUI(true);
+
+            SharedModule.registryHelper.FullScreen = !SharedModule.registryHelper.FullScreen;
+            if (SharedModule.registryHelper.FullScreen) ui_game_fullscreenStatus.Text = "全屏";
+            else ui_game_fullscreenStatus.Text = "窗口化";
+            MessageBox.Show("修改完成", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            FreezeUI(false);
+        }
+
+        private void func_gameChangeResolution(object sender, RoutedEventArgs e) {
+            FreezeUI(true);
+
+            try {
+                ushort width = ushort.Parse(ui_game_resolutionWidth.Text), height = ushort.Parse(ui_game_resolutionHeight.Text);
+                SharedModule.registryHelper.ResolutionWidth = width;
+                SharedModule.registryHelper.ResolutionHeight = height;
+                MessageBox.Show("修改完成", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
+            } catch (Exception ex) {
+                MessageBox.Show("修改失败，由于如下错误：" + ex.Message, "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            FreezeUI(false);
+        }
         #endregion
 
         #region net oper method
@@ -367,6 +398,7 @@ namespace ScoreManager_Magic.UI.Windows {
 
 
         #endregion
+
 
     }
 }

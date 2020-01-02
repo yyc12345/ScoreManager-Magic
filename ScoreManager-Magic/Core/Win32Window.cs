@@ -6,6 +6,13 @@ using System.Text;
 
 namespace ScoreManager_Magic.Core {
     public class Win32Window {
+
+        [DllImport("user32.dll")]
+        internal static extern int SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
+        public const int SWP_SHOWWINDOW = 0x0040;
+        public const int SWP_NOMOVE = 0x2;
+        public static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
+
         [DllImport("user32.dll")]
         internal static extern bool ClientToScreen(IntPtr hWnd, ref POINT lpPoint);
 

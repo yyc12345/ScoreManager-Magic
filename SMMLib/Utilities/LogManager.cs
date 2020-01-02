@@ -10,6 +10,7 @@ namespace SMMLib.Utilities {
 
         public LogManager(string file) {
             logfs = new StreamWriter(file, false, Encoding.UTF8);
+            logfs.AutoFlush = true;
         }
 
         StreamWriter logfs;
@@ -31,9 +32,11 @@ namespace SMMLib.Utilities {
         }
 
         public void Close() {
-            lock(lockfs) {
+            try {
                 logfs.Close();
                 logfs.Dispose();
+            } catch {
+                ;//skip
             }
         }
     }

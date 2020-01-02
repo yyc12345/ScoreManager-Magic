@@ -83,6 +83,29 @@
                                         <ComboBoxItem>French</ComboBoxItem>
                                     </ComboBox>
                                     <Button x:Name="ui_game_changeBallanceLanguage" Margin="5" Content="更改游戏语言" Click="func_gameChangeLanguage"/>
+                                    
+                                    <Separator/>
+                                    
+                                    <TextBlock Margin="5" Text="下方展示了Ballance是窗口化还是全屏运行的，点击按钮可以在全屏与窗口化运行之间切换" TextWrapping="WrapWithOverflow"/>
+                                    <TextBlock x:Name="ui_game_fullscreenStatus" Margin="5" Text="N/A"/>
+                                    <Button x:Name="ui_game_changeFullscreen" Margin="5" Content="切换全屏与窗口化" Click="func_gameChangeFullscreen"/>
+                                    
+                                    <Separator/>
+
+                                    <TextBlock Margin="5" Text="下方选项可供您修改Ballance的分辨率，这是一个危险操作，请您慎重考虑使用。下方文本框左侧输入宽度，右侧输入高度，点击按钮即可应用。建议选取800x600或者1024x768等常见分辨率，或者是您的显卡支持的分辨率（右键桌面显示设置可以查看），以防止Ballance出现故障。" TextWrapping="WrapWithOverflow"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBox Grid.Column="0" x:Name="ui_game_resolutionWidth" Margin="5"/>
+                                        <TextBlock Grid.Column="1" Text="X" Margin="5"/>
+                                        <TextBox Grid.Column="2" x:Name="ui_game_resolutionHeight" Margin="5"/>
+                                    </Grid>
+                                    <Button x:Name="ui_game_changeResolution" Margin="5" Content="更改分辨率" Click="func_gameChangeResolution"/>
+
                                 </StackPanel>
                             </GroupBox>
 

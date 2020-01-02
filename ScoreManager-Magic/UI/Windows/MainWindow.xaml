@@ -6,7 +6,7 @@
         xmlns:control="clr-namespace:ScoreManager_Magic.UI.Controls"
         xmlns:local="clr-namespace:ScoreManager_Magic.UI.Windows"
         mc:Ignorable="d" Topmost="True" AllowsTransparency="True" WindowStyle="None" BorderThickness="3"
-        Foreground="White"
+        Foreground="White" ShowInTaskbar="False"
         Title="{DynamicResource ui_MainWindow_Title}" Height="100" Width="320" SourceInitialized="Window_SourceInitialized">
 
     <Window.Effect>

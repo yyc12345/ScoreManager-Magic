@@ -15,15 +15,8 @@ namespace ScoreManager_Magic {
         protected override void OnStartup(StartupEventArgs e) {
             base.OnStartup(e);
 
-            App.Current.Exit += (sender, ex) => {
-                SharedModule.logSystem.Close();
-            };
-
 #if DEBUG
 #else
-            this.DispatcherUnhandledException += (sender, ex) => {
-                UncatchedErrorHandle(ex.Exception.Message, ex.Exception.StackTrace);
-            };
             AppDomain.CurrentDomain.UnhandledException += (sender, ex) => {
                 if (ex.ExceptionObject is System.Exception) {
                     var exx = (System.Exception)ex.ExceptionObject;
@@ -51,6 +44,7 @@ namespace ScoreManager_Magic {
             }
 
             MessageBox.Show("一个意外错误发生，导致程序异常退出，请将您的操作过程以及本程序文件夹下的log文件发送给开发者，帮助我们修正这个错误。", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
+            SharedModule.logSystem.Close();
             App.Current.Shutdown();
         }
 
