@@ -110,7 +110,10 @@ namespace ScoreManager_Magic.UI.Windows {
         private void func_gameChangePath(object sender, RoutedEventArgs e) {
             FreezeUI(true);
 
-            if (!gamePathDialog.ShowDialog().UniformBoolean()) return;
+            if (!gamePathDialog.ShowDialog().UniformBoolean()) {
+                FreezeUI(false);
+                return;
+            }
 
             if (gamePathDialog.FileName != "") {
                 var path = new FilePathBuilder(gamePathDialog.FileName).Backtracking().Path;
@@ -128,7 +131,10 @@ namespace ScoreManager_Magic.UI.Windows {
         private void func_gameInstallMap(object sender, RoutedEventArgs e) {
             FreezeUI(true);
 
-            if (!mapSelectorDialog.ShowDialog().UniformBoolean()) return;
+            if (!mapSelectorDialog.ShowDialog().UniformBoolean()) {
+                FreezeUI(false);
+                return;
+            }
 
             if (mapSelectorDialog.FileName != "") {
                 var mapFile = mapSelectorDialog.FileName;
@@ -271,7 +277,11 @@ namespace ScoreManager_Magic.UI.Windows {
             if (index == -1) return;
 
             var data = competitionList[index];
-            SharedModule.Raise_SelectCompetitionCallback(data.sm_map, data.conv_map, data.sm_cdk);
+            if (data.sm_map == "") {
+                MessageBox.Show("此比赛尚未决定地图，无法选中此比赛", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            SharedModule.Raise_SelectCompetitionCallback(data.sm_map, data.conv_map, data.sm_cdk == "" ? "无" : data.sm_cdk);
             MessageBox.Show("已选中此比赛", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 

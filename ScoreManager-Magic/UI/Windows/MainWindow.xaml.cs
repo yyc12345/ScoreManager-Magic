@@ -46,6 +46,13 @@ namespace ScoreManager_Magic.UI.Windows {
                     MessageBox.Show("检测到如下文件被修改，即将自动结束游戏：" + str, "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
                     uiStatus.Text = "空闲";
                     uiStatus.Foreground = new SolidColorBrush(Colors.White);
+                    uiTime.Text = "--:--:--.----";
+                    uiScore.Text = "----";
+
+                    uiMenuStop.IsEnabled = false;
+                    uiMenuStart.IsEnabled = true;
+                    uiMenuExit.IsEnabled = true;
+                    configWindow.FreezeUI(false);
                 }));
 
                 playingHash = "";
@@ -251,6 +258,9 @@ namespace ScoreManager_Magic.UI.Windows {
 
             } catch (Exception ee) {
                 MessageBox.Show("启动失败，原因如下：" + ee.Message, "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
+                uiMenuStart.IsEnabled = true;
+                uiMenuExit.IsEnabled = true;
+                configWindow.FreezeUI(false);
                 return;
             }
 
