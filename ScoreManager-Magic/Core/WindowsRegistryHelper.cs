@@ -28,6 +28,9 @@ namespace ScoreManager_Magic.Core {
             ResolutionWidth = width;
             ResolutionHeight = height;
 
+            //backup values
+            BackupValues();
+
             operKey.Dispose();
         }
 
@@ -37,6 +40,13 @@ namespace ScoreManager_Magic.Core {
         public string SetupCommand { get; set; }
         public ushort ResolutionWidth { get; set; }
         public ushort ResolutionHeight { get; set; }
+
+        private bool backups_FullScreen;
+        private string backups_TargetDir;
+        private BallanceLanguage backups_Language;
+        private string backups_SetupCommand;
+        private ushort backups_ResolutionWidth;
+        private ushort backups_ResolutionHeight;
 
         private RegistryKey tryOpenAndInitRegistry() {
             var rootKey = Registry.LocalMachine;
@@ -73,6 +83,26 @@ namespace ScoreManager_Magic.Core {
             var str = encodedNum.ToString("X8");
             return (ushort.Parse(str.Substring(0, 4), System.Globalization.NumberStyles.HexNumber),
                 ushort.Parse(str.Substring(4, 4), System.Globalization.NumberStyles.HexNumber));
+        }
+
+        private void BackupValues() {
+            backups_FullScreen = FullScreen;
+            backups_TargetDir = TargetDir;
+            backups_Language = Language;
+            backups_SetupCommand = SetupCommand;
+            backups_ResolutionWidth = ResolutionWidth;
+            backups_ResolutionHeight = ResolutionHeight;
+        }
+
+        public void RecoverValues() {
+            FullScreen = backups_FullScreen;
+            TargetDir = backups_TargetDir;
+            Language = backups_Language;
+            SetupCommand = backups_SetupCommand;
+            ResolutionWidth = backups_ResolutionWidth;
+            ResolutionHeight = backups_ResolutionHeight;
+
+            ForceWrite();
         }
 
         public void ForceWrite() {

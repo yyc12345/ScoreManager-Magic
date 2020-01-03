@@ -164,16 +164,16 @@ namespace ScoreManager_Magic.UI.Windows {
                 var tdb = new FilePathBuilder(SharedModule.configManager.Configuration["BallancePath"]).Enter("Database.tdb").Path;
 
                 //get data
-                var cache = Core.DatabasetdbChanger.ReadDB(tdb);
-                foreach (var item in cache.HighScores) {
-                    foreach (var item2 in item.Play) {
-                        item2.Player = "-";
-                        item2.Points = -1;
+                var cache = Core.Databasetdb.DatabasetdbWrapper.ReadDatabase(tdb);
+                foreach (var item in cache.HighscoreLists.Keys) {
+                    foreach(var item2 in cache.HighscoreLists[item].HighscoreItems) {
+                        item2.Name = "-";
+                        item2.Score = -1;
                     }
                 }
 
                 //rewrite
-                Core.DatabasetdbChanger.SaveDB(cache, tdb);
+                Core.Databasetdb.DatabasetdbWrapper.SaveDatabase(tdb, cache);
                 MessageBox.Show("清理完成", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
             } catch (Exception ee) {
                 MessageBox.Show("修改失败，可能是Ballance目录设置错误所致。错误如下：" + ee.Message, "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -189,12 +189,12 @@ namespace ScoreManager_Magic.UI.Windows {
                 var tdb = new FilePathBuilder(SharedModule.configManager.Configuration["BallancePath"]).Enter("Database.tdb").Path;
 
                 //get data
-                var cache = Core.DatabasetdbChanger.ReadDB(tdb);
-                for (int i = 0; i < cache.Settings.LevelOpened.Length; i++)
-                    cache.Settings.LevelOpened[i] = true;
+                var cache = Core.Databasetdb.DatabasetdbWrapper.ReadDatabase(tdb);
+                for (int i = 0; i < 12; i++)
+                    cache.LevelOpened[i] = true;
 
                 //rewrite
-                Core.DatabasetdbChanger.SaveDB(cache, tdb);
+                Core.Databasetdb.DatabasetdbWrapper.SaveDatabase(tdb, cache);
                 MessageBox.Show("开启完成", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Information);
             } catch (Exception ee) {
                 MessageBox.Show("修改失败，可能是Ballance目录设置错误所致。错误如下：" + ee.Message, "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);

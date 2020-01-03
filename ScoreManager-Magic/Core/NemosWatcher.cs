@@ -139,6 +139,9 @@ namespace ScoreManager_Magic.Core {
         public bool StartMonitor() {
             var gamePath = SharedModule.configManager.Configuration["BallancePath"];
 
+            //try bakcups files
+            if (!File.Exists(gamePath + @"\3D Entities\MenuLevel.nmo.backups"))
+                File.Move(gamePath + @"\3D Entities\MenuLevel.nmo", gamePath + @"\3D Entities\MenuLevel.nmo.backups");
             File.Copy(Information.WorkPath.Enter("Resources").Enter("MenuLevel.nmo").Path, gamePath + @"\3D Entities\MenuLevel.nmo", true);
             File.Copy(Information.WorkPath.Enter("Resources").Enter("ScoreManager.nmo").Path, gamePath + @"\3D Entities\ScoreManager.nmo", true);
 
@@ -153,6 +156,12 @@ namespace ScoreManager_Magic.Core {
 
         public void StopMonitor() {
             bsmWatcher.EnableRaisingEvents = false;
+            //try recover file
+            var gamePath = SharedModule.configManager.Configuration["BallancePath"];
+            if (File.Exists(gamePath + @"\3D Entities\MenuLevel.nmo.backups")) {
+                File.Delete(gamePath + @"\3D Entities\MenuLevel.nmo");
+                File.Move(gamePath + @"\3D Entities\MenuLevel.nmo.backups", gamePath + @"\3D Entities\MenuLevel.nmo");
+            }
         }
 
         #endregion

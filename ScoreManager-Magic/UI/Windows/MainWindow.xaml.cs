@@ -40,7 +40,7 @@ namespace ScoreManager_Magic.UI.Windows {
                         this.Topmost = false;
                         this.Topmost = true;
                     }));
-                    Thread.Sleep(1000);
+                    Thread.Sleep(5000);
                 }
             });
             tdTopmost.Start();
@@ -251,7 +251,11 @@ namespace ScoreManager_Magic.UI.Windows {
         #region menu
 
         private void uiMenuExit_Click(object sender, RoutedEventArgs e) {
+            //stop top most td
             tdTopmost.Abort();
+            //recover registry
+            SharedModule.registryHelper.RecoverValues();
+            //close log file
             SharedModule.logSystem.Close();
             App.Current.Shutdown();
         }
@@ -320,7 +324,7 @@ namespace ScoreManager_Magic.UI.Windows {
 
             //stop watching
             SharedModule.anticheat.StopAnticheat();
-            SharedModule.nemosWatcher.StartMonitor();
+            SharedModule.nemosWatcher.StopMonitor();
 
             uiMenuStart.IsEnabled = true;
             uiMenuExit.IsEnabled = true;
