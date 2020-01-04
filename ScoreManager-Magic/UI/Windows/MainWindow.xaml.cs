@@ -30,20 +30,8 @@ namespace ScoreManager_Magic.UI.Windows {
         public MainWindow() {
             InitializeComponent();
             configWindow.Show();
-
+            
             uiStatus.Text = "空闲";
-
-            //keep topmost
-            tdTopmost = new Thread(() => {
-                while(true) {
-                    this.Dispatcher.Invoke(new Action(() => {
-                        this.Topmost = false;
-                        this.Topmost = true;
-                    }));
-                    Thread.Sleep(5000);
-                }
-            });
-            tdTopmost.Start();
 
             //bind event
             SharedModule.SelectCompetitionCallback += (hash, name, cdk) => {
@@ -143,6 +131,8 @@ namespace ScoreManager_Magic.UI.Windows {
         string currentHash = "";
         string playingHash = "";
         Thread tdTopmost;
+        IntPtr windowHandle;
+
 
         #region window operation
 
@@ -152,7 +142,7 @@ namespace ScoreManager_Magic.UI.Windows {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void uiBaseGrid_MouseDown(object sender, MouseButtonEventArgs e) {
-            Win32Window.SendMessage(new System.Windows.Interop.WindowInteropHelper(this).Handle, Win32Window.WM_NCLBUTTONDOWN, (int)Win32Window.HitTest.HTCAPTION, 0);
+            Win32Window.SendMessage(this.windowHandle, Win32Window.WM_NCLBUTTONDOWN, (int)Win32Window.HitTest.HTCAPTION, 0);
         }
 
         /// <summary>
@@ -235,16 +225,27 @@ namespace ScoreManager_Magic.UI.Windows {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Window_SourceInitialized(object sender, EventArgs e) {
-            HwndSource source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
+            windowHandle = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+
+            //bind windows move
+            HwndSource source = HwndSource.FromHwnd(windowHandle);
             if (source == null)
                 // Should never be null  
                 throw new Exception("Cannot get HwndSource instance.");
 
             source.AddHook(new HwndSourceHook(this.WndProc));
+
+            //setup window top most
+            //keep topmost
+            tdTopmost = new Thread(() => {
+                while (true) {
+                    Win32Window.SetWindowPos(this.windowHandle, Win32Window.HWND_TOPMOST, 0, 0, 0, 0, Win32Window.SetWindowPosFlags.SWP_NOMOVE | Win32Window.SetWindowPosFlags.SWP_NOSIZE | Win32Window.SetWindowPosFlags.SWP_SHOWWINDOW);
+                    Win32Window.SetWindowPos(this.windowHandle, Win32Window.HWND_TOP, 0, 0, 0, 0, Win32Window.SetWindowPosFlags.SWP_NOMOVE | Win32Window.SetWindowPosFlags.SWP_NOSIZE | Win32Window.SetWindowPosFlags.SWP_SHOWWINDOW);
+                    Thread.Sleep(1000);
+                }
+            });
+            tdTopmost.Start();
         }
-
-
-
 
         #endregion
 
@@ -330,8 +331,8 @@ namespace ScoreManager_Magic.UI.Windows {
             uiMenuExit.IsEnabled = true;
             configWindow.FreezeUI(false);
         }
-        #endregion
 
+        #endregion
 
     }
 }
