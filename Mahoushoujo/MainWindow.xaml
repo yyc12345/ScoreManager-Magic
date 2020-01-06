@@ -390,6 +390,7 @@
                                             <ContextMenu>
                                                 <MenuItem Header="Copy score" Click="func_menuRecordScore"/>
                                                 <MenuItem Header="Copy SR time" Click="func_menuRecordSRTime"/>
+                                                <MenuItem Header="Copy map" Click="func_menuRecordMap"/>
                                             </ContextMenu>
                                         </DataGrid.ContextMenu>
                                     </DataGrid>

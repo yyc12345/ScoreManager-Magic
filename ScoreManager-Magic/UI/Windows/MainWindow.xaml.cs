@@ -30,8 +30,12 @@ namespace ScoreManager_Magic.UI.Windows {
         public MainWindow() {
             InitializeComponent();
             configWindow.Show();
-            
+
             uiStatus.Text = "空闲";
+            needTopmost = SharedModule.configManager.Configuration["CounterTopmost"].ConvertToBoolean();
+            if (needTopmost) uiMenuTopmost.IsChecked = true;
+            else uiMenuTopmost.IsChecked = false;
+            tdTopmost = new Thread(topmostAssistantTd);
 
             //bind event
             SharedModule.SelectCompetitionCallback += (hash, name, cdk) => {
@@ -47,7 +51,7 @@ namespace ScoreManager_Magic.UI.Windows {
                     MessageBox.Show("检测到如下文件被修改，即将自动结束游戏：" + str, "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
                     uiStatus.Text = "空闲";
                     uiStatus.Foreground = new SolidColorBrush(Colors.White);
-                    uiTime.Text = "--:--:--.----";
+                    uiTime.Text = "--:--.---";
                     uiScore.Text = "----";
 
                     uiMenuStop.IsEnabled = false;
@@ -72,19 +76,25 @@ namespace ScoreManager_Magic.UI.Windows {
             };
 
             SharedModule.nemosWatcher.LevelStart += async (index) => {
-                await TaskEx.Run(() => {
+                var (status, data) = await TaskEx.Run(() => {
                     var file = index.ToString().PadLeft(2, '0');
                     playingHash = HashComput.SHA256FromFile(SharedModule.configManager.Configuration["BallancePath"] + $"\\3D Entities\\Level\\Level_{file}.NMO");
+                    return SharedModule.smm.GetMapName(new List<string>() { playingHash });
                 });
+
+                var mapName = "未知地图";
+                if (status.IsSuccess) {
+                    if (data.Count != 0) mapName = data[0].sm_name;
+                }
 
                 this.Dispatcher.Invoke(new Action(() => {
                     if (playingHash == currentHash) uiMap.Foreground = new SolidColorBrush(Colors.LightGreen);
                     else uiMap.Foreground = new SolidColorBrush(Colors.Red);
 
-                    uiTime.Text = "--:--:--.----";
+                    uiTime.Text = "--:--.---";
                     uiScore.Text = "----";
 
-                    uiStatus.Text = "正在进行游戏";
+                    uiStatus.Text = "正在玩：" + mapName;
                     uiStatus.Foreground = new SolidColorBrush(Colors.Yellow);
                 }));
 
@@ -92,9 +102,10 @@ namespace ScoreManager_Magic.UI.Windows {
 
             SharedModule.nemosWatcher.LevelEndButFail += () => {
                 this.Dispatcher.Invoke(new Action(() => {
-                    uiStatus.Text = "准备就绪";
-                    uiStatus.Foreground = new SolidColorBrush(Colors.LightGreen);
-                    uiMap.Foreground = new SolidColorBrush(Colors.White);
+                    //uiStatus.Text = "准备就绪";
+                    //uiStatus.Foreground = new SolidColorBrush(Colors.LightGreen);
+                    //uiMap.Foreground = new SolidColorBrush(Colors.White);
+                    uiTime.Text = "成绩验证失败";
                 }));
             };
 
@@ -115,15 +126,17 @@ namespace ScoreManager_Magic.UI.Windows {
                         data.Token);
                 });
 
-                SharedModule.Raise_NewSubmitCallback(playingHash, data);
-                playingHash = "";
+                if (status.IsSuccess)
+                    SharedModule.Raise_NewSubmitCallback(playingHash, data);
+
+                //playingHash = ""; //if no level start signal. play the same level in default
 
                 this.Dispatcher.Invoke(new Action(() => {
-                    uiStatus.Text = "准备就绪";
-                    uiStatus.Foreground = new SolidColorBrush(Colors.LightGreen);
+                    //uiStatus.Text = "准备就绪"; //don't use this feature
+                    //uiStatus.Foreground = new SolidColorBrush(Colors.LightGreen);
                     uiTime.Text = data.SRTime.SRTimeFormat();
                     uiScore.Text = data.HSScore.ToString();
-                    uiMap.Foreground = new SolidColorBrush(Colors.White);
+                    //uiMap.Foreground = new SolidColorBrush(Colors.White);
                 }));
             };
         }
@@ -131,8 +144,8 @@ namespace ScoreManager_Magic.UI.Windows {
         string currentHash = "";
         string playingHash = "";
         Thread tdTopmost;
+        bool needTopmost;
         IntPtr windowHandle;
-
 
         #region window operation
 
@@ -142,7 +155,7 @@ namespace ScoreManager_Magic.UI.Windows {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void uiBaseGrid_MouseDown(object sender, MouseButtonEventArgs e) {
-            Win32Window.SendMessage(this.windowHandle, Win32Window.WM_NCLBUTTONDOWN, (int)Win32Window.HitTest.HTCAPTION, 0);
+            Win32Window.SendMessage(new System.Windows.Interop.WindowInteropHelper(this).Handle, Win32Window.WM_NCLBUTTONDOWN, (int)Win32Window.HitTest.HTCAPTION, 0);
         }
 
         /// <summary>
@@ -225,26 +238,24 @@ namespace ScoreManager_Magic.UI.Windows {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Window_SourceInitialized(object sender, EventArgs e) {
-            windowHandle = new System.Windows.Interop.WindowInteropHelper(this).Handle;
-
             //bind windows move
-            HwndSource source = HwndSource.FromHwnd(windowHandle);
+            HwndSource source = HwndSource.FromHwnd(new System.Windows.Interop.WindowInteropHelper(this).Handle);
             if (source == null)
                 // Should never be null  
                 throw new Exception("Cannot get HwndSource instance.");
 
             source.AddHook(new HwndSourceHook(this.WndProc));
 
-            //setup window top most
-            //keep topmost
-            tdTopmost = new Thread(() => {
-                while (true) {
-                    Win32Window.SetWindowPos(this.windowHandle, Win32Window.HWND_TOPMOST, 0, 0, 0, 0, Win32Window.SetWindowPosFlags.SWP_NOMOVE | Win32Window.SetWindowPosFlags.SWP_NOSIZE | Win32Window.SetWindowPosFlags.SWP_SHOWWINDOW);
-                    Win32Window.SetWindowPos(this.windowHandle, Win32Window.HWND_TOP, 0, 0, 0, 0, Win32Window.SetWindowPosFlags.SWP_NOMOVE | Win32Window.SetWindowPosFlags.SWP_NOSIZE | Win32Window.SetWindowPosFlags.SWP_SHOWWINDOW);
-                    Thread.Sleep(1000);
-                }
-            });
-            tdTopmost.Start();
+            windowHandle = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            if (needTopmost) tdTopmost.Start();
+        }
+
+        private void topmostAssistantTd() {
+            while (true) {
+                Win32Window.SetWindowPos(this.windowHandle, Win32Window.HWND_TOPMOST, 0, 0, 0, 0, Win32Window.SetWindowPosFlags.SWP_NOMOVE | Win32Window.SetWindowPosFlags.SWP_NOSIZE);
+                Win32Window.SetWindowPos(this.windowHandle, Win32Window.HWND_TOP, 0, 0, 0, 0, Win32Window.SetWindowPosFlags.SWP_NOMOVE | Win32Window.SetWindowPosFlags.SWP_NOSIZE);
+                Thread.Sleep(1000);
+            }
         }
 
         #endregion
@@ -310,7 +321,7 @@ namespace ScoreManager_Magic.UI.Windows {
 
             uiStatus.Text = "空闲";
             uiStatus.Foreground = new SolidColorBrush(Colors.White);
-            uiTime.Text = "--:--:--.----";
+            uiTime.Text = "--:--.---";
             uiScore.Text = "----";
 
             playingHash = "";
@@ -332,6 +343,19 @@ namespace ScoreManager_Magic.UI.Windows {
             configWindow.FreezeUI(false);
         }
 
+        private void uiMenuTopmost_Click(object sender, RoutedEventArgs e) {
+            if (uiMenuTopmost.IsChecked) {
+                SharedModule.configManager.Configuration["CounterTopmost"] = true.ConvertToInt().ToString();
+                needTopmost = true;
+                tdTopmost = new Thread(topmostAssistantTd);
+                tdTopmost.Start();
+            } else {
+                SharedModule.configManager.Configuration["CounterTopmost"] = false.ConvertToInt().ToString();
+                needTopmost = false;
+                tdTopmost.Abort();
+                Win32Window.SetWindowPos(this.windowHandle, Win32Window.HWND_NOTOPMOST, 0, 0, 0, 0, Win32Window.SetWindowPosFlags.SWP_NOMOVE | Win32Window.SetWindowPosFlags.SWP_NOSIZE);
+            }
+        }
         #endregion
 
     }

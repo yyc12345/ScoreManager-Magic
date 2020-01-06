@@ -190,7 +190,11 @@ namespace Mahoushoujo {
             if (index == -1) return;
             SetClipboard(recordList[index].sm_srTime.ToString());
         }
-
+        private void func_menuRecordMap(object sender, RoutedEventArgs e) {
+            var index = uiQueryRecordResult.SelectedIndex;
+            if (index == -1) return;
+            SetClipboard(recordList[index].sm_map);
+        }
 
         private void func_menuTournamentName(object sender, RoutedEventArgs e) {
             var index = uiQueryTournamentResult.SelectedIndex;

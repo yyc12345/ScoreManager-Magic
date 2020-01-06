@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -13,6 +14,15 @@ namespace ScoreManager_Magic {
     public partial class App : Application {
 
         protected override void OnStartup(StartupEventArgs e) {
+
+            //single app mode
+            Process[] pro = Process.GetProcesses();
+            int n = pro.Where(p => p.ProcessName.Equals("ScoreManager-Magic")).Count();
+            if (n > 1) {
+                MessageBox.Show("程序已经运行！请不要多开程序！", "ScoreManager-Magic");
+                Current.Shutdown();
+            }
+
             base.OnStartup(e);
 
 #if DEBUG

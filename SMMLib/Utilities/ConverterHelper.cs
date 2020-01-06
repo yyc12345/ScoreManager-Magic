@@ -44,7 +44,7 @@ namespace SMMLib.Utilities {
             return string.Format("{0}:{1}.{2}",
                     (time / (1000 * 60)).ToString(),
                     (time % (1000 * 60) / 1000).ToString().PadLeft(2, '0'),
-                    (time % 1000).ToString().PadLeft(4, '0'));
+                    (time % 1000).ToString().PadLeft(3, '0'));
         }
     }
 }

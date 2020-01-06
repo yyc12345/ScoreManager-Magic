@@ -29,6 +29,7 @@ namespace SMMLib.Utilities {
                 data = JsonConvert.DeserializeObject<Dictionary<string, string>>(fs.ReadToEnd());
                 fs.Close();
             }
+
             return data;
         }
 

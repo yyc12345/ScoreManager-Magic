@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:control="clr-namespace:ScoreManager_Magic.UI.Controls"
         xmlns:local="clr-namespace:ScoreManager_Magic.UI.Windows"
-        mc:Ignorable="d" Topmost="True" AllowsTransparency="True" WindowStyle="None" BorderThickness="3"
-        Foreground="White" ShowInTaskbar="False"
+        mc:Ignorable="d" AllowsTransparency="True" WindowStyle="None" BorderThickness="3"
+        Foreground="White"
         Title="{DynamicResource ui_MainWindow_Title}" Height="100" Width="320" SourceInitialized="Window_SourceInitialized">
 
     <Window.Effect>
@@ -17,10 +17,12 @@
 
         <Grid.ContextMenu>
             <ContextMenu>
-                <MenuItem x:Name="uiMenuStart" Header="Start game" Click="uiMenuStart_Click"/>
-                <MenuItem x:Name="uiMenuStop" IsEnabled="False" Header="Stop game" Click="uiMenuStop_Click"/>
+                <MenuItem x:Name="uiMenuStart" Header="开始游戏" Click="uiMenuStart_Click"/>
+                <MenuItem x:Name="uiMenuStop" IsEnabled="False" Header="关闭游戏" Click="uiMenuStop_Click"/>
                 <Separator/>
-                <MenuItem x:Name="uiMenuExit" Header="Exit" Click="uiMenuExit_Click"/>
+                <MenuItem x:Name="uiMenuTopmost" IsChecked="True" IsCheckable="True" Header="保持计时器最前" Click="uiMenuTopmost_Click"/>
+                <Separator/>
+                <MenuItem x:Name="uiMenuExit" Header="退出ScoreManager-Magic" Click="uiMenuExit_Click"/>
             </ContextMenu>
         </Grid.ContextMenu>
 
@@ -35,7 +37,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- value diaplayer-->
-        <TextBlock x:Name="uiTime" VerticalAlignment="Center" Text="--:--:--.---" HorizontalAlignment="Center" FontSize="20" ToolTip="{DynamicResource ui_MainWindow_Speedrun}"/>
+        <TextBlock x:Name="uiTime" VerticalAlignment="Center" Text="--:--.---" HorizontalAlignment="Center" FontSize="20" ToolTip="{DynamicResource ui_MainWindow_Speedrun}"/>
         <TextBlock x:Name="uiScore" VerticalAlignment="Center" Text="----" Grid.Column="1" HorizontalAlignment="Center" FontSize="20" ToolTip="{DynamicResource ui_MainWindow_Score}"/>
 
         <!-- status and map dispay-->

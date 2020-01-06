@@ -20,7 +20,8 @@ namespace ScoreManager_Magic {
             {"RememberUser", "0"},
             {"RememberPassword", "0"},
             {"RememberedUser", ""},
-            {"RememberedPassword", ""}
+            {"RememberedPassword", ""},
+            {"CounterTopmost", "1"}
         });
 
         public static Anticheat anticheat = new Anticheat();
