@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
+using System.Text;
+using System.IO;
 
 namespace ScoreManager_Magic {
     /// <summary>
@@ -45,15 +47,17 @@ namespace ScoreManager_Magic {
 
         private void UncatchedErrorHandle(string message, string stackTrace) {
             try {
-                SharedModule.logSystem.WriteLog("[SYS][ERROR] FATAL ERROR !");
-                SharedModule.logSystem.WriteLog(message);
-                SharedModule.logSystem.WriteLog(stackTrace);
-
+                var fs = new StreamWriter("scoremanager-error.log", false, Encoding.UTF8);
+                fs.WriteLine("[SYS][ERROR] FATAL ERROR !");
+                fs.WriteLine(message);
+                fs.WriteLine(stackTrace);
+                fs.Close();
+                fs.Dispose();
             } catch {
                 ;//skip
             }
 
-            MessageBox.Show("一个意外错误发生，导致程序异常退出，请将您的操作过程以及本程序文件夹下的log文件发送给开发者，帮助我们修正这个错误。", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("一个意外错误发生，导致程序异常退出，请将您的操作过程以及本程序文件夹下的scoremanager-error.log文件发送给开发者，讲述您是如何引发这个错误的，从而帮助我们修正这个错误。", "ScoreManager-Magic", MessageBoxButton.OK, MessageBoxImage.Error);
             SharedModule.logSystem.Close();
             App.Current.Shutdown();
         }

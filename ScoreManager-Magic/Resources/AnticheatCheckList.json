@@ -199,14 +199,16 @@
         "CheckMethod": 0,
         "RelativeURL": "\\3D Entities\\Camera.nmo",
         "Hash": [
-            "1a31bf738d9f97df1bc27eaa8e4e2774"
+          "1a31bf738d9f97df1bc27eaa8e4e2774",
+          "419762801b2d0adae18feb53fce10fdc"
         ]
     },
     {
         "CheckMethod": 0,
         "RelativeURL": "\\3D Entities\\Gameplay.nmo",
         "Hash": [
-            "5ecfaa557bc5419b9c72d0f6056f3b87"
+          "5ecfaa557bc5419b9c72d0f6056f3b87",
+          "5ecfaa557bc5419b9c72d0f6056f3b87"
         ]
     },
     {

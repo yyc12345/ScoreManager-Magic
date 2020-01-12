@@ -12,7 +12,7 @@ Play with worldwide Ballance players, awake ancient game - Ballance.
 * Full custom competition and tournament configuration and support (Will be promoted on v2)
 * Full self-host
 
-## Perpositional project
+## Prepositional project
 
 * [ScoreManager-Core](https://github.com/BearKidsTeam/ScoreManager-Core)
 * [BallanceRecordChanger](https://github.com/BearKidsTeam/BallanceRecordChanger)

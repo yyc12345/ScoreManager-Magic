@@ -9,7 +9,11 @@
         Title="Monitor" Height="600" Width="900">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="Resources/background.jpg"/>
+            <VisualBrush>
+                <VisualBrush.Visual>
+                    <MediaElement x:Name="uiBg" MediaEnded="uiBg_MediaEnded"/>
+                </VisualBrush.Visual>
+            </VisualBrush>
         </Grid.Background>
 
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
