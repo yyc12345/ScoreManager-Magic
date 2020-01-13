@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BTLD"
+        xmlns:controls="clr-namespace:BTLD.UIControls"
         mc:Ignorable="d" AllowsTransparency="True" WindowStyle="None" BorderThickness="3"
         FontFamily="Squarish Sans CT, Source Han Sans" Typography.Capitals="SmallCaps" Foreground="White"
         Title="Monitor" Height="600" Width="900">
-    <Grid>
+    <Grid MouseDown="Grid_MouseDown">
         <Grid.Background>
             <VisualBrush>
                 <VisualBrush.Visual>
@@ -16,7 +17,7 @@
             </VisualBrush>
         </Grid.Background>
 
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel x:Name="uiPageWelcome" Opacity="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid Width="128" Height="128" HorizontalAlignment="Center">
                 <Grid.Background>
                     <ImageBrush ImageSource="Resources/icon.png"/>
@@ -24,7 +25,7 @@
             </Grid>
             <TextBlock Text="Ballance" Margin="0,5,0,20" FontSize="25" HorizontalAlignment="Center"/>
 
-            <TextBlock Text="第一届 Ballance 中国杯 - 资格赛" Margin="0,5,0,50" FontSize="25" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="uiWelcomeLiveName" Text="" Margin="0,5,0,50" FontSize="25" HorizontalAlignment="Center"/>
             <Grid HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -63,7 +64,130 @@
                 </Viewbox>
             </Grid>
         </StackPanel>
-        
-        
+
+        <Grid x:Name="uiPageTimer" Opacity="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                <Grid Width="128" Height="128" HorizontalAlignment="Center">
+                    <Grid.Background>
+                        <ImageBrush ImageSource="Resources/icon.png"/>
+                    </Grid.Background>
+                </Grid>
+                <TextBlock Text="Ballance" Margin="0,5,0,20" FontSize="25" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <TextBlock x:Name="uiTimer" Text="00 : 00 : 00" Margin="0,5,0,20" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+
+        <Grid x:Name="uiPageParticipant" Opacity="0" Margin="50,0,50,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Margin="0,30,0,30" Orientation="Horizontal">
+                <TextBlock Text="参赛人员" FontSize="32"/>
+                <TextBlock Text=" / Participant" FontSize="24" VerticalAlignment="Bottom"/>
+            </StackPanel>
+
+            <ScrollViewer Grid.Row="1" Margin="0,0,0,50" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="uiParticipantList" Orientation="Horizontal"/>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="uiPageMapPool" Opacity="0" Margin="50,0,50,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Margin="0,30,0,30" Orientation="Horizontal">
+                <TextBlock Text="图池" FontSize="32"/>
+                <TextBlock Text=" / Map Pool" FontSize="24" VerticalAlignment="Bottom"/>
+            </StackPanel>
+
+            <ScrollViewer Grid.Row="1" Margin="0,0,0,50" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="uiMapList" Orientation="Horizontal"/>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="uiPageGrouping" Opacity="0" Margin="50,0,50,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Margin="0,30,0,30" Orientation="Horizontal">
+                <TextBlock Text="分组" FontSize="32"/>
+                <TextBlock Text=" / Grouping" FontSize="24" VerticalAlignment="Bottom"/>
+            </StackPanel>
+
+            <controls:UserItem x:Name="uiUserPicker" Grid.Row="1" Margin="0,0,0,50"/>
+
+            <ScrollViewer Grid.Row="2" Margin="0,0,0,50" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="uiUserPickerList" Orientation="Horizontal"/>
+            </ScrollViewer>
+
+        </Grid>
+
+        <Grid x:Name="uiPageMapPicker" Opacity="0" Margin="50,0,50,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.ColumnSpan="2" Margin="0,30,0,30" Orientation="Horizontal">
+                <TextBlock Text="选图" FontSize="32"/>
+                <TextBlock Text=" / Pick Map" FontSize="24" VerticalAlignment="Bottom"/>
+            </StackPanel>
+
+            <controls:MapItem x:Name="uiMapPicker" Grid.ColumnSpan="2" Grid.Row="1" Margin="0,0,0,50"/>
+
+            <ScrollViewer Grid.Row="2" Margin="0,0,0,50" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="uiMapPickerMapList" Orientation="Horizontal"/>
+            </ScrollViewer>
+            <ScrollViewer Grid.Row="2" Grid.Column="1" Margin="0,0,0,50" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="uiMapPickerBanList" Orientation="Horizontal"/>
+            </ScrollViewer>
+
+        </Grid>
+
+        <Grid x:Name="uiPageCompetition" Opacity="0" Margin="50,0,50,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.ColumnSpan="2" Margin="0,30,0,30" Orientation="Horizontal">
+                <TextBlock Text="比赛列表" FontSize="32"/>
+                <TextBlock Text=" / Competition List" FontSize="24" VerticalAlignment="Bottom"/>
+            </StackPanel>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="已经结束的比赛" FontSize="24"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="正在进行或即将开始的比赛" FontSize="24"/>
+
+            <ScrollViewer Grid.Row="2" Margin="0,0,0,50" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="uiCompetitionPastList" Orientation="Horizontal"/>
+            </ScrollViewer>
+            <ScrollViewer Grid.Row="2" Grid.Column="1" Margin="0,0,0,50" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="uiCompetitionNowList" Orientation="Horizontal"/>
+            </ScrollViewer>
+
+        </Grid>
     </Grid>
 </Window>

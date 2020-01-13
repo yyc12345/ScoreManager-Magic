@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="BTLD.UIControls.CompetitionItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BTLD.UIControls"
+             mc:Ignorable="d" Height="80" Width="340"
+             FontFamily="Squarish Sans CT, Source Han Sans" Typography.Capitals="SmallCaps" Foreground="White"
+             d:DesignHeight="80" d:DesignWidth="340">
+
+    <Border BorderBrush="#b0aba8" BorderThickness="5" CornerRadius="40" Background="#7f000000">
+        <Grid Margin="40,0,40,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <TextBlock x:Name="uiCompetitionDesc" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Text="" TextTrimming="CharacterEllipsis"/>
+            <TextBlock x:Name="uiCompetitionTime" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Text="" TextTrimming="CharacterEllipsis"/>
+        </Grid>
+    </Border>
+
+</UserControl>

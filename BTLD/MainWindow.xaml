@@ -7,6 +7,157 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <TabControl>
+            <TabItem Header="Main control">
+                <Grid Background="#FFE5E5E5">
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="5" Text="New monitor size width x height"/>
+                            <TextBox Margin="5"/>
+                            <Button Margin="5" Content="Change"/>
+
+                            <Separator Margin="5"/>
+
+                            <TextBlock Margin="5" Text="Switch monitor page"/>
+                            <WrapPanel Orientation="Horizontal">
+                                <Button Width="200" Margin="5" Content="Welcome"/>
+                                <Button Width="200" Margin="5" Content="Timer"/>
+                                <Button Width="200" Margin="5" Content="Participant"/>
+                                <Button Width="200" Margin="5" Content="Map pool"/>
+                                <Button Width="200" Margin="5" Content="Grouping"/>
+                                <Button Width="200" Margin="5" Content="Map picker"/>
+                                <Button Width="200" Margin="5" Content="Competition"/>
+                            </WrapPanel>
+
+                            <Separator Margin="5"/>
+
+                            <TextBlock Margin="5" Text="Background video play"/>
+                            <Button Width="200" Margin="5" Content="Play" HorizontalAlignment="Left"/>
+                            <Button Width="200" Margin="5" Content="Stop" HorizontalAlignment="Left"/>
+
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Waiting">
+                <StackPanel Background="#FFE5E5E5" Orientation="Vertical">
+                    <TextBlock Margin="5" Text="Set timer time (with format h-m-s)"/>
+                    <TextBox Margin="5"/>
+                    <Button Margin="5" Content="Set"/>
+
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Participant">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListBox Margin="5"/>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1">
+                        <Button Margin="5" Content="Read from folder"/>
+                        <Button Margin="5" Content="Apply to monitor"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Map pool">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListBox Margin="5"/>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1">
+                        <Button Margin="5" Content="Read from folder"/>
+                        <Button Margin="5" Content="Apply to monitor"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Grouping">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListBox Margin="5" Background="#5f00ff00"/>
+                    <ListBox Margin="5" Grid.Column="2" Background="#5fff0000"/>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                        <Button Margin="5" Content="   &lt;-   "/>
+                        <Button Margin="5" Content="   -&gt;   "/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="3">
+                        <Button Margin="5" Content="Read from particpant"/>
+                        <Button Margin="5" Content="Apply to monitor"/>
+                        <Button Margin="5" Content="Pick next"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Map picker">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListBox Margin="5" Background="#5f00ff00"/>
+                    <ListBox Margin="5" Grid.Column="2" Background="#5fff0000"/>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                        <Button Margin="5" Content="   &lt;-   "/>
+                        <Button Margin="5" Content="   -&gt;   "/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="3">
+                        <Button Margin="5" Content="Read from map pool"/>
+                        <Button Margin="5" Content="Apply to monitor"/>
+                        <Button Margin="5" Content="Pick one"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Competition">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Text="Past competition"/>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Text="Now / future competition"/>
+                    <ListBox Margin="5" Background="#5fffffff"/>
+                    <ListBox Margin="5" Grid.Column="2" Background="#5fffffff"/>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                        <Button Margin="5" Content="   &lt;-   "/>
+                        <Button Margin="5" Content="   -&gt;   "/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="3">
+                        <Button Margin="5" Content="Add new"/>
+                        <Button Margin="5" Content="Remove selected"/>
+                        <Button Margin="5" Content="Apply to monitor"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Log">
+                <Grid Background="#FFE5E5E5">
+                    <ListBox Margin="5"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
     </Grid>
 </Window>
