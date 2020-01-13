@@ -22,7 +22,7 @@ while True:
     smmName = input("Input SMM name: ")
     tiebaName = input("Input tieba name: ")
 
-    encodecName = urllib.parse.quote(tiebaName.encode('gb2312'))
+    encodecName = urllib.parse.quote(tiebaName.encode('gb18030'))
     portal = requests.get("http://tieba.baidu.com/i/data/panel?un=" + encodecName, headers = getheaders)
     if portal.status_code != 200:
         print("Fail to get")

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BTLD"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Monitor Control Panel" Height="450" Width="800" Closing="Window_Closing">
     <Grid>
         <TabControl>
             <TabItem Header="Main control">
@@ -13,28 +13,27 @@
                     <ScrollViewer>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Margin="5" Text="New monitor size width x height"/>
-                            <TextBox Margin="5"/>
-                            <Button Margin="5" Content="Change"/>
+                            <TextBox x:Name="uiMain_Resolution" Margin="5"/>
+                            <Button Margin="5" Content="Change" Click="funcMain_Resolution"/>
 
                             <Separator Margin="5"/>
 
                             <TextBlock Margin="5" Text="Switch monitor page"/>
                             <WrapPanel Orientation="Horizontal">
-                                <Button Width="200" Margin="5" Content="Welcome"/>
-                                <Button Width="200" Margin="5" Content="Timer"/>
-                                <Button Width="200" Margin="5" Content="Participant"/>
-                                <Button Width="200" Margin="5" Content="Map pool"/>
-                                <Button Width="200" Margin="5" Content="Grouping"/>
-                                <Button Width="200" Margin="5" Content="Map picker"/>
-                                <Button Width="200" Margin="5" Content="Competition"/>
+                                <Button x:Name="uiMain_PageWelcome" Width="200" Margin="5" Content="Welcome" Click="funcMain_SwitchPage"/>
+                                <Button x:Name="uiMain_PageTimer" Width="200" Margin="5" Content="Timer" Click="funcMain_SwitchPage"/>
+                                <Button x:Name="uiMain_PageParticipant" Width="200" Margin="5" Content="Participant" Click="funcMain_SwitchPage"/>
+                                <Button x:Name="uiMain_PageMapPool" Width="200" Margin="5" Content="Map pool" Click="funcMain_SwitchPage"/>
+                                <Button x:Name="uiMain_PageGrouping" Width="200" Margin="5" Content="Grouping" Click="funcMain_SwitchPage"/>
+                                <Button x:Name="uiMain_PageMapPicker" Width="200" Margin="5" Content="Map picker" Click="funcMain_SwitchPage"/>
+                                <Button x:Name="uiMain_PageCompetition" Width="200" Margin="5" Content="Competition" Click="funcMain_SwitchPage"/>
                             </WrapPanel>
 
                             <Separator Margin="5"/>
 
                             <TextBlock Margin="5" Text="Background video play"/>
-                            <Button Width="200" Margin="5" Content="Play" HorizontalAlignment="Left"/>
-                            <Button Width="200" Margin="5" Content="Stop" HorizontalAlignment="Left"/>
-
+                            <Button x:Name="uiMain_VideoPlay" Width="200" Margin="5" Content="Play" HorizontalAlignment="Left" Click="funcMain_VideoControl"/>
+                            <Button x:Name="uiMain_VideoStop" Width="200" Margin="5" Content="Stop" HorizontalAlignment="Left" Click="funcMain_VideoControl"/>
 
                         </StackPanel>
                     </ScrollViewer>
@@ -42,9 +41,9 @@
             </TabItem>
             <TabItem Header="Waiting">
                 <StackPanel Background="#FFE5E5E5" Orientation="Vertical">
-                    <TextBlock Margin="5" Text="Set timer time (with format h-m-s)"/>
-                    <TextBox Margin="5"/>
-                    <Button Margin="5" Content="Set"/>
+                    <TextBlock Margin="5" Text="Set timer time (with format m-s)"/>
+                    <TextBox x:Name="uiTimer_Time" Margin="5"/>
+                    <Button Margin="5" Content="Set" Click="funcTimer_SetTimer"/>
 
                 </StackPanel>
             </TabItem>
@@ -55,11 +54,11 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Margin="5"/>
+                    <ListBox x:Name="uiParticipant_ParticipantList" Margin="5"/>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1">
-                        <Button Margin="5" Content="Read from folder"/>
-                        <Button Margin="5" Content="Apply to monitor"/>
+                        <Button Margin="5" Content="Read from folder" Click="funcParticipant_Read"/>
+                        <Button Margin="5" Content="Apply to monitor" Click="funcParticipant_Apply"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -70,11 +69,11 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Margin="5"/>
+                    <ListBox x:Name="uiMapPool_MapPoolList" Margin="5"/>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1">
-                        <Button Margin="5" Content="Read from folder"/>
-                        <Button Margin="5" Content="Apply to monitor"/>
+                        <Button Margin="5" Content="Read from folder" Click="funcMapPool_Read"/>
+                        <Button Margin="5" Content="Apply to monitor" Click="funcMapPool_Apply"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -87,18 +86,18 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Margin="5" Background="#5f00ff00"/>
-                    <ListBox Margin="5" Grid.Column="2" Background="#5fff0000"/>
+                    <ListBox x:Name="uiGrouping_EnableList" Margin="5" Background="#5f00ff00"/>
+                    <ListBox x:Name="uiGrouping_DisableList" Margin="5" Grid.Column="2" Background="#5fff0000"/>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                        <Button Margin="5" Content="   &lt;-   "/>
-                        <Button Margin="5" Content="   -&gt;   "/>
+                        <Button Margin="5" Content="   &lt;-   " Click="funcGrouping_LeftShift"/>
+                        <Button Margin="5" Content="   -&gt;   " Click="funcGrouping_RightShift"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="3">
-                        <Button Margin="5" Content="Read from particpant"/>
-                        <Button Margin="5" Content="Apply to monitor"/>
-                        <Button Margin="5" Content="Pick next"/>
+                        <Button Margin="5" Content="Read from particpant" Click="funcGrouping_Read"/>
+                        <Button Margin="5" Content="Apply to monitor" Click="funcGrouping_Apply"/>
+                        <Button Margin="5" Content="Pick next" Click="funcGrouping_Pick"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -111,18 +110,18 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Margin="5" Background="#5f00ff00"/>
-                    <ListBox Margin="5" Grid.Column="2" Background="#5fff0000"/>
+                    <ListBox x:Name="uiMapPicker_EnableList" Margin="5" Background="#5f00ff00"/>
+                    <ListBox x:Name="uiMapPicker_DisableList" Margin="5" Grid.Column="2" Background="#5fff0000"/>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                        <Button Margin="5" Content="   &lt;-   "/>
-                        <Button Margin="5" Content="   -&gt;   "/>
+                        <Button Margin="5" Content="   &lt;-   " Click="funcMapPicker_LeftShift"/>
+                        <Button Margin="5" Content="   -&gt;   " Click="funcMapPicker_RightShift"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="3">
-                        <Button Margin="5" Content="Read from map pool"/>
-                        <Button Margin="5" Content="Apply to monitor"/>
-                        <Button Margin="5" Content="Pick one"/>
+                        <Button Margin="5" Content="Read from map pool" Click="funcMapPicker_Read"/>
+                        <Button Margin="5" Content="Apply to monitor" Click="funcMapPicker_Apply"/>
+                        <Button Margin="5" Content="Pick one" Click="funcMapPicker_Pick"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -137,18 +136,18 @@
 
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Text="Past competition"/>
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Text="Now / future competition"/>
-                    <ListBox Margin="5" Background="#5fffffff"/>
-                    <ListBox Margin="5" Grid.Column="2" Background="#5fffffff"/>
+                    <ListBox x:Name="uiCompetition_PastList" Margin="5" Background="#5fffffff"/>
+                    <ListBox x:Name="uiCompetition_NowList" Margin="5" Grid.Column="2" Background="#5fffffff"/>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                        <Button Margin="5" Content="   &lt;-   "/>
-                        <Button Margin="5" Content="   -&gt;   "/>
+                        <Button Margin="5" Content="   &lt;-   " Click="uiCompetition_LeftShift"/>
+                        <Button Margin="5" Content="   -&gt;   " Click="funcCompetition_RightShift"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="3">
-                        <Button Margin="5" Content="Add new"/>
-                        <Button Margin="5" Content="Remove selected"/>
-                        <Button Margin="5" Content="Apply to monitor"/>
+                        <Button Margin="5" Content="Add new (in past)" Click="funcCompetition_Add"/>
+                        <Button Margin="5" Content="Remove selected (in past)" Click="funcCompetition_Rm"/>
+                        <Button Margin="5" Content="Apply to monitor" Click="funcCompetition_Apply"/>
                     </StackPanel>
                 </Grid>
             </TabItem>

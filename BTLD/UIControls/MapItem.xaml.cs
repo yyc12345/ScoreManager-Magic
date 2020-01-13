@@ -26,8 +26,7 @@ namespace BTLD.UIControls {
         }
 
         public void ApplyMapImage(string mapName) {
-            if (mapName == "") this.uiMapThumbs.ImageSource = new BitmapImage(new Uri("../Resources/DefaultMap.jpg", UriKind.Relative));
-            else this.uiMapThumbs.ImageSource = new BitmapImage(new Uri(SMMLib.Utilities.Information.WorkPath.Enter("map").Enter(mapName + ".jpg").Path, UriKind.Absolute));
+            this.uiMapThumbs.ImageSource = SharedModule.mapManager[mapName];
         }
 
         public void ApplyEnable(bool isEnable) {

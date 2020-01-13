@@ -26,8 +26,19 @@ namespace BTLD.UIControls {
         }
 
         public void ApplyUserAvatar(string username) {
-            if (username == "") this.uiUserAvatar.ImageSource = new BitmapImage(new Uri("../Resources/DefaultUser.jpg", UriKind.Relative));
-            else this.uiUserAvatar.ImageSource = new BitmapImage(new Uri(SMMLib.Utilities.Information.WorkPath.Enter("user").Enter(username + ".jpg").Path, UriKind.Absolute));
+            this.uiUserAvatar.ImageSource = SharedModule.userManager[username];
+        }
+
+        public void ApplyEnable(bool isEnable) {
+            if (isEnable) {
+                this.uiUserName.Opacity = 1;
+                this.uiAvatarContainer.Opacity = 1;
+                this.uiUserName.FontStyle = FontStyles.Normal;
+            } else {
+                this.uiUserName.Opacity = 0.5;
+                this.uiAvatarContainer.Opacity = 0.5;
+                this.uiUserName.FontStyle = FontStyles.Italic;
+            }
         }
     }
 }

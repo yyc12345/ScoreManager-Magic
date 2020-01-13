@@ -21,7 +21,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Ellipse Width="40" Height="40" StrokeThickness="0" VerticalAlignment="Center">
+                <Ellipse x:Name="uiAvatarContainer" Width="40" Height="40" StrokeThickness="0" VerticalAlignment="Center">
                     <Ellipse.Fill>
                         <ImageBrush x:Name="uiUserAvatar" ImageSource="../Resources/DefaultUser.jpg"/>
                     </Ellipse.Fill>

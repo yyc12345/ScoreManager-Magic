@@ -11,5 +11,20 @@ namespace BTLD {
     /// App.xaml 的交互逻辑
     /// </summary>
     public partial class App : Application {
+
+        protected override void OnStartup(StartupEventArgs e) {
+
+            //init sharedmodule
+            SharedModule.logManager = new SMMLib.Utilities.LogManager("BTLD.log", true);
+            SharedModule.configManager = new SMMLib.Utilities.ConfigManager("BTLD.cfg", new Dictionary<string, string>() {
+                {"PastCompetition", "[]"},
+                {"NowCompetition", "[]"},
+            });
+            SharedModule.userManager = new UserAvatarManager();
+            SharedModule.mapManager = new MapPreviewManager();
+
+            base.OnStartup(e);
+        }
+
     }
 }

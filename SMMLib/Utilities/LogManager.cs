@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace SMMLib.Utilities {
     public class LogManager {
 
-        public LogManager(string file) {
-            logfs = new StreamWriter(file, false, Encoding.UTF8);
+        public LogManager(string file, bool append = false) {
+            logfs = new StreamWriter(file, append, Encoding.UTF8);
             logfs.AutoFlush = true;
         }
 
