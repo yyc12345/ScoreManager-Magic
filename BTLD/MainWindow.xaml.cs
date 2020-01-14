@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using SMMLib.Utilities;
+using Newtonsoft.Json;
 
 namespace BTLD {
     /// <summary>
@@ -25,6 +26,20 @@ namespace BTLD {
 
             monitorWindow = new Monitor();
             monitorWindow.Show();
+
+            SharedModule.logManager.NewLog += (str) => {
+                this.Dispatcher.Invoke((Action)(() => {
+                    if (uiLog_LogList.Items.Count == 100) uiLog_LogList.Items.RemoveAt(0);
+                    uiLog_LogList.Items.Add(str);
+                }));
+            };
+
+            foreach (var item in JsonConvert.DeserializeObject<List<string>>(SharedModule.configManager.Configuration["PastCompetition"])) {
+                uiCompetition_PastList.Items.Add(item);
+            }
+            foreach (var item in JsonConvert.DeserializeObject<List<string>>(SharedModule.configManager.Configuration["NowCompetition"])) {
+                uiCompetition_NowList.Items.Add(item);
+            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
@@ -142,10 +157,14 @@ namespace BTLD {
                 ls.Add((string)item);
             }
             monitorWindow.Interface_SetGrouping(ls);
+
+            SharedModule.logManager.WriteLog($"Grouping apply: {JsonConvert.SerializeObject(ls)}");
         }
 
         private void funcGrouping_Pick(object sender, RoutedEventArgs e) {
-            MessageBox.Show($"Pick result: {monitorWindow.Interface_PickGrouping()}");
+            var cache = monitorWindow.Interface_PickGrouping();
+            SharedModule.logManager.WriteLog($"Grouping pick result: {cache}");
+            MessageBox.Show($"Pick result: {cache}");
         }
 
         private void funcGrouping_LeftShift(object sender, RoutedEventArgs e) {
@@ -174,16 +193,20 @@ namespace BTLD {
         private void funcMapPicker_Apply(object sender, RoutedEventArgs e) {
             var ls1 = new List<string>();
             var ls2 = new List<string>();
-            foreach (var item in uiMapPicker_EnableList.Items) 
+            foreach (var item in uiMapPicker_EnableList.Items)
                 ls1.Add((string)item);
             foreach (var item in uiMapPicker_DisableList.Items)
                 ls2.Add((string)item);
 
             monitorWindow.Interface_SetMapPicker(ls1, ls2);
+
+            SharedModule.logManager.WriteLog($"Map picker apply:\nEnable maps: {JsonConvert.SerializeObject(ls1)}\nDisable maps: {JsonConvert.SerializeObject(ls2)}");
         }
 
         private void funcMapPicker_Pick(object sender, RoutedEventArgs e) {
-            MessageBox.Show($"Pick result: {monitorWindow.Interface_PickMap()}");
+            var cache = monitorWindow.Interface_PickMap();
+            SharedModule.logManager.WriteLog($"Map pick result: {cache}");
+            MessageBox.Show($"Pick result: {cache}");
         }
 
         private void funcMapPicker_LeftShift(object sender, RoutedEventArgs e) {
@@ -206,7 +229,7 @@ namespace BTLD {
                 var cache = input.Split('/');
                 if (cache.Length < 2) throw new ArgumentException();
                 uiCompetition_PastList.Items.Add(input);
-            } catch  {
+            } catch {
                 MessageBox.Show("Error");
             }
         }
@@ -225,6 +248,11 @@ namespace BTLD {
                 ls2.Add((string)item);
 
             monitorWindow.Interface_SetCompetition(ls1, ls2);
+
+            //save config
+            SharedModule.configManager.Configuration["PastCompetition"] = JsonConvert.SerializeObject(ls1);
+            SharedModule.configManager.Configuration["NowCompetition"] = JsonConvert.SerializeObject(ls2);
+            SharedModule.configManager.Save();
         }
 
         private void uiCompetition_LeftShift(object sender, RoutedEventArgs e) {
