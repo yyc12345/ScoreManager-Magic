@@ -55,6 +55,7 @@ try {
     //reconput length and rebuild array
     $allCompetition = array_values($allCompetition);
     $length = count($allCompetition);
+    if($length == 0) goto end; //if competition is empty, goto end directly.
 
     //=======================================================query related participant
     $allId = array();
