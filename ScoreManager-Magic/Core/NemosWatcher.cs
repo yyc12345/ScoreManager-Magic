@@ -45,7 +45,7 @@ namespace ScoreManager_Magic.Core {
                     } else {
                         //level finish
                         //get verify status
-                        if (rawData.Token != -1 && ComputHash(ComputHash(rawData.ToString()).ToString()) == rawData.HashCode && rawData.Token == tokenCache) {
+                        if (ComputHash(ComputHash(rawData.ToString()).ToString()) == rawData.HashCode && rawData.Token == tokenCache) { //todo: delete rawData.Token != -1 && judge in there. dig reason
                             //output
                             var res = new BsmData();
                             //change statistic data
@@ -62,7 +62,7 @@ namespace ScoreManager_Magic.Core {
                             res.SubExtraPoints = rawData.SubExtraPoints;
                             res.Trafo = rawData.Trafo;
                             res.Checkpoint = rawData.Checkpoint;
-                            res.Verify = true;
+                            res.Verify = (rawData.Token != -1);//todo: dig reason. force upload temporary
 
                             //re-generate token
                             GenerateToken();
