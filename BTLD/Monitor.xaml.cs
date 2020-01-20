@@ -66,6 +66,10 @@ namespace BTLD {
         List<string> remainPickMaps;
         DispatcherTimer mapPickerScrollTimer;
 
+        public void Interface_SetTitle(string title) {
+            uiWelcomeLiveName.Text = title;
+        }
+
         public void Interface_SetSize(int width, int height) {
             this.Width = width;
             this.Height = height;

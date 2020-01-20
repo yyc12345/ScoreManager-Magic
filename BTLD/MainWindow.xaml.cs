@@ -40,6 +40,8 @@ namespace BTLD {
             foreach (var item in JsonConvert.DeserializeObject<List<string>>(SharedModule.configManager.Configuration["NowCompetition"])) {
                 uiCompetition_NowList.Items.Add(item);
             }
+            uiMain_Title.Text = SharedModule.configManager.Configuration["Title"];
+            uiCompetition_Suffix.Text = SharedModule.configManager.Configuration["Suffix"];
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
@@ -50,6 +52,12 @@ namespace BTLD {
 
 
         Monitor monitorWindow;
+
+        private void funcMain_Title(object sender, RoutedEventArgs e) {
+            monitorWindow.Interface_SetTitle(uiMain_Title.Text);
+            SharedModule.configManager.Configuration["Title"] = uiMain_Title.Text;
+            SharedModule.configManager.Save();
+        }
 
         private void funcMain_Resolution(object sender, RoutedEventArgs e) {
             try {
@@ -122,6 +130,11 @@ namespace BTLD {
             monitorWindow.Interface_SetParticipant(ls);
         }
 
+        private void funcParticipant_CopyVS(object sender, RoutedEventArgs e) {
+            if (uiParticipant_ParticipantList.SelectedItem != null) {
+                Clipboard.SetText(string.Join(" VS ", uiParticipant_ParticipantList.SelectedItems.Cast<string>()), TextDataFormat.UnicodeText);
+            }
+        }
 
 
         private void funcMapPool_Read(object sender, RoutedEventArgs e) {
@@ -224,8 +237,11 @@ namespace BTLD {
 
 
         private void funcCompetition_Add(object sender, RoutedEventArgs e) {
+            //save suffix
+            SharedModule.configManager.Configuration["Suffix"] = uiCompetition_Suffix.Text;
             try {
                 var input = Microsoft.VisualBasic.Interaction.InputBox("Input competition words(with format name/date):");
+                input += uiCompetition_Suffix.Text;
                 var cache = input.Split('/');
                 if (cache.Length < 2) throw new ArgumentException();
                 uiCompetition_PastList.Items.Add(input);
@@ -266,5 +282,6 @@ namespace BTLD {
             uiCompetition_NowList.Items.Add((string)uiCompetition_PastList.SelectedItem);
             uiCompetition_PastList.Items.RemoveAt(uiCompetition_PastList.SelectedIndex);
         }
+
     }
 }

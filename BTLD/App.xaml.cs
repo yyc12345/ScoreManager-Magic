@@ -19,6 +19,8 @@ namespace BTLD {
             SharedModule.configManager = new SMMLib.Utilities.ConfigManager("BTLD.cfg", new Dictionary<string, string>() {
                 {"PastCompetition", "[]"},
                 {"NowCompetition", "[]"},
+                {"Title", ""},
+                {"Suffix", ""}
             });
             SharedModule.userManager = new UserAvatarManager();
             SharedModule.mapManager = new MapPreviewManager();

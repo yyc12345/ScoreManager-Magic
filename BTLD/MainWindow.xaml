@@ -12,6 +12,12 @@
                 <Grid Background="#FFE5E5E5">
                     <ScrollViewer>
                         <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="5" Text="Welcome title"/>
+                            <TextBox x:Name="uiMain_Title" Margin="5"/>
+                            <Button Margin="5" Content="Change" Click="funcMain_Title"/>
+                            
+                            <Separator Margin="5"/>
+                            
                             <TextBlock Margin="5" Text="New monitor size width x height"/>
                             <TextBox x:Name="uiMain_Resolution" Margin="5"/>
                             <Button Margin="5" Content="Change" Click="funcMain_Resolution"/>
@@ -54,7 +60,13 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox x:Name="uiParticipant_ParticipantList" Margin="5"/>
+                    <ListBox x:Name="uiParticipant_ParticipantList" Margin="5" SelectionMode="Extended">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Copy as Competition vs" Click="funcParticipant_CopyVS"/>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                    </ListBox>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1">
                         <Button Margin="5" Content="Read from folder" Click="funcParticipant_Read"/>
@@ -145,6 +157,8 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="3">
+                        <TextBlock Margin="5" Text="Add suffix:"/>
+                        <TextBox x:Name="uiCompetition_Suffix" Margin="5"/>
                         <Button Margin="5" Content="Add new (in past)" Click="funcCompetition_Add"/>
                         <Button Margin="5" Content="Remove selected (in past)" Click="funcCompetition_Rm"/>
                         <Button Margin="5" Content="Apply to monitor" Click="funcCompetition_Apply"/>
