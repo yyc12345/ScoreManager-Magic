@@ -4,11 +4,21 @@ A brand-new, groundbreaking [Ballance](https://en.wikipedia.org/wiki/Ballance) S
 
 Play with worldwide Ballance players, awake ancient game - Ballance.
 
+## Project layout
+
+* SMMBackend: ScoreManager-Magic backend written by PHP.
+* SMMWebsite: ScoreManager-Magic website frontend. Mix HTML, JavaScript and CSS. Powered by MUI and JQuery.
+* SMMLib: A C\# lib serving for BTLD and ScoreManager-Magic
+* ScoreManager-Magic: Core app written by C\#
+* BTLD: Specially made app for Ballance live.
+* AssistTools: Some Python scripts for some specific works.
+
+Note: Mahoushoujo was merged into ScoreManager-Magic during developing version 2.
+
 ## Feature
 
 * Ballance speedrun and statistics data exporting
-* Online system
-* Global Highscore & Speedrun leaderboard (WIP on v2)
+* Global Record(Highscore & Speedrun) leaderboard (WIP on v2)
 * Full custom competition and tournament configuration and support (Will be promoted on v2)
 * Full self-host
 
@@ -18,31 +28,26 @@ Play with worldwide Ballance players, awake ancient game - Ballance.
 * [BallanceRecordChanger](https://github.com/BearKidsTeam/BallanceRecordChanger)
 * ScoreManager (*private project*)
 
-<!-- 
-![snapshot.png](snapshot.png)
+## Required environment and installation
 
-## Tutorial
-
-Clone, Compile and Run.
-
-Requires .NET Framework 4.5 or later, but 4.0 should work.
-
-See [Releases](https://github.com/BearKidsTeam/ScoreManager-Core/releases) for pre-compiled binary files.
-
-## Hints
-
-Put all files(including `.exe` and `.nmo`) in any folder and execute, it will automatically search Ballance location in registry and do game file injection. If it reports a failure, you need to manually input the game folder.
-
-The program needs reading and writing permission, so if you are running it or *Ballance* in your **system partition**, please use `Run as Administrator` (The program itself was configured by `app.manifest` in compilation, but you need to configure *Ballance* `Player.exe` by yourself).
-
--->
+Go to corresponding project and read its README.
 
 ## Progress
 
-Work in progress on v1.
+v1 is maintaining.
 
 v2 is designing.
 
 ## License
 
-MIT License (see [`LICENSE`](https://github.com/yyc12345/ScoreManager-Magic/blob/master/LICENSE) file).
+This repository use different Licenses for each projects. There are used License list and License will be placed in each project folder.
+
+* SMMBackend: AGPL v3
+* SMMWebsite: AGPL v3
+* SMMLib: GPL v3
+* ScoreManager-Magic\(except all NMO resources\): GPL v3
+* BTLD: GPL v3
+* AssistTools: MIT
+* All NMO resources: MIT
+
+Note: In v1, all project are under MIT License. However, all code is written by myself. So in version 2, I can change License freely.
