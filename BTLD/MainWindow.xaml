@@ -33,6 +33,7 @@
                                 <Button x:Name="uiMain_PageGrouping" Width="200" Margin="5" Content="Grouping" Click="funcMain_SwitchPage"/>
                                 <Button x:Name="uiMain_PageMapPicker" Width="200" Margin="5" Content="Map picker" Click="funcMain_SwitchPage"/>
                                 <Button x:Name="uiMain_PageCompetition" Width="200" Margin="5" Content="Competition" Click="funcMain_SwitchPage"/>
+                                <Button x:Name="uiMain_PageStanding" Width="200" Margin="5" Content="Standing" Click="funcMain_SwitchPage"/>
                             </WrapPanel>
 
                             <Separator Margin="5"/>
@@ -63,6 +64,7 @@
                     <ListBox x:Name="uiParticipant_ParticipantList" Margin="5" SelectionMode="Extended">
                         <ListBox.ContextMenu>
                             <ContextMenu>
+                                <MenuItem Header="Copy" Click="funcParticipant_Copy"/>
                                 <MenuItem Header="Copy as Competition vs" Click="funcParticipant_CopyVS"/>
                             </ContextMenu>
                         </ListBox.ContextMenu>
@@ -164,6 +166,15 @@
                         <Button Margin="5" Content="Apply to monitor" Click="funcCompetition_Apply"/>
                     </StackPanel>
                 </Grid>
+            </TabItem>
+            <TabItem Header="Standing">
+                <StackPanel Orientation="Vertical" Background="#FFE5E5E5">
+                    <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="Input standing user name:"/>
+                    <TextBox x:Name="uiStanding_1st" Margin="5"/>
+                    <TextBox x:Name="uiStanding_2nd" Margin="5"/>
+                    <TextBox x:Name="uiStanding_3rd" Margin="5"/>
+                    <Button Margin="5" Content="Apply to monitor" Click="funcStanding_Apply"/>
+                </StackPanel>
             </TabItem>
             <TabItem Header="Log">
                 <Grid Background="#FFE5E5E5">

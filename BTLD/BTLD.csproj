@@ -87,6 +87,9 @@
     <Compile Include="UIControls\MapItem.xaml.cs">
       <DependentUpon>MapItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\StandingItem.xaml.cs">
+      <DependentUpon>StandingItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\UserItem.xaml.cs">
       <DependentUpon>UserItem.xaml</DependentUpon>
     </Compile>
@@ -111,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\MapItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\StandingItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

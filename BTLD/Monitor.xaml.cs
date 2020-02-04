@@ -113,6 +113,10 @@ namespace BTLD {
                     Storyboard.SetTarget(animationClose, this.uiPageCompetition);
                     Panel.SetZIndex(this.uiPageCompetition, -1);
                     break;
+                case MonitorPage.Standing:
+                    Storyboard.SetTarget(animationClose, this.uiPageStanding);
+                    Panel.SetZIndex(this.uiPageStanding, -1);
+                    break;
                 default:
                     break;
             }
@@ -152,6 +156,10 @@ namespace BTLD {
                 case MonitorPage.Competition:
                     Storyboard.SetTarget(animationShow, this.uiPageCompetition);
                     Panel.SetZIndex(this.uiPageCompetition, 1);
+                    break;
+                case MonitorPage.Standing:
+                    Storyboard.SetTarget(animationShow, this.uiPageStanding);
+                    Panel.SetZIndex(this.uiPageStanding, 1);
                     break;
                 default:
                     break;
@@ -369,6 +377,12 @@ namespace BTLD {
                 competitionItemsCache[i + lenPast].ApplyData(cache[0], cache[1]);
                 uiCompetitionNowList.Children.Add(competitionItemsCache[i + lenPast]);
             }
+        }
+
+        public void Interface_SetStanding(string first, string second, string third) {
+            uiStanding1st.Apply(first, StandingItem.StandingPosition.Gold);
+            uiStanding2nd.Apply(second, StandingItem.StandingPosition.Silver);
+            uiStanding3rd.Apply(third, StandingItem.StandingPosition.Copper);
         }
 
         #endregion

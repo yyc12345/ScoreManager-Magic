@@ -20,6 +20,7 @@ namespace BTLD {
         MapPool,
         Grouping,
         MapPicker,
-        Competition
+        Competition,
+        Standing
     }
 }

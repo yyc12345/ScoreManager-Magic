@@ -183,5 +183,36 @@
             </ScrollViewer>
 
         </Grid>
+
+        <Grid Panel.ZIndex="-1" x:Name="uiPageStanding" Opacity="0" Margin="50,0,50,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Margin="0,30,0,30" Orientation="Horizontal">
+                <TextBlock Text="最终排名" FontSize="32"/>
+                <TextBlock Text=" / Final Standing" FontSize="24" VerticalAlignment="Bottom"/>
+            </StackPanel>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <controls:StandingItem x:Name="uiStanding1st" CircleSize="120" Grid.Row="1" Grid.Column="1"/>
+                <controls:StandingItem x:Name="uiStanding2nd" CircleSize="100" Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom"/>
+                <controls:StandingItem x:Name="uiStanding3rd" CircleSize="80" Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom"/>
+            </Grid>
+        </Grid>
+    
     </Grid>
 </Window>

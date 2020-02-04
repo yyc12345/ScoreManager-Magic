@@ -91,6 +91,9 @@ namespace BTLD {
                 case "uiMain_PageCompetition":
                     monitorWindow.Interface_SwitchPage(MonitorPage.Competition);
                     break;
+                case "uiMain_PageStanding":
+                    monitorWindow.Interface_SwitchPage(MonitorPage.Standing);
+                    break;
                 default:
                     break;
             }
@@ -133,6 +136,12 @@ namespace BTLD {
         private void funcParticipant_CopyVS(object sender, RoutedEventArgs e) {
             if (uiParticipant_ParticipantList.SelectedItem != null) {
                 Clipboard.SetText(string.Join(" VS ", uiParticipant_ParticipantList.SelectedItems.Cast<string>()), TextDataFormat.UnicodeText);
+            }
+        }
+
+        private void funcParticipant_Copy(object sender, RoutedEventArgs e) {
+            if (uiParticipant_ParticipantList.SelectedItem != null) {
+                Clipboard.SetText(uiParticipant_ParticipantList.SelectedItem.ToString(), TextDataFormat.UnicodeText);
             }
         }
 
@@ -281,6 +290,11 @@ namespace BTLD {
             if (uiCompetition_PastList.SelectedIndex == -1) return;
             uiCompetition_NowList.Items.Add((string)uiCompetition_PastList.SelectedItem);
             uiCompetition_PastList.Items.RemoveAt(uiCompetition_PastList.SelectedIndex);
+        }
+
+
+        private void funcStanding_Apply(object sender, RoutedEventArgs e) {
+            monitorWindow.Interface_SetStanding(uiStanding_1st.Text, uiStanding_2nd.Text, uiStanding_3rd.Text);
         }
 
     }
