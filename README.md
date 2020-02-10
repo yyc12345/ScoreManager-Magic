@@ -7,7 +7,7 @@ Play with worldwide Ballance players, awake ancient game - Ballance.
 ## Project layout
 
 * SMMBackend: ScoreManager-Magic backend written by PHP.
-* SMMWebsite: ScoreManager-Magic website frontend. Mix HTML, JavaScript and CSS. Powered by MUI and JQuery.
+* SMMWebsite: ScoreManager-Magic website frontend. Mix HTML, JavaScript and CSS. Powered by [Bulma](https://github.com/jgthms/bulma) and JQuery.
 * SMMLib: A C\# lib serving for BTLD and ScoreManager-Magic
 * ScoreManager-Magic: Core app written by C\#
 * BTLD: Specially made app for Ballance live.

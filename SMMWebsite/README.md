@@ -9,7 +9,7 @@ This project inherits almost features and styles of BallanceScore\(ScoreManager'
 Due to my personal perferences. I use as pure as possible JavaScript.
 
 * JQuery: For convenient code operation.
-* MUI: Main CSS provider.
+* Bulma: Main CSS provider.
 
 ## Installation
 

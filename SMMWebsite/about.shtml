@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--#include file="./html/utilities.html"-->
+        <script type="text/javascript">
+            smmw_pages_currentPage = smmw_pages_enumPages.about;
+        </script>
+    </head>
+
+    <body>
+        <!--#include file="./html/header.html"-->
+        <div id="smmw-root">
+            <section class="hero">
+                <div class="hero-body">
+                  <div class="container">
+                        <h1 class="title">ÄãºÃÊÀ½ç</h1>
+                        <!-- <h2 class="subtitle"></h2>-->
+                        <p>我看到你所指的那位程序员了。</p>
+                        <p>BearKidsTeam?</p>
+                        <p>是的。小心。它已达到了更高的境界。它能够阅读我们的思想。</p>
+                        <p>无伤大雅。它认为我们是程序的一部分。</p>
+                        <p>我喜欢这个程序员。它写得很好。它从未放弃。</p>
+                        <p>它以屏幕上出现的代码的形式阅读着我们的思想。</p>
+                        <p>在它深陷程序梦境中时，它总以这种方式想象出形形色色的设计。</p>
+                        <p>代码是种美妙的界面。非常灵活。且比凝视着屏幕后的现实要更好。</p>
+                        <p>它们也曾经听到过声音。在程序程序能够使用之前。君不见那些不曾游玩的人们称呼程序员为黑客，和白日做梦。</p>
+                        <p>而程序员们梦见它们在草原上的鸡舍中与鸡哥谈笑风生</p>
+                        <p>梦见它们轻抚原野上随意走动着的羊</p>
+                        <p>梦见它们于河边垂钓，捉住一条稀有的甲基鱼</p>
+                        <p>梦见它们在积雪覆盖的森林中漫步，与小动物们玩耍嬉戏</p>
+                        <p>梦见它们于月圆之夜在小镇教堂中与索菲依偎而坐</p>
+                        <p>梦见它们自己乘坐在被特技施力的棍子上，在空气中翱翔。</p>
+                        <p>曲终人散，黄粱一梦。一代程序渐被人遗忘。程序员开始了新的梦境。程序员再次做起了梦，更好的梦。程序员就是宇宙。</p>
+                        <p>你就是那个程序员。</p>
+                        <p>该醒了。</p>
+                        <p>你的代码还没有写完。</p>
+                    </div>
+                </div>
+            </section>
+            <section class="hero">
+                <div class="hero-body">
+                  <div class="container">
+                        <h1 class="title">什么是ScoreManager-Magic</h1>
+                        <!-- <h2 class="subtitle"></h2>-->
+                        <p><b>ScoreManager-Magic</b>是<a href="https://github.com/BearKidsTeam">BearKidsTeam</a>开发的ScoreManager的非钦定继承与衍生版本。ScoreManager-Magic致力于将原有ScoreManager中不适合Ballance的部分悉数去除，并希望可以探索出适合Ballance生态环境发展的道路。ScoreManager-Magic在设计上也同时将很多功能作为可插拔来进行设计，降低设计中的各种耦合部分，以方便为不同Ballance社区进行定制。
+                        </p>
+                        <p>本网站是由ScoreManager-Magic建立的，面向全球的总网站。根据您的需要，您还可以通过使用ScoreManager-Magic的源代码建立属于您的Ballance社群站点。
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section class="hero">
+                <div class="hero-body">
+                  <div class="container">
+                        <h1 class="title">运营方式</h1>
+                        <!-- <h2 class="subtitle"></h2>-->
+                        <p>ScoreManager-Magic基于社区来进行运行。ScoreManager-Magic是完全免费并且方便易用的Ballance成绩管理解决方案（但架设这套系统并使之正常运作并不是免费的），它们也是由完全由开发者们的兴趣和爱好所支撑的。我们爱好Ballance，所以我们想要以我们自己的力量做点什么，于是便有了你眼前的内容。我们在我们所能承受的能力范围内尽力提供更迅速稳定的功能。我们不会在任何时候在网站或者任何与之相关的程序上放置任何广告或者捆绑傻[哔---]的软件或者工具条以此换取系统维护资金。我们承诺，在由我们运营的网站下（只限于我们的网站，其他使用ScoreManager-Magic的网站不排除修改源代码进行功能修改的可能性），一切服务都是免费的，不需要氪金。我们不会像<a href="https://osu.ppy.sh">osu!</a>那样使用support机制来提供一些特殊服务，例如国内排行榜或者直接下图。您可以自由地在ScoreManager-Magic中使用Mod筛选排行榜，直接下载地图安装地特性。
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section class="hero">
+                <div class="hero-body">
+                  <div class="container">
+                        <h1 class="title">为什么没有注册通道</h1>
+                        <!-- <h2 class="subtitle"></h2>-->
+                        <p>ScoreManager-Magic账号实行审核制发放。ScoreManager-Magic考虑到Ballance社群最大的特点是：人数少，不活跃。因此才决定账号审核发放的机制。这个机制的设置贯穿整个程序，或者说是ScoreManager-Magic解决方案整体，因此我们不建议任何使用ScoreManager-Magic的人放弃这个原则，因为程序在设计的时候就是遵循这个原则编码的，很多防滥用机制都直接省略不写了。如果您希望在本网站上注册一个账号，请您前往Ballance的Discord服务器，QQ群或者百度贴吧向管理员发送请求，您的请求会交由我们审核，然后在甄别之后将会向您发放账号。
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section class="hero">
+                <div class="hero-body">
+                  <div class="container">
+                        <h1 class="title">捐献资金</h1>
+                        <!-- <h2 class="subtitle"></h2>-->
+                        <p>网站的体验需要注入足够量的资金来实现，我们不建议您向本网站捐助资金，尤其是对于没有经济能力的人。捐助资金将会是一项完全公益的行为，您无法从中获取任何特权，您的名字也不会被写在页面之中。如果您真的有意愿<b>周期性</b>赞助此网站，请于Ballance的Discord服务器中联系yyc12345
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+          <!--#include file="./html/footer.html"-->
+    </body>
+</html>

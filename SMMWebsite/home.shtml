@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--#include file="./html/utilities.html"-->
+        <script type="text/javascript">
+            smmw_pages_currentPage = smmw_pages_enumPages.home;
+        </script>
+    </head>
+
+    <body>
+        <!--#include file="./html/header.html"-->
+        <div id="smmw-root">
+            <section class="hero is-primary is-bold is-fullheight">
+                <div class="hero-body">
+                    <div class="container">
+                        <div class="level">
+                            <div class="level-left" style="flex-direction: column; align-items: flex-start;">
+                                <h1 class="title">ScoreManager-Magic</h1>
+                                <h2 class="subtitle">一款全新的突破性的<del>牙膏</del>Ballance分数管理器</h2>
+                                <button class="button is-link">
+                                    <span class="icon">
+                                        <i class="fas fa-download"></i>
+                                    </span>
+                                    <span>立即下载</span>
+                                </button>
+                                
+                                <i style="opacity: 0.5;">
+                                    <p>支持自Windows Vista以来的所有Windows系统，支持Windows XP虚拟机。</p>
+                                    <p>需要安装.Net Framework 4.5作为运行库</p>
+                                </i>
+                            </div>
+                            <div class="level-right">
+                                <figure class="image is-5by3" style="width: 500px;">
+                                    <img src="resources/demo.jpg">
+                                </figure>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+            </section>
+
+            <section class="hero is-link is-bold is-fullheight">
+                <div class="hero-body">
+                    <div class="container">
+                        <div class="level">
+                            <div class="level-left">
+                                <figure class="image is-5by3" style="width: 500px;">
+                                    <img src="resources/demo.jpg">
+                                </figure>
+                            </div>
+                            <div class="level-right" style="flex-direction: column; align-items: flex-end;">
+                                <h1 class="title">选择我们</h1>
+                                <p>ScoreManager-Magic不仅在这里，它还可以为您的Ballance社区服务。</p>
+                                <div class="content" style="align-items: center">
+                                    <ul>
+                                        <li>完整的游戏数据获取</li>
+                                        <li>地图下载和百科扩展</li>
+                                        <li>多人联机对战与锦标赛举办</li>
+                                        <li>比赛直播</li>
+                                        <li>基于地图的排行榜与完善的成绩验证机制</li>
+                                        <li>可基于社区定制的各类功能，来自开源的优势</li>                                            
+                                    </ul>
+                                </div>
+                                <i style="opacity: 0.5;">某些功能可能仍然处于开发状态。</i>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+            </section>
+
+            <section class="hero is-success is-bold is-fullheight">
+                <div class="hero-body">
+                    <div class="container">
+                        <div class="level">
+                            <div class="level-left" style="flex-direction: column; align-items: flex-start;">
+                                <h1 class="title">联系我们</h1>
+                                <h2 class="subtitle">注册属于您的账户或者咨询开发与部署问题</h2>
+                                <div style="flex-direction: row">
+                                    <button class="button is-link" style="margin: 10px 10px 10px 0">
+                                        <span class="icon">
+                                            <i class="fas fa-address-card"></i>
+                                        </span>
+                                        <span>申请账户</span>
+                                    </button>
+                                    <button class="button is-link" style="margin: 10px">
+                                        <span class="icon">
+                                            <i class="fas fa-info"></i>
+                                        </span>
+                                        <span>开发与部署帮助</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="level-right">
+                                <figure class="image is-5by3" style="width: 500px;">
+                                    <img src="resources/demo.jpg">
+                                </figure>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+            </section>
+        </div>
+        <!--#include file="./html/footer.html"-->
+    </body>
+</html>
